@@ -52,11 +52,12 @@ var PriceGraphLoader = (function() {
         var locale = container.data('locale');
 
         url += '?locale=' + locale;
+        console.log("loadCategories",url);
         $.ajax({
             url: url,
         })
         .done( function(data) {
-
+            console.log(data);
             //sort the categories by name
             data.sort(function (a, b) {
               return a.name < b.name ? -1 : 1;
