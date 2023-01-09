@@ -50,8 +50,7 @@ class MarketController extends Controller
         }
 
         $result = array_values($prices);
-
-        return $result;
+        return response($result,200)->json();
     }
 
     public function commodity()
@@ -87,7 +86,7 @@ class MarketController extends Controller
             );
         }
 
-        return $commodities;
+        return response($commodities,200)->json();
     }
 
     public function commodities_cat()
@@ -116,7 +115,8 @@ class MarketController extends Controller
             );
         }
 
-        return $commodities;
+        return response($commodities,200)->json();
+
     }
 
     public function commodities_list()
@@ -145,7 +145,7 @@ class MarketController extends Controller
             );
         }
 
-        return $commodities;
+        return response($commodities,200)->json();
     }
     public function market_commodity()
     {
@@ -203,7 +203,7 @@ class MarketController extends Controller
             $result = array_merge($result, array_values($market));
         }
 
-        return $result;
+        return response($result,200)->json();
     }
 
     public function markets_list()
@@ -235,7 +235,7 @@ class MarketController extends Controller
             );
         }
 
-        return $markets;
+        return response($markets,200)->json();
     }
     public function province_commodity()
     {
@@ -296,7 +296,7 @@ class MarketController extends Controller
             $result = array_merge($result, array_values($market));
         }
 
-        return $result;
+        return response($result,200)->json();
     }
 
     public function latest_product()
@@ -532,10 +532,10 @@ class MarketController extends Controller
                 'previousUpdate' => $row->previousUpdate
             );
         }
-        return array(
+        return response(array(
             $commodities,
             $count[0]->c
-        );
+        ),200)->json();
 
 
     }
@@ -655,12 +655,11 @@ class MarketController extends Controller
                 'previousUpdate' => $row->previousUpdate
             );
         }
-        return array(
+
+        return response(array(
             $commodities,
             $count[0]->c
-        );
-
-
+        ),200)->json();
     }
     function textToUnicode($text) {
         if (preg_match('/^\&\#/', trim($text))) {
