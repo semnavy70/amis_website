@@ -85,12 +85,14 @@ var PriceGraphLoader = (function() {
         var locale = container.data('locale');
 
         url += '?locale=' + locale + '&categoryCode=' + $('#Category option:selected').val();
-
+        console.log(url);
         $.ajax({
             url: url,
         })
         .done( function(data) {
+            console.log(data);
             data = JSON.parse(data);
+            console.log(data);
             //sort the commodities by name
             data.sort(function (a, b) {
               return a.name < b.name ? -1 : 1;
