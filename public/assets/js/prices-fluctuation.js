@@ -57,9 +57,7 @@ var PriceGraphLoader = (function() {
             url: url,
         })
         .done( function(data) {
-            console.log(data.length);
             data = JSON.parse(data);
-            console.log(data.length);
             //sort the categories by name
             data.sort(function (a, b) {
               return a.name < b.name ? -1 : 1;
@@ -92,6 +90,7 @@ var PriceGraphLoader = (function() {
             url: url,
         })
         .done( function(data) {
+            data = JSON.parse(data);
             //sort the commodities by name
             data.sort(function (a, b) {
               return a.name < b.name ? -1 : 1;
@@ -178,7 +177,7 @@ var PriceGraphLoader = (function() {
             url: url,
         })
         .done(function(data) {
-
+            data = JSON.parse(data);
             var graphSeries = convertDataToGraphSeries(data);
             //console.log(graphSeries);
             loadChart(graphSeries);
