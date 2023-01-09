@@ -57,7 +57,8 @@ var PriceGraphLoader = (function() {
             url: url,
         })
         .done( function(data) {
-            console.log(data);
+            console.log(data.length);
+            data = JSON.parse(data);
             console.log(data.length);
             //sort the categories by name
             data.sort(function (a, b) {
