@@ -86,7 +86,7 @@ class MarketController extends Controller
             );
         }
 
-        return response($commodities,200)->json();
+        return response($commodities,200);
     }
 
     public function commodities_cat()
