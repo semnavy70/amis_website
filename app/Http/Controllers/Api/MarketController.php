@@ -50,7 +50,7 @@ class MarketController extends Controller
         }
 
         $result = array_values($prices);
-        return response($result,200)->json();
+        return response($result,200);
     }
 
     public function commodity()
@@ -115,7 +115,7 @@ class MarketController extends Controller
             );
         }
 
-        return response($commodities,200)->json();
+        return response($commodities,200);
 
     }
 
@@ -145,7 +145,7 @@ class MarketController extends Controller
             );
         }
 
-        return response($commodities,200)->json();
+        return response($commodities,200);
     }
     public function market_commodity()
     {
@@ -203,7 +203,7 @@ class MarketController extends Controller
             $result = array_merge($result, array_values($market));
         }
 
-        return response($result,200)->json();
+        return response($result,200);
     }
 
     public function markets_list()
@@ -235,7 +235,7 @@ class MarketController extends Controller
             );
         }
 
-        return response($markets,200)->json();
+        return response($markets,200);
     }
     public function province_commodity()
     {
@@ -296,7 +296,7 @@ class MarketController extends Controller
             $result = array_merge($result, array_values($market));
         }
 
-        return response($result,200)->json();
+        return response($result,200);
     }
 
     public function latest_product()
@@ -535,7 +535,7 @@ class MarketController extends Controller
         return response(array(
             $commodities,
             $count[0]->c
-        ),200)->json();
+        ),200);
 
 
     }
@@ -659,7 +659,7 @@ class MarketController extends Controller
         return response(array(
             $commodities,
             $count[0]->c
-        ),200)->json();
+        ),200);
     }
     function textToUnicode($text) {
         if (preg_match('/^\&\#/', trim($text))) {
