@@ -179,7 +179,6 @@ var PriceGraphLoader = (function() {
             url: url,
         })
         .done(function(data) {
-            data = JSON.parse(data);
             var graphSeries = convertDataToGraphSeries(data);
             //console.log(graphSeries);
             loadChart(graphSeries);
