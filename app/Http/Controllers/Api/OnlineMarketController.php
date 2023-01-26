@@ -16,7 +16,7 @@ class OnlineMarketController extends Controller
         $new = Post::where('category_id',13)->select('id','author_id','title','excerpt','body','image','created_at')->paginate(10);
         foreach ($new as $item)
         {
-            $item->image = gcpUrl($item->image);
+            $item->image = url('storage/'.$item->image);
             $item->author_id = $item->authorId->name;
         }
         return $new;
@@ -24,7 +24,7 @@ class OnlineMarketController extends Controller
     public function detail($id)
     {
         $new = Post::findOrFail($id);
-        $new->image = gcpUrl($new->image);
+        $new->image = url('storage/'.$new->image);
         $new->author_id = $new->authorId->name;
         return $new;
     }
