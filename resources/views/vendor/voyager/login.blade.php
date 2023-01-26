@@ -62,7 +62,7 @@
                 <p>{{ __('voyager.login.signin_below') }}</p>
 
                 <form action="{{ route('voyager.login') }}" method="POST">
-                    {{ csrf_field() }}
+                    <input type="hidden" name="_token" id="navy" value="{{ csrf_token() }}">
                     <div class="form-group form-group-default" id="emailGroup">
                         <label>{{ __('voyager.generic.email') }}</label>
                         <div class="controls">
