@@ -56,9 +56,9 @@
         </div>
 
         <div class="col-xs-12 col-sm-5 col-md-4 login-sidebar">
-            
+
             <div class="login-container">
-                
+
                 <p>{{ __('voyager.login.signin_below') }}</p>
 
                 <form action="{{ route('voyager.login') }}" method="POST">
@@ -116,7 +116,7 @@
     });
     email.focus();
     document.getElementById('emailGroup').classList.add("focused");
-    
+
     // Focus events for email and password fields
     email.addEventListener('focusin', function(e){
         document.getElementById('emailGroup').classList.add("focused");
