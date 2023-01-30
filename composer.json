@@ -9,21 +9,21 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "davejamesmiller/laravel-breadcrumbs": "^4.2",
-        "fideloper/proxy": "~3.3",
+        "davejamesmiller/laravel-breadcrumbs": "^5.0.0",
+        "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "^6.3",
         "kryptonit3/counter": "5.2.*",
-        "laravel/framework": "5.5.*",
+        "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
-        "maatwebsite/excel": "~2.1",
+        "maatwebsite/excel": "3.*",
         "superbalist/laravel-google-cloud-storage": "^2.2",
-        "tcg/voyager": "1.0.10"
+        "tcg/voyager": "1.1.*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "classmap": [
