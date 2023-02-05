@@ -1,6 +1,13 @@
 <?php
 
 return [
+
+    'compass_in_production' => true,
+    'settings' => [
+        // Enables Laravel cache method for
+        // storing cache values between requests
+        'cache' => false,
+    ],
     /*
     |--------------------------------------------------------------------------
     | User config
@@ -9,6 +16,7 @@ return [
     | Here you can specify voyager user configs
     |
     */
+
 
     'user' => [
         'add_default_role_on_register' => true,
@@ -27,8 +35,8 @@ return [
     */
 
     'controllers' => [
-        'namespace' => 'App\\Http\\Controllers\\Voyager'
-        //'namespace' => 'TCG\\Voyager\\Http\\Controllers',
+//        'namespace' => 'App\\Http\\Controllers\\Voyager'
+        'namespace' => 'TCG\\Voyager\\Http\\Controllers',
     ],
 
     /*
@@ -43,7 +51,7 @@ return [
     */
 
     'models' => [
-        //'namespace' => 'App\\',
+        'namespace' => 'TCG\\Voyager\\Models',
     ],
 
     /*
@@ -55,7 +63,7 @@ return [
     |
     */
 
-    'assets_path' => '/vendor/tcg/voyager/assets',
+//    'assets_path' => '/vendor/tcg/voyager/assets',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,6 +88,27 @@ return [
     */
 
     'hidden_files' => false,
+    'media' => [
+        // The allowed mimetypes to be uploaded through the media-manager.
+        'allowed_mimetypes' => '*', //All types can be uploaded
+
+        /*'allowed_mimetypes' => [
+            'image/jpeg',
+            'image/png',
+            'image/gif',
+            'image/bmp',
+            'video/mp4',
+        ],*/
+
+        //Path for media-manager. Relative to the filesystem.
+        'path'                => '/',
+        'show_folders'        => true,
+        'allow_upload'        => true,
+        'allow_move'          => true,
+        'allow_delete'        => true,
+        'allow_create_folder' => true,
+        'allow_rename'        => true,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -91,6 +120,7 @@ return [
     */
 
     'database' => [
+        'autoload_migrations' => true,
         'tables' => [
             'hidden' => ['migrations', 'data_rows', 'data_types', 'menu_items', 'password_resets', 'permission_role', 'settings'],
         ],
