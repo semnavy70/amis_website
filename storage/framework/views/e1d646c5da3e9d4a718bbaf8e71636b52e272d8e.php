@@ -43,7 +43,7 @@
                 continue;
             }
 
-            $linkAttributes = 'href="#' . str_slug($transItem->title, '-') .'-dropdown-element" data-toggle="collapse" aria-expanded="'. (in_array('active', $listItemClass) ? 'true' : 'false').'"';
+            $linkAttributes = 'href="#' . $transItem->id .'-dropdown-element" data-toggle="collapse" aria-expanded="'. (in_array('active', $listItemClass) ? 'true' : 'false').'"';
             array_push($listItemClass, 'dropdown');
         }
         else
@@ -57,12 +57,12 @@
     ?>
 
     <li class="<?php echo e(implode(" ", $listItemClass)); ?>">
-        <a <?php echo $linkAttributes; ?> target="<?php echo e($item->target); ?>">
+        <a <?php echo $linkAttributes; ?> target="<?php echo e($item->target); ?>" style="color:<?php echo e((isset($item->color) && $item->color != '#000000' ? $item->color : '')); ?>">
             <span class="icon <?php echo e($item->icon_class); ?>"></span>
             <span class="title"><?php echo e($transItem->title); ?></span>
         </a>
         <?php if($hasChildren): ?>
-            <div id="<?php echo e(str_slug($transItem->title, '-')); ?>-dropdown-element" class="panel-collapse collapse <?php echo e((in_array('active', $listItemClass) ? 'in' : '')); ?>">
+            <div id="<?php echo e($transItem->id); ?>-dropdown-element" class="panel-collapse collapse <?php echo e((in_array('active', $listItemClass) ? 'in' : '')); ?>">
                 <div class="panel-body">
                     <?php echo $__env->make('voyager::menu.admin_menu', ['items' => $item->children, 'options' => $options, 'innerLoop' => true], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 </div>

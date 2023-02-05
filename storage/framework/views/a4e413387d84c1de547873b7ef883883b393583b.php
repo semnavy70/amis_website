@@ -1,4 +1,4 @@
-<?php $__env->startSection('page_title', __('voyager.generic.viewing').' '.$dataType->display_name_plural); ?>
+<?php $__env->startSection('page_title', __('voyager::generic.viewing').' '.$dataType->display_name_plural); ?>
 
 <?php $__env->startSection('page_header'); ?>
     <div class="container-fluid">
@@ -6,13 +6,20 @@
             <i class="<?php echo e($dataType->icon); ?>"></i> <?php echo e($dataType->display_name_plural); ?>
 
         </h1>
-        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('add',app($dataType->model_name))): ?>
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('add', app($dataType->model_name))): ?>
             <a href="<?php echo e(route('voyager.'.$dataType->slug.'.create')); ?>" class="btn btn-success btn-add-new">
-                <i class="voyager-plus"></i> <span><?php echo e(__('voyager.generic.add_new')); ?></span>
+                <i class="voyager-plus"></i> <span><?php echo e(__('voyager::generic.add_new')); ?></span>
             </a>
         <?php endif; ?>
-        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete',app($dataType->model_name))): ?>
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete', app($dataType->model_name))): ?>
             <?php echo $__env->make('voyager::partials.bulk-delete', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php endif; ?>
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit', app($dataType->model_name))): ?>
+            <?php if(isset($dataType->order_column) && isset($dataType->order_display_column)): ?>
+                <a href="<?php echo e(route('voyager.'.$dataType->slug.'.order')); ?>" class="btn btn-primary">
+                    <i class="voyager-list"></i> <span><?php echo e(__('voyager::bread.order')); ?></span>
+                </a>
+            <?php endif; ?>
         <?php endif; ?>
         <?php echo $__env->make('voyager::multilingual.language-selector', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </div>
@@ -26,11 +33,11 @@
                 <div class="panel panel-bordered">
                     <div class="panel-body">
                         <?php if($isServerSide): ?>
-                            <form method="get">
+                            <form method="get" class="form-search">
                                 <div id="search-input">
                                     <select id="search_key" name="key">
                                         <?php $__currentLoopData = $searchable; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <option value="<?php echo e($key); ?>" <?php if($search->key == $key): ?><?php echo e('selected'); ?><?php endif; ?>><?php echo e(ucwords(str_replace('_', ' ', $key))); ?></option>
+                                            <option value="<?php echo e($key); ?>" <?php if($search->key == $key || $key == $defaultSearchKey): ?><?php echo e('selected'); ?><?php endif; ?>><?php echo e(ucwords(str_replace('_', ' ', $key))); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                     <select id="filter" name="filter">
@@ -38,7 +45,7 @@
                                         <option value="equals" <?php if($search->filter == "equals"): ?><?php echo e('selected'); ?><?php endif; ?>>=</option>
                                     </select>
                                     <div class="input-group col-md-12">
-                                        <input type="text" class="form-control" placeholder="Search" name="s" value="<?php echo e($search->value); ?>">
+                                        <input type="text" class="form-control" placeholder="<?php echo e(__('voyager::generic.search')); ?>" name="s" value="<?php echo e($search->value); ?>">
                                         <span class="input-group-btn">
                                             <button class="btn btn-info btn-lg" type="submit">
                                                 <i class="voyager-search"></i>
@@ -53,18 +60,20 @@
                                 <thead>
                                     <tr>
                                         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete',app($dataType->model_name))): ?>
-                                            <th></th>
+                                            <th>
+                                                <input type="checkbox" class="select_all">
+                                            </th>
                                         <?php endif; ?>
                                         <?php $__currentLoopData = $dataType->browseRows; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <th>
                                             <?php if($isServerSide): ?>
-                                                <a href="<?php echo e($row->sortByUrl()); ?>">
+                                                <a href="<?php echo e($row->sortByUrl($orderBy, $sortOrder)); ?>">
                                             <?php endif; ?>
                                             <?php echo e($row->display_name); ?>
 
                                             <?php if($isServerSide): ?>
-                                                <?php if($row->isCurrentSortField()): ?>
-                                                    <?php if(!isset($_GET['sort_order']) || $_GET['sort_order'] == 'asc'): ?>
+                                                <?php if($row->isCurrentSortField($orderBy)): ?>
+                                                    <?php if($sortOrder == 'asc'): ?>
                                                         <i class="voyager-angle-up pull-right"></i>
                                                     <?php else: ?>
                                                         <i class="voyager-angle-down pull-right"></i>
@@ -74,7 +83,7 @@
                                             <?php endif; ?>
                                         </th>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        <th class="actions"><?php echo e(__('voyager.generic.actions')); ?></th>
+                                        <th class="actions text-right"><?php echo e(__('voyager::generic.actions')); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,57 +91,52 @@
                                     <tr>
                                         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete',app($dataType->model_name))): ?>
                                             <td>
-                                                <input type="checkbox" name="row_id" id="checkbox_<?php echo e($data->id); ?>" value="<?php echo e($data->id); ?>">
+                                                <input type="checkbox" name="row_id" id="checkbox_<?php echo e($data->getKey()); ?>" value="<?php echo e($data->getKey()); ?>">
                                             </td>
                                         <?php endif; ?>
                                         <?php $__currentLoopData = $dataType->browseRows; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
                                             <td>
-                                                <?php $options = json_decode($row->details); ?>
                                                 <?php if($row->type == 'image'): ?>
                                                     <img src="<?php if( !filter_var($data->{$row->field}, FILTER_VALIDATE_URL)): ?><?php echo e(Voyager::image( $data->{$row->field} )); ?><?php else: ?><?php echo e($data->{$row->field}); ?><?php endif; ?>" style="width:100px">
                                                 <?php elseif($row->type == 'relationship'): ?>
-                                                    <?php echo $__env->make('voyager::formfields.relationship', ['view' => 'browse'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                                    <?php echo $__env->make('voyager::formfields.relationship', ['view' => 'browse','options' => $row->details], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                                 <?php elseif($row->type == 'select_multiple'): ?>
-                                                    <?php if(property_exists($options, 'relationship')): ?>
+                                                    <?php if(property_exists($row->details, 'relationship')): ?>
 
                                                         <?php $__currentLoopData = $data->{$row->field}; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <?php if($item->{$row->field . '_page_slug'}): ?>
-                                                            <a href="<?php echo e($item->{$row->field . '_page_slug'}); ?>"><?php echo e($item->{$row->field}); ?></a><?php if(!$loop->last): ?>, <?php endif; ?>
-                                                            <?php else: ?>
                                                             <?php echo e($item->{$row->field}); ?>
 
-                                                            <?php endif; ?>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                                                        
-                                                    <?php elseif(property_exists($options, 'options')): ?>
-                                                        <?php $__currentLoopData = $data->{$row->field}; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                         <?php echo e($options->options->{$item} . (!$loop->last ? ', ' : '')); ?>
+                                                    <?php elseif(property_exists($row->details, 'options')): ?>
+                                                        <?php if(count(json_decode($data->{$row->field})) > 0): ?>
+                                                            <?php $__currentLoopData = json_decode($data->{$row->field}); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                <?php if(@$row->details->options->{$item}): ?>
+                                                                    <?php echo e($row->details->options->{$item} . (!$loop->last ? ', ' : '')); ?>
 
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        <?php else: ?>
+                                                            <?php echo e(__('voyager::generic.none')); ?>
+
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
 
-                                                <?php elseif($row->type == 'select_dropdown' && property_exists($options, 'options')): ?>
+                                                <?php elseif($row->type == 'select_dropdown' && property_exists($row->details, 'options')): ?>
 
-                                                    <?php if($data->{$row->field . '_page_slug'}): ?>
-                                                        <a href="<?php echo e($data->{$row->field . '_page_slug'}); ?>"><?php echo $options->options->{$data->{$row->field}}; ?></a>
-                                                    <?php else: ?>
-                                                        <?php echo $options->options->{$data->{$row->field}}; ?>
-
-                                                    <?php endif; ?>
+                                                    <?php echo isset($row->details->options->{$data->{$row->field}}) ?  $row->details->options->{$data->{$row->field}} : ''; ?>
 
 
-                                                <?php elseif($row->type == 'select_dropdown' && $data->{$row->field . '_page_slug'}): ?>
-                                                    <a href="<?php echo e($data->{$row->field . '_page_slug'}); ?>"><?php echo e($data->{$row->field}); ?></a>
-                                                <?php elseif($row->type == 'date'): ?>
-                                                <?php echo e($options && property_exists($options, 'format') ? \Carbon\Carbon::parse($data->{$row->field})->formatLocalized($options->format) : $data->{$row->field}); ?>
+                                                <?php elseif($row->type == 'date' || $row->type == 'timestamp'): ?>
+                                                    <?php echo e(property_exists($row->details, 'format') ? \Carbon\Carbon::parse($data->{$row->field})->formatLocalized($row->details->format) : $data->{$row->field}); ?>
 
                                                 <?php elseif($row->type == 'checkbox'): ?>
-                                                    <?php if($options && property_exists($options, 'on') && property_exists($options, 'off')): ?>
+                                                    <?php if(property_exists($row->details, 'on') && property_exists($row->details, 'off')): ?>
                                                         <?php if($data->{$row->field}): ?>
-                                                        <span class="label label-info"><?php echo e($options->on); ?></span>
+                                                            <span class="label label-info"><?php echo e($row->details->on); ?></span>
                                                         <?php else: ?>
-                                                        <span class="label label-primary"><?php echo e($options->off); ?></span>
+                                                            <span class="label label-primary"><?php echo e($row->details->off); ?></span>
                                                         <?php endif; ?>
                                                     <?php else: ?>
                                                     <?php echo e($data->{$row->field}); ?>
@@ -166,6 +170,14 @@
                                                     <div class="readmore"><?php echo e(mb_strlen( strip_tags($data->{$row->field}, '<b><i><u>') ) > 200 ? mb_substr(strip_tags($data->{$row->field}, '<b><i><u>'), 0, 200) . ' ...' : strip_tags($data->{$row->field}, '<b><i><u>')); ?></div>
                                                 <?php elseif($row->type == 'coordinates'): ?>
                                                     <?php echo $__env->make('voyager::partials.coordinates-static-image', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                                <?php elseif($row->type == 'multiple_images'): ?>
+                                                    <?php $images = json_decode($data->{$row->field}); ?>
+                                                    <?php if($images): ?>
+                                                        <?php $images = array_slice($images, 0, 3); ?>
+                                                        <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <img src="<?php if( !filter_var($image, FILTER_VALIDATE_URL)): ?><?php echo e(Voyager::image( $image )); ?><?php else: ?><?php echo e($image); ?><?php endif; ?>" style="width:50px">
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php endif; ?>
                                                 <?php else: ?>
                                                     <?php echo $__env->make('voyager::multilingual.input-hidden-bread-browse', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                                     <span><?php echo e($data->{$row->field}); ?></span>
@@ -173,22 +185,9 @@
                                             </td>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         <td class="no-sort no-click" id="bread-actions">
-                                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete', $data)): ?>
-                                                <a href="javascript:;" title="<?php echo e(__('voyager.generic.delete')); ?>" class="btn btn-sm btn-danger pull-right delete" data-id="<?php echo e($data->{$data->getKeyName()}); ?>" id="delete-<?php echo e($data->{$data->getKeyName()}); ?>">
-                                                    <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm"><?php echo e(__('voyager.generic.delete')); ?></span>
-                                                </a>
-                                            <?php endif; ?>
-                                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit', $data)): ?>
-                                                <a href="<?php echo e(route('voyager.'.$dataType->slug.'.edit', $data->{$data->getKeyName()})); ?>" title="<?php echo e(__('voyager.generic.edit')); ?>" class="btn btn-sm btn-primary pull-right edit">
-                                                    <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm"><?php echo e(__('voyager.generic.edit')); ?></span>
-                                                </a>
-                                            <?php endif; ?>
-                                            <!--
-                                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('read', $data)): ?>
-                                                <a href="<?php echo e(route('voyager.'.$dataType->slug.'.show', $data->{$data->getKeyName()})); ?>" title="<?php echo e(__('voyager.generic.view')); ?>" class="btn btn-sm btn-warning pull-right">
-                                                    <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm"><?php echo e(__('voyager.generic.view')); ?></span>
-                                                </a>
-                                            <?php endif; ?>-->
+                                            <?php $__currentLoopData = Voyager::actions(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $action): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php echo $__env->make('voyager::bread.partials.actions', ['action' => $action], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </td>
                                     </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -198,7 +197,7 @@
                         <?php if($isServerSide): ?>
                             <div class="pull-left">
                                 <div role="status" class="show-res" aria-live="polite"><?php echo e(trans_choice(
-                                    'voyager.generic.showing_entries', $dataTypeContent->total(), [
+                                    'voyager::generic.showing_entries', $dataTypeContent->total(), [
                                         'from' => $dataTypeContent->firstItem(),
                                         'to' => $dataTypeContent->lastItem(),
                                         'all' => $dataTypeContent->total()
@@ -226,20 +225,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo e(__('voyager.generic.close')); ?>"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="voyager-trash"></i> <?php echo e(__('voyager.generic.delete_question')); ?> <?php echo e(strtolower($dataType->display_name_singular)); ?>?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo e(__('voyager::generic.close')); ?>"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="voyager-trash"></i> <?php echo e(__('voyager::generic.delete_question')); ?> <?php echo e(strtolower($dataType->display_name_singular)); ?>?</h4>
                 </div>
                 <div class="modal-footer">
-                    <form action="<?php echo e(route('voyager.'.$dataType->slug.'.index')); ?>" id="delete_form" method="POST">
-                        <?php echo e(method_field("DELETE")); ?>
+                    <form action="#" id="delete_form" method="POST">
+                        <?php echo e(method_field('DELETE')); ?>
 
                         <?php echo e(csrf_field()); ?>
 
-                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
-                                 value="<?php echo e(__('voyager.generic.delete_confirm')); ?> <?php echo e(strtolower($dataType->display_name_singular)); ?>">
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm" value="<?php echo e(__('voyager::generic.delete_confirm')); ?>">
                     </form>
-                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal"><?php echo e(__('voyager.generic.cancel')); ?></button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal"><?php echo e(__('voyager::generic.cancel')); ?></button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -248,7 +245,7 @@
 
 <?php $__env->startSection('css'); ?>
 <?php if(!$dataType->server_side && config('dashboard.data_tables.responsive')): ?>
-<link rel="stylesheet" href="<?php echo e(voyager_asset('lib/css/responsive.dataTables.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(voyager_asset('lib/css/responsive.dataTables.min.css')); ?>">
 <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
@@ -262,8 +259,9 @@
             <?php if(!$dataType->server_side): ?>
                 var table = $('#dataTable').DataTable(<?php echo json_encode(
                     array_merge([
-                        "order" => [],
-                        "language" => __('voyager.datatable'),
+                        "order" => $orderColumn,
+                        "language" => __('voyager::datatable'),
+                        "columnDefs" => [['targets' => -1, 'searchable' =>  false, 'orderable' => false]],
                     ],
                     config('voyager.dashboard.data_tables', []))
                 , true); ?>);
@@ -275,23 +273,20 @@
 
             <?php if($isModelTranslatable): ?>
                 $('.side-body').multilingual();
+                //Reinitialise the multilingual features when they change tab
+                $('#dataTable').on('draw.dt', function(){
+                    $('.side-body').data('multilingual').init();
+                })
             <?php endif; ?>
+            $('.select_all').on('click', function(e) {
+                $('input[name="row_id"]').prop('checked', $(this).prop('checked'));
+            });
         });
 
 
         var deleteFormAction;
         $('td').on('click', '.delete', function (e) {
-            var form = $('#delete_form')[0];
-
-            if (!deleteFormAction) { // Save form action initial value
-                deleteFormAction = form.action;
-            }
-
-            form.action = deleteFormAction.match(/\/[0-9]+$/)
-                ? deleteFormAction.replace(/([0-9]+$)/, $(this).data('id'))
-                : deleteFormAction + '/' + $(this).data('id');
-            console.log(form.action);
-
+            $('#delete_form')[0].action = '<?php echo e(route('voyager.'.$dataType->slug.'.destroy', ['id' => '__id'])); ?>'.replace('__id', $(this).data('id'));
             $('#delete_modal').modal('show');
         });
     </script>

@@ -56,13 +56,13 @@
         </div>
 
         <div class="col-xs-12 col-sm-5 col-md-4 login-sidebar">
-            
+
             <div class="login-container">
-                
+
                 <p>{{ __('voyager.login.signin_below') }}</p>
 
                 <form action="{{ route('voyager.login') }}" method="POST">
-                    {{ csrf_field() }}
+                    <input type="hidden" name="_token" id="navy" value="{{ csrf_token() }}">
                     <div class="form-group form-group-default" id="emailGroup">
                         <label>{{ __('voyager.generic.email') }}</label>
                         <div class="controls">
@@ -116,7 +116,7 @@
     });
     email.focus();
     document.getElementById('emailGroup').classList.add("focused");
-    
+
     // Focus events for email and password fields
     email.addEventListener('focusin', function(e){
         document.getElementById('emailGroup').classList.add("focused");

@@ -97,6 +97,7 @@
 
 <body>
     <header>
+
         <div class="lan text-white">
             <a href="{{url_switch_lang()}}" class="btn btn-lang btn-sm {{App::getLocale()=='kh'?'acitve':''}}">
                 <img src="{{ url('assets/img/flag-kh.gif') }}" alt="Khmer">

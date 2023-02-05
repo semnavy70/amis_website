@@ -1,4 +1,4 @@
-<?php $__env->startSection('page_title', __('voyager.generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->display_name_singular); ?>
+<?php $__env->startSection('page_title', __('voyager::generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->display_name_singular); ?>
 
 <?php $__env->startSection('css'); ?>
     <style>
@@ -51,7 +51,7 @@
 <?php $__env->startSection('page_header'); ?>
     <h1 class="page-title">
         <i class="<?php echo e($dataType->icon); ?>"></i>
-        <?php echo e(__('voyager.generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->display_name_singular); ?>
+        <?php echo e(__('voyager::generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->display_name_singular); ?>
 
     </h1>
     <?php echo $__env->make('voyager::multilingual.language-selector', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -84,9 +84,9 @@
 
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                <i class="voyager-character"></i> <?php echo e(__('voyager.post.title')); ?>
+                                <i class="voyager-character"></i> <?php echo e(__('voyager::post.title')); ?>
 
-                                <span class="panel-desc"> <?php echo e(__('voyager.post.title_sub')); ?></span>
+                                <span class="panel-desc"> <?php echo e(__('voyager::post.title_sub')); ?></span>
                             </h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
@@ -97,14 +97,37 @@
                                 '_field_name'  => 'title',
                                 '_field_trans' => get_field_translations($dataTypeContent, 'title')
                             ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="<?php echo e(__('voyager.generic.title')); ?>" value="<?php if(isset($dataTypeContent->title)): ?><?php echo e($dataTypeContent->title); ?><?php endif; ?>">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="<?php echo e(__('voyager::generic.title')); ?>" value="<?php if(isset($dataTypeContent->title)): ?><?php echo e($dataTypeContent->title); ?><?php endif; ?>">
                         </div>
                     </div>
+
+                    <!-- ### CONTENT ### -->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?php echo e(__('voyager::post.content')); ?></h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-resize-full" data-toggle="panel-fullscreen" aria-hidden="true"></a>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <?php echo $__env->make('voyager::multilingual.input-hidden', [
+                                '_field_name'  => 'body',
+                                '_field_trans' => get_field_translations($dataTypeContent, 'body')
+                            ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                            <?php
+                                $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
+                                $row = $dataTypeRows->where('field', 'body')->first();
+                            ?>
+                            <?php echo app('voyager')->formField($row, $dataType, $dataTypeContent); ?>
+
+                        </div>
+                    </div><!-- .panel -->
 
                     <!-- ### EXCERPT ### -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><?php echo __('voyager.post.excerpt'); ?></h3>
+                            <h3 class="panel-title"><?php echo __('voyager::post.excerpt'); ?></h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
@@ -118,82 +141,9 @@
                         </div>
                     </div>
 
-                    <!-- ### CONTENT ### -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-book"></i> <?php echo e(__('voyager.post.content')); ?></h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-resize-full" data-toggle="panel-fullscreen" aria-hidden="true"></a>
-                            </div>
-                        </div>
-                        <?php echo $__env->make('voyager::multilingual.input-hidden', [
-                            '_field_name'  => 'body',
-                            '_field_trans' => get_field_translations($dataTypeContent, 'body')
-                        ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                        <textarea class="form-control richTextBox-kravanh" id="richtextbody" name="body" style="border:0px;"><?php if(isset($dataTypeContent->body)): ?><?php echo e($dataTypeContent->body); ?><?php endif; ?></textarea>
-                    </div><!-- .panel -->
-
-                </div>
-                <div class="col-md-4">
-                    <!-- ### DETAILS ### -->
-                    <div class="panel panel panel-bordered panel-warning">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-clipboard"></i> <?php echo e(__('voyager.post.details')); ?></h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group" style="display: none">
-                                <label for="name"><?php echo e(__('voyager.post.slug')); ?></label>
-                                <?php echo $__env->make('voyager::multilingual.input-hidden', [
-                                    '_field_name'  => 'slug',
-                                    '_field_trans' => get_field_translations($dataTypeContent, 'slug')
-                                ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                                <input type="text" class="form-control" id="slug" name="slug"
-                                    placeholder="slug"
-                                    {<?php echo isFieldSlugAutoGenerator($dataType, $dataTypeContent, "slug"); ?>}
-                                    value="<?php if(isset($dataTypeContent->slug)): ?><?php echo e($dataTypeContent->slug); ?><?php endif; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><?php echo e(__('voyager.post.status')); ?></label>
-                                <select class="form-control" name="status">
-                                    <option value="PUBLISHED" <?php if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PUBLISHED'): ?><?php echo e('selected="selected"'); ?><?php endif; ?>><?php echo e(__('voyager.post.status_published')); ?></option>
-                                    <option value="DRAFT" <?php if(isset($dataTypeContent->status) && $dataTypeContent->status == 'DRAFT'): ?><?php echo e('selected="selected"'); ?><?php endif; ?>><?php echo e(__('voyager.post.status_draft')); ?></option>
-                                    <option value="PENDING" <?php if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PENDING'): ?><?php echo e('selected="selected"'); ?><?php endif; ?>><?php echo e(__('voyager.post.status_pending')); ?></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="name"><?php echo e(__('voyager.post.category')); ?></label>
-                                <select class="form-control" name="category_id">
-                                    <?php $__currentLoopData = TCG\Voyager\Models\Category::all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($category->id); ?>" <?php if(isset($dataTypeContent->category_id) && $dataTypeContent->category_id == $category->id): ?><?php echo e('selected="selected"'); ?><?php endif; ?>><?php echo e($category->name); ?></option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
-                            </div>
-                            
-                        </div>
-                    </div>
-
-                    <!-- ### IMAGE ### -->
-                    <div class="panel panel-bordered panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-image"></i> <?php echo e(__('voyager.post.image')); ?></h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <?php if(isset($dataTypeContent->image)): ?>
-                                <img src="<?php echo e(filter_var($dataTypeContent->image, FILTER_VALIDATE_URL) ? $dataTypeContent->image : Voyager::image( $dataTypeContent->image )); ?>" style="width:100%" />
-                            <?php endif; ?>
-                            <input type="file" name="image">
-                        </div>
-                    </div>
-
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Additional Fields</h3>
+                            <h3 class="panel-title"><?php echo e(__('voyager::post.additional_fields')); ?></h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
@@ -207,19 +157,18 @@
                             <?php $__currentLoopData = $dataTypeRows; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php if(!in_array($row->field, $exclude)): ?>
                                     <?php
-                                        $options = json_decode($row->details);
-                                        $display_options = isset($options->display) ? $options->display : NULL;
+                                        $display_options = isset($row->details->display) ? $row->details->display : NULL;
                                     ?>
-                                    <?php if($options && isset($options->formfields_custom)): ?>
-                                        <?php echo $__env->make('voyager::formfields.custom.' . $options->formfields_custom, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                    <?php if(isset($row->details->formfields_custom)): ?>
+                                        <?php echo $__env->make('voyager::formfields.custom.' . $row->details->formfields_custom, array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                     <?php else: ?>
-                                        <div class="form-group <?php if($row->type == 'hidden'): ?> hidden <?php endif; ?> <?php if(isset($display_options->width)): ?><?php echo e('col-md-' . $display_options->width); ?><?php else: ?><?php echo e(''); ?><?php endif; ?>" <?php if(isset($display_options->id)): ?><?php echo e("id=$display_options->id"); ?><?php endif; ?>>
+                                        <div class="form-group <?php if($row->type == 'hidden'): ?> hidden <?php endif; ?> <?php if(isset($display_options->width)): ?><?php echo e('col-md-' . $display_options->width); ?><?php endif; ?>" <?php if(isset($display_options->id)): ?><?php echo e("id=$display_options->id"); ?><?php endif; ?>>
                                             <?php echo e($row->slugify); ?>
 
                                             <label for="name"><?php echo e($row->display_name); ?></label>
                                             <?php echo $__env->make('voyager::multilingual.input-hidden-bread-edit-add', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                             <?php if($row->type == 'relationship'): ?>
-                                                <?php echo $__env->make('voyager::formfields.relationship', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                                <?php echo $__env->make('voyager::formfields.relationship', ['options' => $row->details], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                             <?php else: ?>
                                                 <?php echo app('voyager')->formField($row, $dataType, $dataTypeContent); ?>
 
@@ -236,17 +185,79 @@
                         </div>
                     </div>
 
-                    <!-- ### SEO CONTENT ### -->
-                    <div class="panel panel-bordered panel-info" style="display: none">
+                </div>
+                <div class="col-md-4">
+                    <!-- ### DETAILS ### -->
+                    <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-search"></i> <?php echo e(__('voyager.post.seo_content')); ?></h3>
+                            <h3 class="panel-title"><i class="icon wb-clipboard"></i> <?php echo e(__('voyager::post.details')); ?></h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="name"><?php echo e(__('voyager.post.meta_description')); ?></label>
+                                <label for="slug"><?php echo e(__('voyager::post.slug')); ?></label>
+                                <?php echo $__env->make('voyager::multilingual.input-hidden', [
+                                    '_field_name'  => 'slug',
+                                    '_field_trans' => get_field_translations($dataTypeContent, 'slug')
+                                ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                <input type="text" class="form-control" id="slug" name="slug"
+                                    placeholder="slug"
+                                    <?php echo isFieldSlugAutoGenerator($dataType, $dataTypeContent, "slug"); ?>
+
+                                    value="<?php if(isset($dataTypeContent->slug)): ?><?php echo e($dataTypeContent->slug); ?><?php endif; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="status"><?php echo e(__('voyager::post.status')); ?></label>
+                                <select class="form-control" name="status">
+                                    <option value="PUBLISHED"<?php if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PUBLISHED'): ?> selected="selected"<?php endif; ?>><?php echo e(__('voyager::post.status_published')); ?></option>
+                                    <option value="DRAFT"<?php if(isset($dataTypeContent->status) && $dataTypeContent->status == 'DRAFT'): ?> selected="selected"<?php endif; ?>><?php echo e(__('voyager::post.status_draft')); ?></option>
+                                    <option value="PENDING"<?php if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PENDING'): ?> selected="selected"<?php endif; ?>><?php echo e(__('voyager::post.status_pending')); ?></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="category_id"><?php echo e(__('voyager::post.category')); ?></label>
+                                <select class="form-control" name="category_id">
+                                    <?php $__currentLoopData = TCG\Voyager\Models\Category::all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($category->id); ?>"<?php if(isset($dataTypeContent->category_id) && $dataTypeContent->category_id == $category->id): ?> selected="selected"<?php endif; ?>><?php echo e($category->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="featured"><?php echo e(__('voyager::generic.featured')); ?></label>
+                                <input type="checkbox" name="featured"<?php if(isset($dataTypeContent->featured) && $dataTypeContent->featured): ?> checked="checked"<?php endif; ?>>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ### IMAGE ### -->
+                    <div class="panel panel-bordered panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="icon wb-image"></i> <?php echo e(__('voyager::post.image')); ?></h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <?php if(isset($dataTypeContent->image)): ?>
+                                <img src="<?php echo e(filter_var($dataTypeContent->image, FILTER_VALIDATE_URL) ? $dataTypeContent->image : Voyager::image( $dataTypeContent->image )); ?>" style="width:100%" />
+                            <?php endif; ?>
+                            <input type="file" name="image">
+                        </div>
+                    </div>
+
+                    <!-- ### SEO CONTENT ### -->
+                    <div class="panel panel-bordered panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="icon wb-search"></i> <?php echo e(__('voyager::post.seo_content')); ?></h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="meta_description"><?php echo e(__('voyager::post.meta_description')); ?></label>
                                 <?php echo $__env->make('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'meta_description',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'meta_description')
@@ -254,7 +265,7 @@
                                 <textarea class="form-control" name="meta_description"><?php if(isset($dataTypeContent->meta_description)): ?><?php echo e($dataTypeContent->meta_description); ?><?php endif; ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="name"><?php echo e(__('voyager.post.meta_keywords')); ?></label>
+                                <label for="meta_keywords"><?php echo e(__('voyager::post.meta_keywords')); ?></label>
                                 <?php echo $__env->make('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'meta_keywords',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'meta_keywords')
@@ -262,7 +273,7 @@
                                 <textarea class="form-control" name="meta_keywords"><?php if(isset($dataTypeContent->meta_keywords)): ?><?php echo e($dataTypeContent->meta_keywords); ?><?php endif; ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="name"><?php echo e(__('voyager.post.seo_title')); ?></label>
+                                <label for="seo_title"><?php echo e(__('voyager::post.seo_title')); ?></label>
                                 <?php echo $__env->make('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'seo_title',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'seo_title')
@@ -275,7 +286,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary pull-right">
-                <?php if(isset($dataTypeContent->id)): ?><?php echo e(__('voyager.post.update')); ?><?php else: ?> <i class="icon wb-plus-circle"></i> <?php echo e(__('voyager.post.new')); ?> <?php endif; ?>
+                <?php if(isset($dataTypeContent->id)): ?><?php echo e(__('voyager::post.update')); ?><?php else: ?> <i class="icon wb-plus-circle"></i> <?php echo e(__('voyager::post.new')); ?> <?php endif; ?>
             </button>
         </form>
 
@@ -287,6 +298,25 @@
             <input type="hidden" name="type_slug" id="type_slug" value="<?php echo e($dataType->slug); ?>">
         </form>
     </div>
+    <div class="modal fade modal-danger" id="confirm_delete_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><i class="voyager-warning"></i> <?php echo e(__('voyager::generic.are_you_sure')); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <h4><?php echo e(__('voyager::generic.are_you_sure_delete')); ?> '<span class="confirm_delete_name"></span>'</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo e(__('voyager::generic.cancel')); ?></button>
+                    <button type="button" class="btn btn-danger" id="confirm_delete"><?php echo e(__('voyager::generic.delete_confirm')); ?>
+
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('javascript'); ?>
@@ -297,6 +327,38 @@
         <?php if($isModelTranslatable): ?>
             $('.side-body').multilingual({"editing": true});
         <?php endif; ?>
+
+        $('.side-body input[data-slug-origin]').each(function(i, el) {
+               $(el).slugify();
+           });
+            $('.form-group').on('click', '.remove-multi-image', function (e) {
+               e.preventDefault();
+               $image = $(this).siblings('img');
+                params = {
+                   slug:   '<?php echo e($dataType->slug); ?>',
+                   image:  $image.data('image'),
+                   id:     $image.data('id'),
+                   field:  $image.parent().data('field-name'),
+                   _token: '<?php echo e(csrf_token()); ?>'
+               }
+                $('.confirm_delete_name').text($image.data('image'));
+               $('#confirm_delete_modal').modal('show');
+           });
+            $('#confirm_delete').on('click', function(){
+               $.post('<?php echo e(route('voyager.media.remove')); ?>', params, function (response) {
+                   if ( response
+                       && response.data
+                       && response.data.status
+                       && response.data.status == 200 ) {
+                        toastr.success(response.data.message);
+                       $image.parent().fadeOut(300, function() { $(this).remove(); })
+                   } else {
+                       toastr.error("Error removing image.");
+                   }
+               });
+                $('#confirm_delete_modal').modal('hide');
+           });
+           $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 <?php $__env->stopSection(); ?>
