@@ -1,10 +1,10 @@
 <?php if($paginator->hasPages()): ?>
-    <ul class="pagination justify-content-center">
+    <ul class="pagination">
         
         <?php if($paginator->onFirstPage()): ?>
-            <li class="page-item disabled"><span class="page-link"><?php echo app('translator')->getFromJson('translator.prev'); ?></span></li>
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
         <?php else: ?>
-            <li class="page-item"><a class="page-link" href="<?php echo e($paginator->previousPageUrl()); ?>" rel="prev"><?php echo app('translator')->getFromJson('translator.prev'); ?></a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo e($paginator->previousPageUrl()); ?>" rel="prev">&laquo;</a></li>
         <?php endif; ?>
 
         
@@ -28,9 +28,9 @@
 
         
         <?php if($paginator->hasMorePages()): ?>
-            <li class="page-item"><a class="page-link" href="<?php echo e($paginator->nextPageUrl()); ?>" rel="next"><?php echo app('translator')->getFromJson('translator.next'); ?></a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo e($paginator->nextPageUrl()); ?>" rel="next">&raquo;</a></li>
         <?php else: ?>
-            <li class="page-item disabled"><span class="page-link"><?php echo app('translator')->getFromJson('translator.next'); ?></span></li>
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
         <?php endif; ?>
     </ul>
 <?php endif; ?>

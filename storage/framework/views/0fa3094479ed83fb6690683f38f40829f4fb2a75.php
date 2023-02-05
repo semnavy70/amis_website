@@ -4,14 +4,37 @@
             <button class="hamburger btn-link">
                 <span class="hamburger-inner"></span>
             </button>
-
+            <?php $__env->startSection('breadcrumbs'); ?>
             <ol class="breadcrumb hidden-xs">
+<<<<<<< HEAD
+                <?php
+                $segments = array_filter(explode('/', str_replace(route('voyager.dashboard'), '', Request::url())));
+                $url = route('voyager.dashboard');
+                ?>
+                <?php if(count($segments) == 0): ?>
+=======
                 <?php if(count(Request::segments()) == 1): ?>
-                    <li class="active"><i class="voyager-boat"></i> <?php echo e(__('voyager.generic.dashboard')); ?></li>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
+                    <li class="active"><i class="voyager-boat"></i> <?php echo e(__('voyager::generic.dashboard')); ?></li>
                 <?php else: ?>
                     <li class="active">
-                        <a href="<?php echo e(route('voyager.dashboard')); ?>"><i class="voyager-boat"></i> <?php echo e(__('voyager.generic.dashboard')); ?></a>
+                        <a href="<?php echo e(route('voyager.dashboard')); ?>"><i class="voyager-boat"></i> <?php echo e(__('voyager::generic.dashboard')); ?></a>
                     </li>
+<<<<<<< HEAD
+                    <?php $__currentLoopData = $segments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $segment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php
+                        $url .= '/'.$segment;
+                        ?>
+                        <?php if($loop->last): ?>
+                            <li><?php echo e(ucfirst($segment)); ?></li>
+                        <?php else: ?>
+                            <li>
+                                <a href="<?php echo e($url); ?>"><?php echo e(ucfirst($segment)); ?></a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endif; ?>
+=======
                 <?php endif; ?>
                 <?php $breadcrumb_url = url(''); ?>
                 <?php for($i = 1; $i <= count(Request::segments()); $i++): ?>
@@ -28,9 +51,11 @@
 
                     <?php endif; ?>
                 <?php endfor; ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
             </ol>
+            <?php echo $__env->yieldSection(); ?>
         </div>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav <?php if(config('voyager.multilingual.rtl')): ?> navbar-left <?php else: ?> navbar-right <?php endif; ?>">
             <li class="dropdown profile">
                 <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button"
                    aria-expanded="false"><img src="<?php echo e($user_avatar); ?>" class="profile-img"> <span
@@ -39,8 +64,13 @@
                     <li class="profile-img">
                         <img src="<?php echo e($user_avatar); ?>" class="profile-img">
                         <div class="profile-body">
+<<<<<<< HEAD
+                            <h5><?php echo e(app('VoyagerAuth')->user()->name); ?></h5>
+                            <h6><?php echo e(app('VoyagerAuth')->user()->email); ?></h6>
+=======
                             <h5><?php echo e(Auth::user()->name); ?></h5>
                             <h6><?php echo e(Auth::user()->email); ?></h6>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
                         </div>
                     </li>
                     <li class="divider"></li>
@@ -56,7 +86,11 @@
                                 <?php if(isset($item['icon_class']) && !empty($item['icon_class'])): ?>
                                 <i class="<?php echo $item['icon_class']; ?>"></i>
                                 <?php endif; ?>
+<<<<<<< HEAD
+                                <?php echo e(__($name)); ?>
+=======
                                 <?php echo e($name); ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 
                             </button>
                         </form>
@@ -65,7 +99,11 @@
                             <?php if(isset($item['icon_class']) && !empty($item['icon_class'])): ?>
                             <i class="<?php echo $item['icon_class']; ?>"></i>
                             <?php endif; ?>
+<<<<<<< HEAD
+                            <?php echo e(__($name)); ?>
+=======
                             <?php echo e($name); ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 
                         </a>
                         <?php endif; ?>
@@ -77,3 +115,7 @@
         </ul>
     </div>
 </nav>
+<<<<<<< HEAD
+<?php /**PATH /Users/semnavy/Desktop/Data/Amis/SourceCode/amis_website/vendor/tcg/voyager/src/../resources/views/dashboard/navbar.blade.php ENDPATH**/ ?>
+=======
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
