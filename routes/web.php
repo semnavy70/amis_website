@@ -12,24 +12,21 @@ Route::get('/links','TopicController@links')->name('links');
 Route::post('/participant/login','HomeController@Login')->name('participant.login');
 Route::post('/participant/logout','HomeController@Logout')->name('participant.logout');
 
-Route::get('coming-soon', function(){
-    return view('page.coming');
-});
-
-Route::get('export', function(){
-    return view('export.excel');
-});
-
-Route::get('product', function(){
-    return view('products.detail');
-});
-
-Route::get('bussiness', function(){
-    return view('bussiness.index');
-});
-Route::get('market', function(){
-    return view('market.index');
-});
+//
+//Route::get('export', function(){
+//    return view('export.excel');
+//});
+//
+//Route::get('product', function(){
+//    return view('products.detail');
+//});
+//
+//Route::get('bussiness', function(){
+//    return view('bussiness.index');
+//});
+//Route::get('market', function(){
+//    return view('market.index');
+//});
 
 Route::get('page/{slug}','PageController@Index')->name('page');
 Route::get('document/{slug}','PageController@document')->name('document');
