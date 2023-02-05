@@ -6,16 +6,21 @@
             </button>
             <?php $__env->startSection('breadcrumbs'); ?>
             <ol class="breadcrumb hidden-xs">
+<<<<<<< HEAD
                 <?php
                 $segments = array_filter(explode('/', str_replace(route('voyager.dashboard'), '', Request::url())));
                 $url = route('voyager.dashboard');
                 ?>
                 <?php if(count($segments) == 0): ?>
+=======
+                <?php if(count(Request::segments()) == 1): ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
                     <li class="active"><i class="voyager-boat"></i> <?php echo e(__('voyager::generic.dashboard')); ?></li>
                 <?php else: ?>
                     <li class="active">
                         <a href="<?php echo e(route('voyager.dashboard')); ?>"><i class="voyager-boat"></i> <?php echo e(__('voyager::generic.dashboard')); ?></a>
                     </li>
+<<<<<<< HEAD
                     <?php $__currentLoopData = $segments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $segment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php
                         $url .= '/'.$segment;
@@ -29,6 +34,24 @@
                         <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endif; ?>
+=======
+                <?php endif; ?>
+                <?php $breadcrumb_url = url(''); ?>
+                <?php for($i = 1; $i <= count(Request::segments()); $i++): ?>
+                    <?php $breadcrumb_url .= '/' . Request::segment($i); ?>
+                    <?php if(Request::segment($i) != ltrim(route('voyager.dashboard', [], false), '/') && !is_numeric(Request::segment($i))): ?>
+
+                        <?php if($i < count(Request::segments()) & $i > 0 && array_search('database',Request::segments())===false): ?>
+                            <li class="active"><a
+                                        href="<?php echo e($breadcrumb_url); ?>"><?php echo e(ucwords(str_replace('-', ' ', str_replace('_', ' ', Request::segment($i))))); ?></a>
+                            </li>
+                        <?php else: ?>
+                            <li><?php echo e(ucwords(str_replace('-', ' ', str_replace('_', ' ', Request::segment($i))))); ?></li>
+                        <?php endif; ?>
+
+                    <?php endif; ?>
+                <?php endfor; ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
             </ol>
             <?php echo $__env->yieldSection(); ?>
         </div>
@@ -41,8 +64,13 @@
                     <li class="profile-img">
                         <img src="<?php echo e($user_avatar); ?>" class="profile-img">
                         <div class="profile-body">
+<<<<<<< HEAD
                             <h5><?php echo e(app('VoyagerAuth')->user()->name); ?></h5>
                             <h6><?php echo e(app('VoyagerAuth')->user()->email); ?></h6>
+=======
+                            <h5><?php echo e(Auth::user()->name); ?></h5>
+                            <h6><?php echo e(Auth::user()->email); ?></h6>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
                         </div>
                     </li>
                     <li class="divider"></li>
@@ -58,7 +86,11 @@
                                 <?php if(isset($item['icon_class']) && !empty($item['icon_class'])): ?>
                                 <i class="<?php echo $item['icon_class']; ?>"></i>
                                 <?php endif; ?>
+<<<<<<< HEAD
                                 <?php echo e(__($name)); ?>
+=======
+                                <?php echo e($name); ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 
                             </button>
                         </form>
@@ -67,7 +99,11 @@
                             <?php if(isset($item['icon_class']) && !empty($item['icon_class'])): ?>
                             <i class="<?php echo $item['icon_class']; ?>"></i>
                             <?php endif; ?>
+<<<<<<< HEAD
                             <?php echo e(__($name)); ?>
+=======
+                            <?php echo e($name); ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 
                         </a>
                         <?php endif; ?>
@@ -79,4 +115,7 @@
         </ul>
     </div>
 </nav>
+<<<<<<< HEAD
 <?php /**PATH /Users/semnavy/Desktop/Data/Amis/SourceCode/amis_website/vendor/tcg/voyager/src/../resources/views/dashboard/navbar.blade.php ENDPATH**/ ?>
+=======
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670

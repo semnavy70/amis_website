@@ -7,4 +7,7 @@
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
+<<<<<<< HEAD
 <?php /**PATH /Users/semnavy/Desktop/Data/Amis/SourceCode/amis_website/vendor/tcg/voyager/src/../resources/views/alerts.blade.php ENDPATH**/ ?>
+=======
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670

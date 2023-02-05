@@ -1,21 +1,32 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="<?php echo e(config('app.locale')); ?>" dir="<?php echo e(__('voyager::generic.is_rtl') == 'true' ? 'rtl' : 'ltr'); ?>">
+=======
+<html lang="<?php echo e(config('app.locale')); ?>" <?php if(config('voyager.multilingual.rtl')): ?> dir="rtl" <?php endif; ?>>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 <head>
     <title><?php echo $__env->yieldContent('page_title', setting('admin.title') . " - " . setting('admin.description')); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>"/>
+<<<<<<< HEAD
     <meta name="assets-path" content="<?php echo e(route('voyager.voyager_assets')); ?>"/>
+=======
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 
     <!-- Favicon -->
+<<<<<<< HEAD
     <?php $admin_favicon = Voyager::setting('admin.icon_image', ''); ?>
     <?php if($admin_favicon == ''): ?>
         <link rel="shortcut icon" href="<?php echo e(voyager_asset('images/logo-icon.png')); ?>" type="image/png">
     <?php else: ?>
         <link rel="shortcut icon" href="<?php echo e(Voyager::image($admin_favicon)); ?>" type="image/png">
     <?php endif; ?>
+=======
+    <link rel="shortcut icon" href="<?php echo e(voyager_asset('images/logo-icon.png')); ?>" type="image/x-icon">
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 
 
 
@@ -64,18 +75,30 @@
 </div>
 
 <?php
+<<<<<<< HEAD
 if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(app('VoyagerAuth')->user()->avatar, 'https://')) {
     $user_avatar = app('VoyagerAuth')->user()->avatar;
 } else {
     $user_avatar = Voyager::image(app('VoyagerAuth')->user()->avatar);
+=======
+if (starts_with(Auth::user()->avatar, 'http://') || starts_with(Auth::user()->avatar, 'https://')) {
+    $user_avatar = Auth::user()->avatar;
+} else {
+    $user_avatar = Voyager::image(Auth::user()->avatar);
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 }
 ?>
 
 <div class="app-container">
     <div class="fadetoblack visible-xs"></div>
     <div class="row content-container">
+<<<<<<< HEAD
         <?php echo $__env->make('voyager::dashboard.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <?php echo $__env->make('voyager::dashboard.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+=======
+        <?php echo $__env->make('voyager::dashboard.navbar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->make('voyager::dashboard.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
         <script>
             (function(){
                     var appContainer = document.querySelector('.app-container'),
@@ -91,7 +114,11 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
                     appContainer.style.WebkitTransition = appContainer.style.MozTransition = appContainer.style.transition =
                     navbar.style.WebkitTransition = navbar.style.MozTransition = navbar.style.transition = 'none';
 
+<<<<<<< HEAD
                     if (window.innerWidth > 768 && window.localStorage && window.localStorage['voyager.stickySidebar'] == 'true') {
+=======
+                    if (window.localStorage && window.localStorage['voyager.stickySidebar'] == 'true') {
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
                         appContainer.className += ' expanded no-animation';
                         loader.style.left = (sidebar.clientWidth/2)+'px';
                         hamburgerMenu.className += ' is-active no-animation';
@@ -112,13 +139,21 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <?php echo $__env->make('voyager::partials.app-footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+=======
+<?php echo $__env->make('voyager::partials.app-footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 
 <!-- Javascript Libs -->
 
 
 <script type="text/javascript" src="<?php echo e(voyager_asset('js/app.js')); ?>"></script>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 <script>
     <?php if(Session::has('alerts')): ?>
         let alerts = <?php echo json_encode(Session::get('alerts')); ?>;
@@ -137,15 +172,26 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
     } else {
         toastr.error("toastr alert-type " + alertType + " is unknown");
     }
+<<<<<<< HEAD
     <?php endif; ?>
 </script>
 <?php echo $__env->make('voyager::media.manager', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->yieldContent('javascript'); ?>
 <?php echo $__env->yieldPushContent('javascript'); ?>
+=======
+
+    <?php endif; ?>
+</script>
+<?php echo $__env->yieldContent('javascript'); ?>
+
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 <?php if(!empty(config('voyager.additional_js'))): ?><!-- Additional Javascript -->
     <?php $__currentLoopData = config('voyager.additional_js'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $js): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><script type="text/javascript" src="<?php echo e(asset($js)); ?>"></script><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php endif; ?>
 
 </body>
 </html>
+<<<<<<< HEAD
 <?php /**PATH /Users/semnavy/Desktop/Data/Amis/SourceCode/amis_website/vendor/tcg/voyager/src/../resources/views/master.blade.php ENDPATH**/ ?>
+=======
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670

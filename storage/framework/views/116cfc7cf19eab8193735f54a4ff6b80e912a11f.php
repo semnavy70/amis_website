@@ -19,9 +19,15 @@
                  style="background-image:url(<?php echo e(Voyager::image( Voyager::setting('admin.bg_image'), voyager_asset('images/bg.jpg') )); ?>); background-size: cover; background-position: 0px;">
                 <div class="dimmer"></div>
                 <div class="panel-content">
+<<<<<<< HEAD
                     <img src="<?php echo e($user_avatar); ?>" class="avatar" alt="<?php echo e(app('VoyagerAuth')->user()->name); ?> avatar">
                     <h4><?php echo e(ucwords(app('VoyagerAuth')->user()->name)); ?></h4>
                     <p><?php echo e(app('VoyagerAuth')->user()->email); ?></p>
+=======
+                    <img src="<?php echo e($user_avatar); ?>" class="avatar" alt="<?php echo e(Auth::user()->name); ?> avatar">
+                    <h4><?php echo e(ucwords(Auth::user()->name)); ?></h4>
+                    <p><?php echo e(Auth::user()->email); ?></p>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
 
                     <a href="<?php echo e(route('voyager.profile')); ?>" class="btn btn-primary"><?php echo e(__('voyager::generic.profile')); ?></a>
                     <div style="clear:both"></div>
@@ -29,9 +35,17 @@
             </div>
 
         </div>
+<<<<<<< HEAD
         <div id="adminmenu">
             <admin-menu :items="<?php echo e(menu('admin', '_json')); ?>"></admin-menu>
         </div>
     </nav>
 </div>
 <?php /**PATH /Users/semnavy/Desktop/Data/Amis/SourceCode/amis_website/vendor/tcg/voyager/src/../resources/views/dashboard/sidebar.blade.php ENDPATH**/ ?>
+=======
+
+        <?php echo menu('admin', 'admin_menu'); ?>
+
+    </nav>
+</div>
+>>>>>>> 788376cdde7e4b98b71125068fe2bc61e5a26670
