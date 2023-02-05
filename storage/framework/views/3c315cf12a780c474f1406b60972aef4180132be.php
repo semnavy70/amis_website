@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="<?php echo e(config('app.locale')); ?>">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="none" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="admin login">
-    <title>Admin - {{ Voyager::setting("admin.title") }}</title>
-    <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
+    <title>Admin - <?php echo e(Voyager::setting("admin.title")); ?></title>
+    <link rel="stylesheet" href="<?php echo e(voyager_asset('css/app.css')); ?>">
     <style>
         body {
-            background-image:url('{{ Voyager::image( Voyager::setting("admin.bg_image"), voyager_asset("images/bg.jpg") ) }}');
-            background-color: {{ Voyager::setting("admin.bg_color", "#FFFFFF" ) }};
+            background-image:url('<?php echo e(Voyager::image( Voyager::setting("admin.bg_image"), voyager_asset("images/bg.jpg") )); ?>');
+            background-color: <?php echo e(Voyager::setting("admin.bg_color", "#FFFFFF" )); ?>;
         }
         .login-sidebar{
-            border-top:5px solid {{ config('voyager.primary_color','#22A7F0') }};
+            border-top:5px solid <?php echo e(config('voyager.primary_color','#22A7F0')); ?>;
         }
         @media (max-width: 767px) {
             .login-sidebar {
                 border-top:0px !important;
-                border-left:5px solid {{ config('voyager.primary_color','#22A7F0') }};
+                border-left:5px solid <?php echo e(config('voyager.primary_color','#22A7F0')); ?>;
             }
         }
         body.login .form-group-default.focused{
-            border-color:{{ config('voyager.primary_color','#22A7F0') }};
+            border-color:<?php echo e(config('voyager.primary_color','#22A7F0')); ?>;
         }
         .login-button, .bar:before, .bar:after{
-            background:{{ config('voyager.primary_color','#22A7F0') }};
+            background:<?php echo e(config('voyager.primary_color','#22A7F0')); ?>;
         }
     </style>
 
@@ -41,14 +41,14 @@
                 <div class="col-sm-12 col-md-10 col-md-offset-2">
                     <div class="logo-title-container">
                         <?php $admin_logo_img = Voyager::setting('admin.icon_image', ''); ?>
-                        @if($admin_logo_img == '')
-                        <img class="img-responsive pull-left logo hidden-xs animated fadeIn" src="{{ voyager_asset('images/logo-icon-light.png') }}" alt="Logo Icon">
-                        @else
-                        <img class="img-responsive pull-left logo hidden-xs animated fadeIn" src="{{ Voyager::image($admin_logo_img) }}" alt="Logo Icon">
-                        @endif
+                        <?php if($admin_logo_img == ''): ?>
+                        <img class="img-responsive pull-left logo hidden-xs animated fadeIn" src="<?php echo e(voyager_asset('images/logo-icon-light.png')); ?>" alt="Logo Icon">
+                        <?php else: ?>
+                        <img class="img-responsive pull-left logo hidden-xs animated fadeIn" src="<?php echo e(Voyager::image($admin_logo_img)); ?>" alt="Logo Icon">
+                        <?php endif; ?>
                         <div class="copy animated fadeIn">
-                            <h1>{{ Voyager::setting('admin.title', 'Voyager') }}</h1>
-                            <p>{{ Voyager::setting('admin.description', __('voyager.login.welcome')) }}</p>
+                            <h1><?php echo e(Voyager::setting('admin.title', 'Voyager')); ?></h1>
+                            <p><?php echo e(Voyager::setting('admin.description', __('voyager.login.welcome'))); ?></p>
                         </div>
                     </div> <!-- .logo-title-container -->
                 </div>
@@ -56,45 +56,46 @@
         </div>
 
         <div class="col-xs-12 col-sm-5 col-md-4 login-sidebar">
-
+            
             <div class="login-container">
+                
+                <p><?php echo e(__('voyager.login.signin_below')); ?></p>
 
-                <p>{{ __('voyager.login.signin_below') }}</p>
+                <form action="<?php echo e(route('voyager.login')); ?>" method="POST">
+                    <?php echo e(csrf_field()); ?>
 
-                <form action="{{ route('voyager.login') }}" method="POST">
-                    <input type="hidden" name="_token" id="navy" value="{{ csrf_token() }}">
                     <div class="form-group form-group-default" id="emailGroup">
-                        <label>{{ __('voyager.generic.email') }}</label>
+                        <label><?php echo e(__('voyager.generic.email')); ?></label>
                         <div class="controls">
-                            <input type="text" name="email" id="email" value="{{ old('email') }}" placeholder="{{ __('voyager.generic.email') }}" class="form-control" required>
+                            <input type="text" name="email" id="email" value="<?php echo e(old('email')); ?>" placeholder="<?php echo e(__('voyager.generic.email')); ?>" class="form-control" required>
                          </div>
                     </div>
 
                     <div class="form-group form-group-default" id="passwordGroup">
-                        <label>{{ __('voyager.generic.password') }}</label>
+                        <label><?php echo e(__('voyager.generic.password')); ?></label>
                         <div class="controls">
-                            <input type="password" name="password" placeholder="{{ __('voyager.generic.password') }}" class="form-control" required>
+                            <input type="password" name="password" placeholder="<?php echo e(__('voyager.generic.password')); ?>" class="form-control" required>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-block login-button">
-                        <span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager.login.loggingin') }}...</span>
-                        <span class="signin">{{ __('voyager.generic.login') }}</span>
+                        <span class="signingin hidden"><span class="voyager-refresh"></span> <?php echo e(__('voyager.login.loggingin')); ?>...</span>
+                        <span class="signin"><?php echo e(__('voyager.generic.login')); ?></span>
                     </button>
 
               </form>
 
               <div style="clear:both"></div>
 
-              @if(!$errors->isEmpty())
+              <?php if(!$errors->isEmpty()): ?>
               <div class="alert alert-red">
                 <ul class="list-unstyled">
-                    @foreach($errors->all() as $err)
-                    <li>{{ $err }}</li>
-                    @endforeach
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $err): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($err); ?></li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
               </div>
-              @endif
+              <?php endif; ?>
 
             </div> <!-- .login-container -->
 
@@ -116,7 +117,7 @@
     });
     email.focus();
     document.getElementById('emailGroup').classList.add("focused");
-
+    
     // Focus events for email and password fields
     email.addEventListener('focusin', function(e){
         document.getElementById('emailGroup').classList.add("focused");

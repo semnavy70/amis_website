@@ -7,3 +7,4 @@
         <a href="<?php echo e($button['link']); ?>" class="btn btn-primary"><?php echo $button['text']; ?></a>
     </div>
 </div>
+<?php /**PATH /Users/semnavy/Desktop/Data/Amis/SourceCode/amis_website/vendor/tcg/voyager/src/../resources/views/dimmer.blade.php ENDPATH**/ ?>

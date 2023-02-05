@@ -1,7 +1,6 @@
 <?php
-$dimmers = \Arrilot\Widgets\Facade::group('voyager::dimmers');
+$dimmers = Voyager::dimmers();
 $count = $dimmers->count();
-
 $classes = [
     'col-xs-12',
     'col-sm-'.($count >= 2 ? '6' : '12'),
@@ -17,3 +16,4 @@ $surfix = '</div>';
 
 </div>
 <?php endif; ?>
+<?php /**PATH /Users/semnavy/Desktop/Data/Amis/SourceCode/amis_website/vendor/tcg/voyager/src/../resources/views/dimmers.blade.php ENDPATH**/ ?>

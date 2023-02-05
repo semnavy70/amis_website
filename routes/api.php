@@ -13,9 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::get('marketapp/commodity-prices', 'Api\MarketController@price');
 Route::get('marketapp/category-commodities', 'Api\MarketController@commodity');
@@ -33,4 +30,3 @@ Route::get('/data', 'Api\DataController@index');
 //Online Market
 Route::get('online/new','Api\OnlineMarketController@index');
 Route::get('online/new/{id}','Api\OnlineMarketController@detail');
-//Route::get('/getlatestprice', 'Api\OnlineMarketController@getlatestprice');
