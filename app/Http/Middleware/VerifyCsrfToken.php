@@ -20,7 +20,6 @@ class VerifyCsrfToken extends Middleware
         if (
             parent::isReading($request) ||
             parent::runningUnitTests() ||
-            parent::shouldPassThrough($request) ||
             parent::tokensMatch($request)
         ) {
             return parent::addCookieToResponse($request, $next($request));
