@@ -68,7 +68,7 @@ class VoyagerAuthController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if(Auth::user()){
-            return $this->redirectTo();
+            return redirect($this->redirectTo());
         }
     }
 
