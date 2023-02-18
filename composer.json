@@ -17,7 +17,7 @@
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "~2.1",
         "superbalist/laravel-google-cloud-storage": "^2.2",
-        "tcg/voyager": "1.0.10"
+        "tcg/voyager": "@dev"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -69,6 +69,10 @@
         "hooks": {
             "type": "composer",
             "url": "https://larapack.io"
+        },
+        "tcg": {
+            "type": "path",
+            "url": "./tcg/*"
         }
     }
 }

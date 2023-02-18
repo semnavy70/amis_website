@@ -62,7 +62,7 @@
                 <p><?php echo e(__('voyager.login.signin_below')); ?></p>
 
                 <form action="<?php echo e(route('voyager.login')); ?>" method="POST">
-                    <?php echo e(csrf_field()); ?>
+                    <?php echo csrf_field(); ?>
 
                     <div class="form-group form-group-default" id="emailGroup">
                         <label><?php echo e(__('voyager.generic.email')); ?></label>
