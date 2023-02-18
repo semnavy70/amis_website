@@ -61,13 +61,15 @@ class VoyagerAuthController extends Controller
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
-
-        return $this->authenticated($request, $this->guard()->user());
+       
+        return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended($this->redirectPath());
     }
 
     protected function authenticated(Request $request, $user)
     {
         if(Auth::user()){
+            dd(Auth::user());
             return redirect($this->redirectTo());
         }
     }
