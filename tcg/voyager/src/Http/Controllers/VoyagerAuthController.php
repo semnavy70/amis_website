@@ -68,7 +68,9 @@ class VoyagerAuthController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        dd($request->all(),$user,Auth::user());
+        if(Auth::user()){
+            return redirect()->intended('admin');
+        }
     }
 
 
