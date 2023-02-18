@@ -22,7 +22,6 @@ class VoyagerAuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        dd($request->all());
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
