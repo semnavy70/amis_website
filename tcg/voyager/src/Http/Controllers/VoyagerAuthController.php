@@ -68,7 +68,7 @@ class VoyagerAuthController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        dd($request->all(),$user);
+        dd($request->all(),$user,Auth::user());
     }
 
 
