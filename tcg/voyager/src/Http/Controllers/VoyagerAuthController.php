@@ -35,6 +35,7 @@ class VoyagerAuthController extends Controller
 
         $credentials = $this->credentials($request);
 
+        dd($credentials);
 
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
             return $this->sendLoginResponse($request);
