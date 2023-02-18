@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
-class VerifyCsrfToken extends Middleware
+class VerifyCsrfToken extends BaseVerifier
 {
     /**
      * The URIs that should be excluded from CSRF verification.
@@ -15,16 +15,16 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
     ];
 
-    public function handle($request, Closure $next)
-    {
-        if (
-            parent::isReading($request) ||
-            parent::runningUnitTests() ||
-            parent::tokensMatch($request)
-        ) {
-            return parent::addCookieToResponse($request, $next($request));
-        }
-
-        return back()->with('error','The token has expired, please try again.');
-    }
+//    public function handle($request, Closure $next)
+//    {
+//        if (
+//            parent::isReading($request) ||
+//            parent::runningUnitTests() ||
+//            parent::tokensMatch($request)
+//        ) {
+//            return parent::addCookieToResponse($request, $next($request));
+//        }
+//
+//        return back()->with('error','The token has expired, please try again.');
+//    }
 }
