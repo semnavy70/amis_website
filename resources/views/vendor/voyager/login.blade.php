@@ -61,7 +61,7 @@
                 
                 <p>{{ __('voyager.login.signin_below') }}</p>
 
-                <form action="{{ route('postlogin') }}" method="POST">
+                <form action="{{ route('voyager.postlogin') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group form-group-default" id="emailGroup">
                         <label>{{ __('voyager.generic.email') }}</label>
