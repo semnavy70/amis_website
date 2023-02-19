@@ -37,6 +37,7 @@ class VoyagerAuthController extends Controller
 
 
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
+            dd($this->sendLoginResponse($request));
             return $this->sendLoginResponse($request);
         }
 
@@ -63,7 +64,7 @@ class VoyagerAuthController extends Controller
         $this->clearLoginAttempts($request);
 
 
-        dd($this->authenticated($request, $this->guard()->user()));
+
         return $this->authenticated($request, $this->guard()->user())
             ?: redirect()->intended($this->redirectPath());
     }
