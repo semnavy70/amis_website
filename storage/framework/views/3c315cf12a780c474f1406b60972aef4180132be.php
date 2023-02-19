@@ -61,7 +61,7 @@
                 
                 <p><?php echo e(__('voyager.login.signin_below')); ?></p>
 
-                <form action="<?php echo e(route('voyager.login')); ?>" method="POST">
+                <form action="<?php echo e(route('voyager.postlogin')); ?>" method="POST">
                     <?php echo csrf_field(); ?>
 
                     <div class="form-group form-group-default" id="emailGroup">
