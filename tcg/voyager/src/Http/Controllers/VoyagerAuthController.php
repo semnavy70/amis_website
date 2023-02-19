@@ -53,7 +53,7 @@ class VoyagerAuthController extends Controller
      */
     public function redirectTo()
     {
-        return url("admin/posts");
+        return route('voyager.dashboard');
     }
 
     protected function sendLoginResponse(Request $request)
