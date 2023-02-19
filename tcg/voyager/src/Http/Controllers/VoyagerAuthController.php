@@ -37,7 +37,6 @@ class VoyagerAuthController extends Controller
 
 
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
-            dd($this->sendLoginResponse($request));
             return $this->sendLoginResponse($request);
         }
 
@@ -54,7 +53,7 @@ class VoyagerAuthController extends Controller
      */
     public function redirectTo()
     {
-        return route('voyager.dashboard');
+        return url("admin/posts");
     }
 
     protected function sendLoginResponse(Request $request)

@@ -13,7 +13,7 @@ class VoyagerController extends Controller
 {
     public function index()
     {
-        dd("Hello");
+//        dd("Hello");
         return Voyager::view('voyager::index');
     }
 
