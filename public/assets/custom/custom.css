@@ -1,0 +1,60 @@
+.swal-modal {
+    background-color: #fafafa;
+    border: 3px solid #eceff1;
+}
+
+.swal-button {
+    padding: 7px 19px;
+    border-radius: 2px;
+    background-color: #4962B3;
+    font-size: 12px;
+    border: 1px solid #3e549a;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+
+a.disabled {
+    color: gray;
+    pointer-events: none;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #1976d2;
+    border-color: #1976d2;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #1976d2;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+    color: #1976d2;
+}
+
+.rotate {
+  animation: rotation 1.2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@media print {
+    .hide-on-print {
+        display: none;
+    }
+}
+

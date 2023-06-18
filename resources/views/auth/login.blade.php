@@ -1,69 +1,72 @@
-@extends('master')
+@extends('layouts.auth')
+
+@section('page-title', trans('Login'))
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+    <div class="col-md-8 col-lg-6 col-xl-5 mx-auto my-10p" id="login">
+        <div class="card mt-5">
+            <div class="card-body">
+                <div class="text-center">
+                    <h2 class="text-header-color">ឥណ្ឌូ-ប៉ាសុីហ្វិក</h2>
+                </div>
+                <div class="p-2">
+                    @include('partials.messages')
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                    <form role="form" action="<?= url('login') ?>" method="POST" id="login-form" autocomplete="off"
+                          class="mt-3">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                        <input type="hidden" value="<?= csrf_token() ?>" name="_token">
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        @if (Request::has('to'))
+                            <input type="hidden" value="{{ Request::get('to') }}" name="to">
+                        @endif
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
+                            <label for="username" class="sr-only">@lang('Email or Username')</label>
+                            <input type="text"
+                                   name="username"
+                                   id="username"
+                                   class="form-control input-solid"
+                                   placeholder="@lang('Email or Username')"
+                                   value="{{ old('username') }}">
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+                        <div class="form-group password-field">
+                            <label for="password" class="sr-only">@lang('Password')</label>
+                            <input type="password"
+                                   name="password"
+                                   id="password"
+                                   class="form-control input-solid"
+                                   placeholder="@lang('Password')">
+                        </div>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
+
+                        @if (setting('remember_me'))
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" name="remember" id="remember"
+                                       value="1"/>
+                                <label class="custom-control-label font-weight-normal" for="remember">
+                                    @lang('Remember me?')
+                                </label>
                             </div>
+                        @endif
+
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-login">
+                                @lang('Login')
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+
+@stop
+
+@section('scripts')
+    {!! HTML::script('assets/js/as/login.js') !!}
+    {!! JsValidator::formRequest('Vanguard\Http\Requests\Auth\LoginRequest', '#login-form') !!}
+@stop

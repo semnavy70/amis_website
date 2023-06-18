@@ -1,36 +1,36 @@
 @if ($paginator->hasPages())
-    <ul class="pagination justify-content-center">
-        {{-- Previous Page Link --}}
+    <ul class="pagination">
+        <!-- Previous Page Link -->
         @if ($paginator->onFirstPage())
-            <li class="page-item disabled"><span class="page-link">@lang('translator.prev')</span></li>
+            <li class="disabled"><span>&laquo;</span></li>
         @else
-            <li class="page-item"><a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('translator.prev')</a></li>
+            <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">&laquo;</a></li>
         @endif
 
-        {{-- Pagination Elements --}}
+    <!-- Pagination Elements -->
         @foreach ($elements as $element)
-            {{-- "Three Dots" Separator --}}
+        <!-- "Three Dots" Separator -->
             @if (is_string($element))
-                <li class="page-item disabled"><span class="page-link">{{ $element }}</span></li>
+                <li class="disabled"><span>{{ $element }}</span></li>
             @endif
 
-            {{-- Array Of Links --}}
+        <!-- Array Of Links -->
             @if (is_array($element))
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
-                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                        <li class="active"><span>{{ $page }}</span></li>
                     @else
-                        <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                        <li><a href="{{ $url }}">{{ $page }}</a></li>
                     @endif
                 @endforeach
             @endif
         @endforeach
 
-        {{-- Next Page Link --}}
+    <!-- Next Page Link -->
         @if ($paginator->hasMorePages())
-            <li class="page-item"><a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next">@lang('translator.next')</a></li>
+            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</a></li>
         @else
-            <li class="page-item disabled"><span class="page-link">@lang('translator.next')</span></li>
+            <li class="disabled"><span>&raquo;</span></li>
         @endif
     </ul>
 @endif

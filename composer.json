@@ -1,39 +1,87 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "loshmis/vanguard",
+    "description": "Advanced PHP Login and User Management",
     "keywords": [
-        "framework",
-        "laravel"
+        "advanced",
+        "secure",
+        "login",
+        "user management",
+        "authentication",
+        "authorization",
+        "register"
     ],
-    "license": "MIT",
+    "authors": [
+        {
+            "name": "Milos Stojanovic",
+            "email": "stojanovic.loshmi@gmail.com",
+            "homepage": "https://mstojanovic.net",
+            "role": "Developer"
+        }
+    ],
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/loshmis/laravel-countries"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/tamneak/laravel-filemanager"
+        }
+    ],
     "require": {
-        "php": ">=7.0.0",
-        "davejamesmiller/laravel-breadcrumbs": "^4.2",
-        "fideloper/proxy": "~3.3",
-        "guzzlehttp/guzzle": "^6.3",
-        "kryptonit3/counter": "5.2.*",
-        "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0",
-        "maatwebsite/excel": "~2.1",
+        "php": "^7.3|^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "akaunting/laravel-setting": "^1.2",
+        "anhskohbo/no-captcha": "3.*",
+        "fideloper/proxy": "^4.4",
+        "firebase/php-jwt": "^6.4",
+        "fruitcake/laravel-cors": "^2.0",
+        "google/cloud-pubsub": "^1.35",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "inertiajs/inertia-laravel": "^0.6.9",
+        "intervention/image": "^2.3",
+        "jenssegers/agent": "^2.5",
+        "lab404/laravel-impersonate": "^1.2",
+        "laravel/framework": "^8.40",
+        "laravel/sanctum": "^2.0",
+        "laravel/socialite": "^5.0",
+        "laravel/ui": "^3.0",
+        "laravelcollective/html": "^6.2",
+        "maatwebsite/excel": "^3.1",
+        "proengsoft/laravel-jsvalidation": "^4.0.0",
+        "spatie/laravel-query-builder": "^3.0",
         "superbalist/laravel-google-cloud-storage": "^2.2",
-        "tcg/voyager": "1.0.10"
+        "tightenco/ziggy": "^1.5",
+        "twbs/bootstrap-icons": "^1.10",
+        "unisharp/laravel-filemanager": "dev-master",
+        "vanguardapp/activity-log": "^3.1",
+        "vanguardapp/announcements": "^3.0",
+        "vanguardapp/plugins": "^3.0.0",
+        "webpatser/laravel-countries": "dev-master",
+        "ycs77/inertia-laravel-ssr-head": "^1.2"
     },
     "require-dev": {
-        "filp/whoops": "~2.0",
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~6.0"
+        "barryvdh/laravel-debugbar": "3.5.*",
+        "barryvdh/laravel-ide-helper": "2.8.*",
+        "brianium/paratest": "^6.3",
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "mockery/mockery": "^1.4.2",
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.3.3",
+        "laravel/sail": "^1.0.1"
     },
     "autoload": {
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ],
         "psr-4": {
-            "App\\": "app/"
+            "Vanguard\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
-        "files" : ["app/Helpers/Helper.php"]
+        "files": [
+            "app/Support/Helper/Helper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -46,29 +94,22 @@
         }
     },
     "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate"
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+            "@php artisan key:generate --ansi"
         ]
     },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true,
-        "allow-plugins": {
-            "kylekatarnls/update-helper": true
-        }
+        "optimize-autoloader": true
     },
-    "repositories": {
-        "hooks": {
-            "type": "composer",
-            "url": "https://larapack.io"
-        }
-    }
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

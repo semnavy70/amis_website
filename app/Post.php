@@ -1,23 +1,16 @@
 <?php
 
-namespace App;
+namespace Vanguard;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Traits\Translatable;
-use TCG\Voyager\Facades\Voyager;
+
 class Post extends Model
 {
-    use Translatable;
-    protected $translatable = ['title','excerpt', 'body','image'];
-    //
+    use HasFactory;
 
-    public function category()
+    public function user()
     {
-        return $this->belongsTo('App\Category', 'category_id');
-    }
-
-    public function author()
-    {
-        return $this->belongsTo('App\User', 'author_id');
+        return $this->hasOne(User::class, 'id', 'by');
     }
 }

@@ -11,9 +11,19 @@ return [
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
     |
+    | NOTE: This version is overwritten inside app/Providers/AppServiceProvider.php
+    | and it will se application name defined from Vanguard settings page.
+    |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Vanguard Version
+    |--------------------------------------------------------------------------
+    */
+    'version' => '6.1.0',
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +62,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost:8000'),
+    'url' => env('APP_URL', 'http://localhost'),
+
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +77,21 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Bangkok',
+    'timezone' => 'UTC',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Date and Date-Time Format
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the default date as well as date and time
+    | format used across the application.
+    |
+    */
+
+    'date_format' => 'Y-m-d',
+
+    'date_time_format' => 'Y-m-d \a\t h:i A',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,8 +103,8 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-    'available_locales' => ['en'],
-    'locale' => 'kh',
+
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +117,19 @@ return [
     |
     */
 
-    'fallback_locale' => 'kh',
+    'fallback_locale' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Faker Locale
+    |--------------------------------------------------------------------------
+    |
+    | This locale will be used by the Faker PHP library when generating fake
+    | data for your database seeds. For example, this will be used to get
+    | localized telephone numbers, street address information and more.
+    |
+    */
+    'faker_locale' => 'en_US',
 
     /*
     |--------------------------------------------------------------------------
@@ -104,26 +142,9 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', 'lsXxrP1d6nUGpfGO6vQqezNy1KCuDD3o'),
 
     'cipher' => 'AES-256-CBC',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => env('APP_LOG', 'single'),
-
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
@@ -157,29 +178,37 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
-        Illuminate\Redis\RedisServiceProvider::class,
+//        Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        /*
-         * Package Service Providers...
+        /**
+         * Third-Party Service Providers
          */
-        Kryptonit3\Counter\CounterServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
+
+        Proengsoft\JsValidation\JsValidationServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Vanguard\Providers\HtmlServiceProvider::class,
+        Webpatser\Countries\CountriesServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
+        Vanguard\Providers\AppServiceProvider::class,
+        Vanguard\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        
+        Vanguard\Providers\EventServiceProvider::class,
+        Vanguard\Providers\RouteServiceProvider::class,
+        Vanguard\Services\Auth\TwoFactor\AuthyServiceProvider::class,
+        Vanguard\Providers\VanguardServiceProvider::class,
 
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -211,10 +240,11 @@ return [
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
+        'Inspiring' => Illuminate\Foundation\Inspiring::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
-        'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
@@ -228,8 +258,17 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Counter' => Kryptonit3\Counter\Facades\CounterFacade::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
+
+        'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'HTML' => Collective\Html\HtmlFacade::class,
+        'Countries' => Webpatser\Countries\CountriesFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Setting' => Akaunting\Setting\Facade::class,
+        'Authy' => Vanguard\Services\Auth\TwoFactor\Facade::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
 
     ],
 

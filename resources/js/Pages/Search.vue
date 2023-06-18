@@ -1,0 +1,16 @@
+<template>
+    <App>
+        <div class="text-center" style="margin-top: 40vh">
+             <a href="https://camagrimarket.org/page/info-agri-market"><h1>Page</h1></a>
+        </div>
+    </App>
+</template>
+
+<script setup>
+
+import App from "../Layouts/App.vue";
+</script>
+
+<style scoped>
+
+</style>

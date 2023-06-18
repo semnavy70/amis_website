@@ -1,0 +1,37 @@
+$background-color: #FAFAFA;
+$primary: #286084;
+$danger-color: #F04D4D;
+$warning: #FF8A00;
+$badge-bg: #0FC4DE;
+$grey-color: #B4B4B4;
+$font-family-sans-serif: "Kantumruy" ,Roboto;
+
+@font-face {
+    font-family: "Kantumruy";
+    font-style: normal;
+    src: local("Kantumruy"), url(../../public/assets/fonts/KantumruyPro-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Kantumruy-bold";
+    font-style: normal;
+    font-weight: bold;
+    src: local("Kantumruy"), url(../../public/assets/fonts/KantumruyPro-Medium.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    src: local("Roboto"), url(../../public/assets/fonts/Roboto-Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Roboto-bold";
+    font-style: normal;
+    font-weight: bold;
+    src: local("Roboto"), url(../../public/assets/fonts/Roboto-Bold.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Koulen";
+    font-style: normal;
+    src: local("Koulen"), url(../../public/assets/fonts/Koulen.ttf) format("truetype");
+}

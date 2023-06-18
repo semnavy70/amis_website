@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+    'cloud' => env('FILESYSTEM_CLOUD', 'gcs'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ return [
     | may even configure multiple disks of the same driver. Defaults have
     | been setup for each driver as an example of the required options.
     |
-    | Supported Drivers: "local", "ftp", "s3", "rackspace"
+    | Supported Drivers: "local", "ftp", "sftp", "s3", "rackspace"
     |
     */
 
@@ -50,8 +50,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path(),
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -61,12 +61,14 @@ return [
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
+            'url' => env('AWS_URL'),
         ],
+
         'gcs' => [
             'driver' => 'gcs',
             'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'unique-provider-335305'),
             'key_file' => env('GOOGLE_CLOUD_KEY_FILE', ''), // optional: /path/to/service-account.json
-            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'amis_website'),
+            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'indo-pacific'),
             'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', null), // optional: /default/path/to/apply/in/bucket
             'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null), // see: Public URLs below
             'visibility' => 'public', // optional: public|private

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 return [
 
     /*
@@ -70,7 +72,7 @@ return [
     |
     */
 
-    'connection' => null,
+    'connection' => env('SESSION_CONNECTION', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -95,8 +97,7 @@ return [
     | correspond with one of the application's configured cache stores.
     |
     */
-
-    'store' => null,
+    'store' => env('SESSION_STORE', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -124,7 +125,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        str_slug(env('APP_NAME', 'laravel'), '_').'_session'
+        Str::slug(env('APP_NAME', 'laravel'), '_') . '_session'
     ),
 
     /*
@@ -164,7 +165,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE', true),
+    'secure' => env('SESSION_SECURE_COOKIE', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +177,6 @@ return [
     | the HTTP protocol. You are free to modify this option if needed.
     |
     */
-
     'http_only' => true,
 
     /*
@@ -191,7 +191,6 @@ return [
     | Supported: "lax", "strict"
     |
     */
-
     'same_site' => null,
 
 ];

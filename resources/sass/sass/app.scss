@@ -1,0 +1,319 @@
+// Fonts
+// Here you can import any font you want and update the _variables.scss file
+// to make use of those fonts across the application.
+//@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+//@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,700");
+@font-face {
+    font-family: "Battambang";
+    font-style: normal;
+    src: local("Battambang"),
+    local("Battambang"),
+    url(../../public/assets/fonts/Battambang-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    src: local("Roboto"),
+    local("Roboto"),
+    url(../../public/assets/fonts/Roboto-Regular.ttf) format("truetype");
+}
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+// Custom Vanguard styles
+@import "components/general";
+@import "components/card";
+@import "components/button";
+@import "components/avatar";
+@import "components/input";
+@import "components/list-group";
+@import "components/nav-tabs";
+@import "components/navbar";
+@import "components/sidebar";
+@import "components/switch";
+@import "components/sweet-alert";
+@import "components/table";
+@import "components/util";
+@import "components/datepicker";
+
+@include media-breakpoint-down(md) {
+    .sidebar:not(.expanded) {
+        margin-left: -250px;
+    }
+
+    .content-page {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .content-page {
+        margin-left: 20px !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1600px) {
+
+    .widget {
+        height: 128px;
+
+        .row .text-muted {
+            width: 80px;
+            text-align: right;
+            word-wrap: normal;
+        }
+    }
+    .content-page {
+        margin-left: 20px;
+        box-shadow: 0px 0px 9px 0px #e0e0e0;
+    }
+    .activity-spacing{
+        width: 12px;
+    }
+}
+
+body {
+    font-family: 'Roboto', "Battambang";
+    background-color: $body-background-cr;
+}
+
+[role=main] {
+    padding-top: unset;
+}
+
+.navbar {
+    height: 46px;
+    border: none;
+
+    .navbar-collapse {
+        height: 46px;
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        h6 {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.navbar-brand-wrapper {
+    height: 46px;
+}
+
+.sidebar {
+    padding: 0;
+    background: $dark-low-cr;
+    top: 46px;
+
+    ul {
+        li {
+            a {
+                i {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+
+    .list-unstyled {
+        border-left: none;
+
+        .nav-link {
+            border-bottom: 1px solid #454545;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            width: 81%;
+
+            &.active {
+                border-left: none;
+                padding-left: 20px;
+                color: $active-color-cr;
+                background-color: transparent;
+            }
+
+            &:hover {
+                color: $active-color-cr;
+                background-color: transparent;
+            }
+        }
+    }
+
+    .nav-link[aria-expanded=false]::after {
+        content: "\f107" !important;
+        padding-right: 10px;
+        float: right;
+    }
+
+    .nav-link[aria-expanded=true]::after {
+        content: "\f106" !important;
+        padding-right: 10px;
+        float: right;
+    }
+
+    .nav-link {
+        padding-top: 16px;
+        padding-left: 20px;
+        padding-bottom: 16px;
+        color: $white;
+
+        &.active {
+            border-left: 3px solid $active-color-cr;
+            padding-left: 17px;
+            background-color: $dark-high-cr;
+        }
+
+        &:hover {
+            background-color: $dark-high-cr;
+        }
+    }
+}
+
+.navbar-brand-wrapper {
+    background: $dark-high-cr;
+}
+
+.content-page {
+    background: $white-cr;
+    border-radius: 12px;
+    padding: 18px, 0, 18px, 18px;
+    margin-top: 66px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 270px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.post-table {
+    margin-top: 32px;
+}
+
+.category-table {
+    margin-top: 32px;
+}
+
+.blog-table {
+    margin-top: 32px;
+}
+
+.status-table {
+    margin-top: 32px;
+}
+
+.video-table {
+    margin-top: 32px;
+}
+
+.advertise-table {
+    margin-top: 32px;
+}
+
+.page-table {
+    margin-top: 32px;
+}
+
+.advertise-blog-table {
+    margin-top: 32px;
+}
+
+.advertise-log-table {
+    margin-top: 18px;
+}
+
+.text-active-color {
+    color: $active-color-cr;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.btn-danger {
+    color: #fff !important;
+}
+
+.btn-primary {
+    color: #fff !important;
+    background-color: $blue-cr;
+    border-color: $blue-cr;
+
+    &.btn-primary:hover {
+        background-color: $blue-active-cr !important;
+        border-color: $blue-active-cr;
+    }
+
+    &.btn-primary:active {
+        background-color: $blue-active-cr !important;
+        border-color: $blue-active-cr;
+    }
+
+    &.btn-primary:visited {
+        background-color: $blue-active-cr !important;
+        border-color: $blue-active-cr;
+    }
+
+    &:focus {
+        background-color: $blue-active-cr !important;
+        border-color: $blue-active-cr;
+    }
+
+    &.focus {
+        background-color: $blue-active-cr !important;
+        border-color: $blue-active-cr;
+    }
+}
+
+.btn {
+    &:focus {
+        box-shadow: 0px 1px 4px grey;
+    }
+
+    &.focus {
+        box-shadow: 0px 1px 4px grey;
+    }
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+    border-color: $blue-active-cr;
+    background-color: $blue-active-cr;
+}
+
+.table {
+    .thead-light {
+        th {
+            letter-spacing: -1px;
+        }
+    }
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: $blue-cr;
+}
+
+.custom-file-input:lang(km) ~ .custom-file-label::after {
+    content: "ជ្រើសរើស";
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: $blue-cr;
+    background-color: $blue-cr;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: $blue-cr;
+}
+
+img#refresh-btn {
+   width: 18px;
+ filter: grayscale(100%);
+}
+
+

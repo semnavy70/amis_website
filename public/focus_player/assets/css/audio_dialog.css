@@ -1,0 +1,89 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'arial';
+}
+
+.audio-page {
+    background: #ffffff !important;
+}
+
+.audio_block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: 0 25%;
+    animation: show_block 0.2s 1;
+    z-index: 2000;
+}
+
+@keyframes show_block {
+    from {
+        transform: translate(-50%, -50%)scale(0);
+    }
+
+    to {
+        transform: translate(-50%, -50%)scale(1);
+    }
+}
+
+input[type="text"] {
+    width: 390px;
+    padding: 10px;
+    border: none;
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+button {
+    float: right;
+    background-color: white;
+    padding: 10px 20px 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 17px;
+    transition: 0.4s;
+    font-weight: bold;
+    outline: none;
+}
+
+button:hover {
+    background-color: #E3E3E3;
+}
+
+.background_change {
+    display: none;
+    height: 115%;
+    width: 100%;
+    position: absolute;
+    background-color: black;
+    opacity: 0.6;
+    animation: show_back 0.5s 1;
+    z-index: 1999;
+}
+
+@keyframes show_back {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.6;
+    }
+}
+
+#close_btn {
+    position: absolute;
+    z-index: 2001;
+    right: 0;
+    display: inline-block;
+    overflow: hidden;
+    border: none;
+    background: transparent;
+    color: wheat;
+    text-align: center;
+    cursor: pointer;
+}

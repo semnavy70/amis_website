@@ -1,22 +1,31 @@
+import("./bootstrap.js");
+import { createApp, h } from 'vue';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { InertiaProgress } from "@inertiajs/progress";
+import ImageHelper from "./Helpers/image_helper";
+import DateHelper from "./Helpers/date_helper";
+import {VueMasonryPlugin} from "vue-masonry";
+import inertiaTitle from 'inertia-title/vue3';
+import VueSocialSharing from 'vue-social-sharing'
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+createInertiaApp({
+    resolve: (name) => require(`./Pages/${name}.vue`),
+    setup({ el, App, props, plugin }) {
+        createApp({ render: () => h(App, props) })
+            .use(plugin)
+            .use(VueMasonryPlugin)
+            .use(inertiaTitle)
+            .use(VueSocialSharing)
+            .mixin(ImageHelper)
+            .mixin(DateHelper)
+            .mixin({ methods: { route } })
+            .mount(el)
+    },
+});
 
-require('./bootstrap');
-
-window.Vue = require('vue');
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-const app = new Vue({
-    el: '#app'
+InertiaProgress.init({
+    delay: 0,
+    color: '#4c9ac7',
+    includeCSS: true,
+    showSpinner: false,
 });

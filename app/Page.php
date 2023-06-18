@@ -1,12 +1,11 @@
 <?php
 
-namespace App;
+namespace Vanguard;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Traits\Translatable;
-use TCG\Voyager\Facades\Voyager;
+
 class Page extends Model
 {
-    use Translatable;
-    protected $translatable = ['title','body'];
+    use HasFactory;
 }

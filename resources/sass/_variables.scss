@@ -1,38 +1,86 @@
-
 // Body
 $body-bg: #f5f8fa;
-
-// Borders
-$laravel-border-color: darken($body-bg, 10%);
-$list-group-border: $laravel-border-color;
-$navbar-default-border: $laravel-border-color;
-$panel-default-border: $laravel-border-color;
-$panel-inner-border: $laravel-border-color;
-
-// Brands
-$brand-primary: #3097D1;
-$brand-info: #8eb4cb;
-$brand-success: #2ab27b;
-$brand-warning: #cbb956;
-$brand-danger: #bf5329;
+$bg-lighter: #f8fbfc;
+$primary: #286084;
 
 // Typography
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-$font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 14px;
+//$font-family-base: "Roboto", sans-serif;
+$font-size-base: 0.9rem;
 $line-height-base: 1.6;
-$text-color: #636b6f;
-
-// Navbar
-$navbar-default-bg: #fff;
+//$headings-font-family: "Poppins";
 
 // Buttons
-$btn-default-color: $text-color;
+$btn-padding-y: .75rem !default;
+$btn-padding-x: 1.25rem !default;
+$btn-line-height: 1.125;
 
-// Inputs
-$input-border: lighten($text-color, 40%);
-$input-border-focus: lighten($brand-primary, 25%);
-$input-color-placeholder: lighten($text-color, 30%);
+// Forms
+$input-btn-padding-y: .5rem !default;
+$label-margin-bottom: .25rem !default;
 
-// Panels
-$panel-default-heading-bg: #fff;
+// Breadcrumbs
+$breadcrumb-bg: none;
+$breadcrumb-padding-y: 0;
+$breadcrumb-padding-x: 3px;
+
+// Tables
+$table-accent-bg: #f5f8fa;
+
+// Cards
+$card-spacer-x: 1.75rem !default;
+$card-spacer-y: 1.2rem !default;
+$card-cap-bg: #ffffff;
+$card-border-color: #e9ecef !default;
+
+// Tabs
+$nav-tabs-link-active-color: $primary;
+$nav-tabs-link-active-bg: unset;
+//$nav-tabs-link-active-border-color: none;
+//$nav-tabs-link-hover-border-color: unset;
+
+$list-group-border-color: $body-bg;
+$list-group-hover-bg: $body-bg;
+
+// Nav
+$nav-link-padding-x: 0.5rem;
+
+$dark-low-cr: #2C2F35;
+$dark-high-cr: #222428;
+$active-color-cr: #DD7322;
+$white-cr: #ffffff;
+$body-background-cr: #EFEFF6;
+$blue-cr: #00ACEE;
+$blue-active-cr: #049dd7;
+$grey-cr: #979797;
+$font-family-sans-serif: "Kantumruy" ,Roboto;
+
+@font-face {
+    font-family: "Kantumruy";
+    font-style: normal;
+    src: local("Kantumruy"), url(../../public/assets/fonts/KantumruyPro-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Kantumruy-bold";
+    font-style: normal;
+    font-weight: bold;
+    src: local("Kantumruy"), url(../../public/assets/fonts/KantumruyPro-Medium.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    src: local("Roboto"), url(../../public/assets/fonts/Roboto-Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Roboto-bold";
+    font-style: normal;
+    font-weight: bold;
+    src: local("Roboto"), url(../../public/assets/fonts/Roboto-Bold.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Koulen";
+    font-style: normal;
+    src: local("Koulen"), url(../../public/assets/fonts/Koulen.ttf) format("truetype");
+}
+

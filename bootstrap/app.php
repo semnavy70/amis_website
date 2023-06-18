@@ -1,8 +1,5 @@
 <?php
 
-//header('Access-Control-Allow-Origin', '*');
-//header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-//header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -31,17 +28,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
+    Vanguard\Http\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
+    Vanguard\Console\Kernel::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
+    Vanguard\Exceptions\Handler::class
 );
 
 /*
