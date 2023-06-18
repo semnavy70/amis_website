@@ -7,7 +7,6 @@
 </template>
 
 <script setup>
-
 import App from "../Layouts/App.vue";
 </script>
 
