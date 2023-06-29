@@ -3,20 +3,20 @@ $primary: #286084;
 $danger-color: #F04D4D;
 $warning: #FF8A00;
 $badge-bg: #0FC4DE;
+$green-color: #707A1A;
 $grey-color: #B4B4B4;
-$font-family-sans-serif: "Kantumruy" ,Roboto;
 
 @font-face {
-    font-family: "Kantumruy";
+    font-family: "Hanuman";
     font-style: normal;
-    src: local("Kantumruy"), url(../../public/assets/fonts/KantumruyPro-Regular.ttf) format("truetype");
+    src: local("Hanuman"), url(../../public/assets/fonts/Hanuman-Regular.ttf) format("truetype");
 }
 
 @font-face {
-    font-family: "Kantumruy-bold";
+    font-family: "Hanuman-bold";
     font-style: normal;
     font-weight: bold;
-    src: local("Kantumruy"), url(../../public/assets/fonts/KantumruyPro-Medium.ttf) format("truetype");
+    src: local("Hanuman"), url(../../public/assets/fonts/Hanuman-Bold.ttf) format("truetype");
 }
 
 @font-face {

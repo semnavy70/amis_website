@@ -38,7 +38,7 @@
         "@inertiajs/vue3": "^1.0.0",
         "@popperjs/core": "^2.11.6",
         "bootstrap": "^5.2.3",
-        "bootstrap-icons": "^1.10.3",
+        "bootstrap-icons": "^1.10.5",
         "human-date": "^1.4.0",
         "inertia-title": "^1.2.0",
         "jquery": "^3.6.3",
@@ -46,6 +46,7 @@
         "popper.js": "^1.16.1",
         "vue": "^3.2.45",
         "vue-masonry": "^0.16.0",
-        "vue-social-sharing": "^4.0.0-alpha4"
+        "vue-social-sharing": "^4.0.0-alpha4",
+        "vue3-highcharts": "^0.1.3"
     }
 }

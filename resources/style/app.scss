@@ -1,5 +1,154 @@
 @import "_variables";
 @import "responsive.scss";
 
+a{
+    text-decoration: none;
+    color: black;
+}
+p{
+    font-size: 17px;
+}
+.text-green{
+    color: #707A1A;
+}
+.bg-green{
+    background-color: #707A1A !important;
+}
+.fs-12{
+    font-size: 12px;
+}
+.fs-14{
+    font-size: 14px;
+}
+.fs-16{
+    font-size: 16px;
+}
+.fs-18{
+    font-size: 18px;
+}
+.fs-20{
+    font-size: 20px;
+}
+.small-hr{
+    width: 120px;
+    height: 3px;
+    background-color: $green-color;
+    border-radius: 6px;
+}
+.small-hr-md{
+    width: 200px;
+    height: 3px;
+    background-color: $green-color;
+    border-radius: 6px;
+}
+
+body{
+    padding-top: 144px;
+    background: url("https://camagrimarket.org/assets/img/bg.jpg");
+    background-size: contain;
+    font-family: 'Roboto' ,"Hanuman", sans-serif;
+    .header{
+        .lang-header{
+        }
+        .navbar{
+            .navbar-brand{
+                .logo{
+                    width: 78px;
+                }
+            }
+            .navbar-nav{
+                .nav-item{
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    .nav-link{
+                        border-radius: 8px;
+                        &.active{
+                            background-color: $green-color;
+                            border-radius: 8px;
+                            transition: all 100ms;
+                            color: $white;
+                        }
+                        &:hover{
+                            background-color: $green-color;
+                            border-radius: 8px;
+                            transition: all 100ms;
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .slider-section{
+        height: 410px;
+        position: relative;
+        .pop-on-slide-menu{
+            background-color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
+            .bg-carrot-news{
+                background-color: #ff6600;
+            }
+            .bg-green-online-market{
+                background-color: #44aa00;
+            }
+            .bg-red-business-network{
+                background-color: #d40000;
+            }
+            .bg-blue-library{
+                background-color: #0088aa;
+            }
+        }
+    }
+
+    .footer{
+        color: white;
+        background-color: $green-color;
+        margin-top: -2px;
+        ul{
+            list-style: none;
+            padding-left: 0;
+            li{
+                ::before{
+                    content: "\f101";
+                    font-family: FontAwesome, sans-serif;
+                    display: inline-block;
+                    font-size: 14px;
+                    padding-right: 5px;
+                }
+                a{
+                    color: white;
+                }
+            }
+        }
+    }
+    .copy-right{
+        background-color: #565D16;
+    }
+    .news-detail{
+        .detail-title{
+            font-size: 26px;
+        }
+    }
+    .contact-us{
+        p{
+            font-size: 16px;
+        }
+        .contact-by{
+            a{
+                color: #007bff;
+            }
+        }
+        .form{
+            textarea{
+                height: 150px;
+            }
+        }
+    }
+}
+
 
 

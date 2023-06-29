@@ -1,11 +1,54 @@
 @import '~bootstrap/scss/bootstrap';
 
 @include media-breakpoint-down(sm) {
+    body{
+        padding-top: 123px !important;
+    }
+    .header{
+        .navbar{
+            .navbar-brand{
+                .logo{
+                    width: 58px !important;
+                }
+            }
+            .navbar-nav{
+                .nav-item{
+                    .nav-link {
+                        border-radius: 8px;
+                        padding: 10px 12px;
+                    }
+                }
+            }
+        }
+    }
 
 }
 
 @include media-breakpoint-only(md) {
-
+    .header{
+        .navbar{
+            .navbar-brand{
+                .logo{
+                    width: 62px !important;
+                }
+            }
+            .navbar-nav{
+                .nav-item{
+                    .nav-link {
+                        border-radius: 8px;
+                        padding: 10px 12px;
+                    }
+                }
+            }
+        }
+    }
+    .pop-on-slide-menu{
+        a{
+            .title{
+                font-size: 18px;
+            }
+        }
+    }
 }
 
 @include media-breakpoint-up(lg) {

@@ -52,19 +52,19 @@ $body-background-cr: #EFEFF6;
 $blue-cr: #00ACEE;
 $blue-active-cr: #049dd7;
 $grey-cr: #979797;
-$font-family-sans-serif: "Kantumruy" ,Roboto;
+$font-family-sans-serif: "Hanuman" ,Roboto;
 
 @font-face {
-    font-family: "Kantumruy";
+    font-family: "Hanuman";
     font-style: normal;
-    src: local("Kantumruy"), url(../../public/assets/fonts/KantumruyPro-Regular.ttf) format("truetype");
+    src: local("Hanuman"), url(../../public/assets/fonts/Hanuman-Regular.ttf) format("truetype");
 }
 
 @font-face {
-    font-family: "Kantumruy-bold";
+    font-family: "Hanuman-bold";
     font-style: normal;
     font-weight: bold;
-    src: local("Kantumruy"), url(../../public/assets/fonts/KantumruyPro-Medium.ttf) format("truetype");
+    src: local("Hanuman"), url(../../public/assets/fonts/Hanuman-Bold.ttf) format("truetype");
 }
 
 @font-face {
