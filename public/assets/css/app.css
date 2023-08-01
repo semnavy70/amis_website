@@ -9982,7 +9982,7 @@ label {
   }
 }
 body {
-  font-family: "Kantumruy", "Roboto", serif;
+  font-family: "Hanuman", "Roboto", serif;
   background-color: #EFEFF6;
 }
 
@@ -10118,12 +10118,12 @@ body {
 
 .text-primary-color {
   color: white;
-  font-family: "Kantumruy-bold", sans-serif;
+  font-family: "Hanuman-bold", sans-serif;
 }
 
 .text-header-color {
   color: #286084;
-  font-family: "Kantumruy-bold", sans-serif;
+  font-family: "Hanuman-bold", sans-serif;
 }
 
 .btn {

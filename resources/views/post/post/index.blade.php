@@ -77,12 +77,12 @@
                                     @lang('Edit')
                                 </a>
                             </div>
-                            <div class="col-12">
-                                <a type="button" href="{{ route('detail', ['id' => $item->id]) }}" target="_blank"
-                                    class="btn text-white btn-sm w-50 mt-1" style="background: #fbc02d; margin: 0 5px;">
-                                    @lang("View")
-                                </a>
-                            </div>
+{{--                            <div class="col-12">--}}
+{{--                                <a type="button" href="{{ route('detail', ['id' => $item->id]) }}" target="_blank"--}}
+{{--                                    class="btn text-white btn-sm w-50 mt-1" style="background: #fbc02d; margin: 0 5px;">--}}
+{{--                                    @lang("View")--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
                         </div>
                     </td>
                 </tr>
