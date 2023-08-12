@@ -32,7 +32,8 @@ class PageController extends Controller
     public function create()
     {
         $data = [
-            'postStatus' => $this->page->statuses(),
+            'pageCategory' => $this->page->categories(),
+            'pageStatus' => $this->page->statuses(),
         ];
         return view('page.page.create', $data);
     }
@@ -48,7 +49,8 @@ class PageController extends Controller
         $page = $this->page->single($id);
         $data = [
             'page' => $page,
-            'postStatus' => $this->page->statuses(),
+            'pageStatus' => $this->page->statuses(),
+            'pageCategory' => $this->page->categories(),
         ];
         return view('page.page.edit', $data);
     }

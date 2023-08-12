@@ -27,6 +27,7 @@ class UpdatePageRequest extends FormRequest
             "title" => 'required',
             "slug" => 'required',
             "status" => 'required',
+            "category_id" => 'required',
         ];
     }
 
@@ -35,6 +36,7 @@ class UpdatePageRequest extends FormRequest
         return [
             "title.required" => "សូមបញ្ចូលចំណងជើង",
             "slug.required" => "សូមបញ្ចូល slug",
+            "category_id.required" => "សូមជ្រើសរើសប្រភេទ",
             "status.required" => "សូមជ្រើសរើសស្ថានភាព",
         ];
     }

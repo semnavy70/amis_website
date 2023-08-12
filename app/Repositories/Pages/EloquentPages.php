@@ -4,6 +4,7 @@ namespace Vanguard\Repositories\Pages;
 
 use Illuminate\Support\Facades\DB;
 use Vanguard\Page;
+use Vanguard\PageCategory;
 use Vanguard\PostStatus;
 use Vanguard\Services\Upload\UploadFileManager;
 use Vanguard\Support\Enum\PostStatusEnum;
@@ -44,7 +45,6 @@ class EloquentPages implements PagesRepository
 
     public function store(array $data)
     {
-        // TODO: Implement store() method.
         $page = new Page();
         $page->title = $data["title"];
         $page->slug = $data["slug"];
@@ -53,8 +53,10 @@ class EloquentPages implements PagesRepository
         $page->seo_title = $data["seo_title"];
         $page->meta_description = $data["meta_description"];
         $page->meta_keywords = $data["meta_keywords"];
-        $page->source = $data["source"];
+//        $page->source = $data["source"];
         $page->status = $data["status"];
+        $page->category_id = $data["category_id"];
+
         if (isset($data["image"])) {
             $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
         } else {
@@ -95,7 +97,6 @@ class EloquentPages implements PagesRepository
 
     public function update(int $id, array $data)
     {
-        // TODO: Implement update() method.
         $page = Page::find($id);
         $page->title = $data["title"];
         $page->slug = $data["slug"];
@@ -104,8 +105,9 @@ class EloquentPages implements PagesRepository
         $page->seo_title = $data["seo_title"];
         $page->meta_description = $data["meta_description"];
         $page->meta_keywords = $data["meta_keywords"];
-        $page->source = $data["source"];
+//        $page->source = $data["source"];
         $page->status = $data["status"];
+        $page->category_id = $data["category_id"];
 
         if (isset($data["image"])) {
             if (is_file($data["image"])) {
@@ -120,20 +122,23 @@ class EloquentPages implements PagesRepository
 
     public function delete(int $id)
     {
-        // TODO: Implement delete() method.
         Page::find($id)->delete();
     }
 
     public function statuses()
     {
-        // TODO: Implement statuses() method.
         return PostStatus::orderBy('order')->get();
 
     }
 
+    public function categories()
+    {
+        return PageCategory::orderBy('order')->get();
+    }
+
+
     public function deleteMany(array $postIds)
     {
-        // TODO: Implement deleteMany() method.
     }
 
     private function parseSaveBody($text)

@@ -26,6 +26,7 @@ class CreatePageRequest extends FormRequest
         return [
             "title" => 'required',
             "slug" => 'required',
+            "category_id" => 'required',
             "status" => 'required',
         ];
     }
@@ -35,6 +36,7 @@ class CreatePageRequest extends FormRequest
         return [
             "title.required" => 'សូមបញ្ចូលឈ្មោះទំព័រ',
             "slug.required" => "សូមបញ្ចូល slug",
+            "category_id.required" => "សូមជ្រើសរើសប្រភេទ",
             "status.required" => "សូមជ្រើសរើសស្ថានភាព",
         ];
     }

@@ -20,6 +20,8 @@ class UpdatePageCategoryRequest extends FormRequest
     {
         return [
             "name" => 'required',
+            "category_id" => 'required',
+            "category_id.required" => "សូមជ្រើសរើសប្រភេទ",
 //            "slug" => 'required'
         ];
     }

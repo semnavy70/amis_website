@@ -66,15 +66,25 @@
                     </div>
                 </div>
                 <div class="col-3">
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="source">@lang('Source')</label>--}}
+{{--                                            <input name="source" type="text" class="form-control" id="source"--}}
+{{--                                                   value="{{ old('source')?? $page->source }}">--}}
+{{--                                        </div>--}}
                     <div class="form-group">
-                        <label for="source">@lang('Source')</label>
-                        <input name="source" type="text" class="form-control" id="source"
-                               value="{{ old('source')?? $page->source }}">
+                        <label for="category_id">@lang('Type*')</label>
+                        <select name="category_id" class="form-control" id="category_id">
+                            <option value="">--ជ្រើសរើស--</option>
+                            @foreach($pageCategory as $category)
+                                <option
+                                    value="{{ $category->id }}" {{ $category->id == $page->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="status">@lang('Status*')</label>
                         <select name="status" class="form-control select-box" id="status">
-                            @foreach($postStatus as $status)
+                            @foreach($pageStatus as $status)
                                 <option
                                     value="{{ $status->slug }}" {{ $status->slug == $page->status ? 'selected' : '' }}>{{ $status->name }}</option>
                             @endforeach
