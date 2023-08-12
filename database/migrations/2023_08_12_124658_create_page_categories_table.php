@@ -17,6 +17,8 @@ class CreatePageCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->integer('order')->nullable()->default(0);
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

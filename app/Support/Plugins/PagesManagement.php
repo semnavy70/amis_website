@@ -9,10 +9,30 @@ class PagesManagement extends Plugin
 {
     public function sidebar()
     {
-        return Item::create(__('Manage Pages'))
+        $page = Item::create(__('Page'))
             ->route('page.index')
-            ->icon('fa fa-clipboard')
-            ->active("admin/page*")
+            ->active("admin/page/*")
             ->permissions('pages.manage');
+
+//        $category = Item::create(__('Page category'))
+//            ->route('page-category.index')
+//            ->active("admin/page-category/*")
+//            ->permissions('page-category.manage');
+
+        return Item::create(__('Manage Pages'))
+            ->href('#page-management-dropdown')
+            ->icon('far fa-clipboard')
+            ->active("admin/page*")
+            ->permissions(['pages.manage'])
+            ->addChildren([
+                $page,
+//                $category,
+            ]);
+
+//        return Item::create(__('Manage Pages'))
+//            ->route('page.index')
+//            ->icon('fa fa-clipboard')
+//            ->active("admin/page*")
+//            ->permissions('pages.manage');
     }
 }

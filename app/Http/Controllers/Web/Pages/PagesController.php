@@ -22,10 +22,11 @@ class PagesController extends Controller
     public function index()
     {
         $list = $this->page->paginate(10, request()->search);
+
         $data = [
             'list' => $list,
         ];
-        return view('page.index', $data);
+        return view('page.page.index', $data);
     }
 
     public function create()
@@ -33,7 +34,7 @@ class PagesController extends Controller
         $data = [
             'postStatus' => $this->page->statuses(),
         ];
-        return view('page.create', $data);
+        return view('page.page.create', $data);
     }
 
     public function store(CreatePageRequest $request)
@@ -49,7 +50,7 @@ class PagesController extends Controller
             'page' => $page,
             'postStatus' => $this->page->statuses(),
         ];
-        return view('page.edit', $data);
+        return view('page.page.edit', $data);
     }
 
     public function update(UpdatePageRequest $request)
