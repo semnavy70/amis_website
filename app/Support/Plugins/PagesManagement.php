@@ -14,10 +14,10 @@ class PagesManagement extends Plugin
             ->active("admin/page/*")
             ->permissions('pages.manage');
 
-//        $category = Item::create(__('Page category'))
-//            ->route('page-category.index')
-//            ->active("admin/page-category/*")
-//            ->permissions('page-category.manage');
+        $category = Item::create(__('Page category'))
+            ->route('page-category.index')
+            ->active("admin/page-category/*")
+            ->permissions('page-category.manage');
 
         return Item::create(__('Manage Pages'))
             ->href('#page-management-dropdown')
@@ -26,7 +26,7 @@ class PagesManagement extends Plugin
             ->permissions(['pages.manage'])
             ->addChildren([
                 $page,
-//                $category,
+                $category,
             ]);
 
 //        return Item::create(__('Manage Pages'))

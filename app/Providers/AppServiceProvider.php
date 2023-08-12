@@ -11,6 +11,8 @@ use Vanguard\Repositories\MenuItems\EloquentMenuItemsItems;
 use Vanguard\Repositories\MenuItems\MenuItemsRepository;
 use Vanguard\Repositories\Menus\EloquentMenus;
 use Vanguard\Repositories\Menus\MenusRepository;
+use Vanguard\Repositories\PageCategory\EloquentPageCategory;
+use Vanguard\Repositories\PageCategory\PageCategoryRepository;
 use Vanguard\Repositories\Pages\EloquentPages;
 use Vanguard\Repositories\Pages\PagesRepository;
 use Vanguard\Repositories\Post\EloquentPost;
@@ -102,6 +104,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FrontApiRepository::class, EloquentFrontApi::class);
         $this->app->singleton(ThemesRepository::class, EloquentThemes::class);
         $this->app->singleton(PagesRepository::class, EloquentPages::class);
+        $this->app->singleton(PageCategoryRepository::class, EloquentPageCategory::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
