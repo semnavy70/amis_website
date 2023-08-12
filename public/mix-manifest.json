@@ -1,11 +1,11 @@
 {
-    "/frontend/js/app.js": "/frontend/js/app.js?id=cccbe71c7acc148f9162e4b2a86f8b5b",
-    "/frontend/css/app.css": "/frontend/css/app.css?id=f8e3f66208300cb17ee30e27afc26fcc",
-    "/assets/css/app.css": "/assets/css/app.css?id=c506d2a0453ddef6f37892d1578b23ae",
-    "/assets/js/vendor.js": "/assets/js/vendor.js?id=4095737beb53cc581c9f32f21296bd89",
-    "/assets/css/vendor.css": "/assets/css/vendor.css?id=f1de1627c03b25042b7b3633b95af5d3",
-    "/assets/js/vendor.min.js": "/assets/js/vendor.min.js?id=4095737beb53cc581c9f32f21296bd89",
-    "/assets/css/vendor.min.css": "/assets/css/vendor.min.css?id=f1de1627c03b25042b7b3633b95af5d3",
-    "/frontend/js/app.min.js": "/frontend/js/app.min.js?id=cccbe71c7acc148f9162e4b2a86f8b5b",
-    "/frontend/css/app.min.css": "/frontend/css/app.min.css?id=f8e3f66208300cb17ee30e27afc26fcc"
+    "/frontend/js/app.js": "/frontend/js/app.js",
+    "/frontend/css/app.css": "/frontend/css/app.css",
+    "/assets/css/app.css": "/assets/css/app.css",
+    "/assets/js/vendor.js": "/assets/js/vendor.js",
+    "/assets/css/vendor.css": "/assets/css/vendor.css",
+    "/assets/js/vendor.min.js": "/assets/js/vendor.min.js",
+    "/assets/css/vendor.min.css": "/assets/css/vendor.min.css",
+    "/frontend/js/app.min.js": "/frontend/js/app.min.js",
+    "/frontend/css/app.min.css": "/frontend/css/app.min.css"
 }

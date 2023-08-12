@@ -27,6 +27,12 @@ class CreatePagesTable extends Migration
             $table->text('excerpt')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
+
+            $table->unsignedBigInteger("category_id");
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('page_categories');
+
             $table->timestamps();
         });
     }
