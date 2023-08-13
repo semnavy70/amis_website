@@ -23,7 +23,8 @@ class EloquentDocument implements DocumentRepository
     {
         return DB::table('documents as d')
             ->when($search, function ($q) use ($search) {
-                $q->where('d.title', "LIKE", "%" . $search . "%");
+                $q->where('d.title', "LIKE", "%" . $search . "%")
+                    ->orWhere('d.description', "LIKE", "%" . $search . "%");
             })
             ->select('d.*')
             ->orderBy('d.created_at', 'desc')
@@ -34,22 +35,16 @@ class EloquentDocument implements DocumentRepository
     {
         $document = new Document();
         $document->title = $data["title"];
-        $document->slug = $data["slug"];
-        $document->excerpt = $data["excerpt"];
-        $document->body = $this->parseSaveBody($data["body"]);
-        $document->seo_title = $data["seo_title"];
-        $document->meta_description = $data["meta_description"];
-        $document->meta_keywords = $data["meta_keywords"];
-//        $document->source = $data["source"];
-        $document->status = $data["status"];
+        $document->description = $this->parseSaveBody($data["description"]);
         $document->category_id = $data["category_id"];
+        $document->type = $data["type"];
 
-        if (isset($data["image"])) {
-            $document->image = $this->fileManager->uploadFile($data["image"], $this->folder);
+        if (is_file($data["source"])) {
+            $document->source = $this->fileManager->uploadFile($data["source"], $this->folder);
         } else {
-            $document->image = null;
+            $document->source = $data["source"];
         }
-        $document->by = auth()->user()->id;
+
         $document->save();
 
         return $document;
@@ -58,7 +53,7 @@ class EloquentDocument implements DocumentRepository
     public function single(int $id)
     {
         $document = Document::find($id);
-        $document->body = $this->parseEditBody($document->body);
+        $document->description = $this->parseEditBody($document->description);
 
         return $document;
     }
@@ -86,24 +81,20 @@ class EloquentDocument implements DocumentRepository
     {
         $document = Document::find($id);
         $document->title = $data["title"];
-        $document->slug = $data["slug"];
-        $document->excerpt = $data["excerpt"];
-        $document->body = $this->parseSaveBody($data["body"]);
-        $document->seo_title = $data["seo_title"];
-        $document->meta_description = $data["meta_description"];
-        $document->meta_keywords = $data["meta_keywords"];
-//        $document->source = $data["source"];
-        $document->status = $data["status"];
+        $document->description = $this->parseSaveBody($data["description"]);
         $document->category_id = $data["category_id"];
+        $document->type = $data["type"];
 
-        if (isset($data["image"])) {
-            if (is_file($data["image"])) {
-                $document->image = $this->fileManager->uploadFile($data["image"], $this->folder);
+        if (isset($data["source"])) {
+            if (is_file($data["source"])) {
+                $document->source = $this->fileManager->uploadFile($data["source"], $this->folder);
             } else {
-                $document->image = null;
+                $document->source = $data["source"];
             }
         }
+
         $document->save();
+
         return $document;
     }
 
@@ -145,8 +136,7 @@ class EloquentDocument implements DocumentRepository
     {
         $oldDocument = Document::find($oldPostId);
         $newDocument = $oldDocument->replicate();
-        $newDocument->slug .= "-02";
-        $newDocument->status = PostStatusEnum::DRAFT;
+
         $newDocument->save();
 
         return $newDocument;

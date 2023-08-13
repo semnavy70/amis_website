@@ -5,6 +5,8 @@ namespace Vanguard\Providers;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
+use Vanguard\Repositories\Document\DocumentRepository;
+use Vanguard\Repositories\Document\EloquentDocument;
 use Vanguard\Repositories\DocumentCategory\DocumentCategoryRepository;
 use Vanguard\Repositories\DocumentCategory\EloquentDocumentCategory;
 use Vanguard\Repositories\FrontApi\EloquentFrontApi;
@@ -95,6 +97,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SlideRepository::class, EloquentSlide::class);
         $this->app->singleton(PartnerRepository::class, EloquentPartner::class);
         $this->app->singleton(PageCategoryRepository::class, EloquentPageCategory::class);
+        $this->app->singleton(DocumentRepository::class, EloquentDocument::class);
         $this->app->singleton(DocumentCategoryRepository::class, EloquentDocumentCategory::class);
 
         if ($this->app->environment('local')) {
