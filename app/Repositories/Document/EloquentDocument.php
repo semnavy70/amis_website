@@ -22,11 +22,12 @@ class EloquentDocument implements DocumentRepository
     public function paginate(int $paginate, $search = null)
     {
         return DB::table('documents as d')
+            ->join('document_categories as dc', 'dc.id', '=', 'd.category_id')
             ->when($search, function ($q) use ($search) {
                 $q->where('d.title', "LIKE", "%" . $search . "%")
                     ->orWhere('d.description', "LIKE", "%" . $search . "%");
             })
-            ->select('d.*')
+            ->select('d.*', 'dc.name as category_name')
             ->orderBy('d.created_at', 'desc')
             ->paginate($paginate);
     }
