@@ -25,18 +25,27 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="item in documents" class="align-middle">
-                            <th scope="row">០៤ មេសា ២០២០</th>
+                        <tr v-if="documents.length"
+                            v-for="item in documents"
+                            class="align-middle"
+                            @click="openDocument(item.source)"
+                            role="button"
+                        >
+                            <th scope="row">{{ item.kh_created_at }}</th>
                             <td>
-                                <a href="#">
-                                    {{ item.title }}
-                                </a>
+                                {{ item.title }}
                             </td>
                             <td>
-                                <a v-if="item.type === 'pdf'" href="#" class="btn btn-primary px-3">
+                                <a v-if="item.type === 'pdf'"
+                                   role="button" class="btn btn-primary px-3"
+                                   @click="openDocument(item.source)"
+                                >
                                     ទាញយក<i class="fa-regular fa-circle-down ms-1"></i>
                                 </a>
                             </td>
+                        </tr>
+                        <tr v-else class="text-center">
+                            <td colspan="3">មិនមានទិន្នន័យ!</td>
                         </tr>
                         </tbody>
                     </table>
@@ -69,7 +78,11 @@ defineProps({
     detail: Object,
     documents: Array,
     categories: Array,
-})
+});
+
+function openDocument(source) {
+    window.open(source, "_blank");
+}
 
 </script>
 
