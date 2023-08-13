@@ -8,6 +8,7 @@ use Vanguard\Support\Plugins\Dashboard\Widgets\LatestActive;
 use Vanguard\Support\Plugins\Dashboard\Widgets\PostHistory;
 use Vanguard\Support\Plugins\Dashboard\Widgets\TotalPosts;
 use Vanguard\Support\Plugins\Dashboard\Widgets\TotalUsers;
+use Vanguard\Support\Plugins\DocumentManagement;
 use Vanguard\Support\Plugins\FileManagerManagement;
 use Vanguard\Support\Plugins\PagesManagement;
 use Vanguard\Support\Plugins\PartnerManagement;
@@ -31,6 +32,9 @@ class VanguardServiceProvider extends BaseVanguardServiceProvider
             SlideManagement::class,
             PostManagement::class,
             PagesManagement::class,
+            DocumentManagement::class,
+//            AdvertiseManagement::class,
+//            MenusManagement::class,
             FileManagerManagement::class,
             PartnerManagement::class,
             Users::class,

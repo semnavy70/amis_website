@@ -16,6 +16,8 @@ interface PagesRepository
 
     public function statuses();
 
+    public function categories();
+
     public function deleteMany(array $postIds);
 
     public function duplicate(int $oldPostId);

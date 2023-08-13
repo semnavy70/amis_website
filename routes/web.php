@@ -104,12 +104,39 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
      * Pages
      */
 
-    Route::get('/page/index', 'Pages\PagesController@index')->name('page.index');
-    Route::get('/page/create', 'Pages\PagesController@create')->name('page.create');
-    Route::post('/page/store', 'Pages\PagesController@store')->name('page.store');
-    Route::post('/page/update', 'Pages\PagesController@update')->name('page.update');
-    Route::get('/page/edit/{id}', 'Pages\PagesController@edit')->name('page.edit');
-    Route::delete('/page/delete/{id}', 'Pages\PagesController@delete')->name('page.delete');
+    Route::get('/page/index', 'Page\PageController@index')->name('page.index');
+    Route::get('/page/create', 'Page\PageController@create')->name('page.create');
+    Route::post('/page/store', 'Page\PageController@store')->name('page.store');
+    Route::post('/page/update', 'Page\PageController@update')->name('page.update');
+    Route::get('/page/edit/{id}', 'Page\PageController@edit')->name('page.edit');
+    Route::delete('/page/delete/{id}', 'Page\PageController@delete')->name('page.delete');
+
+    Route::get('/page-category/index', 'Page\PageCategoryController@index')->name('page-category.index');
+    Route::get('/page-category/create', 'Page\PageCategoryController@create')->name('page-category.create');
+    Route::post('/page-category/store', 'Page\PageCategoryController@store')->name('page-category.store');
+    Route::get('/page-category/edit/{id}', 'Page\PageCategoryController@edit')->name('page-category.edit');
+    Route::post('/page-category/update', 'Page\PageCategoryController@update')->name('page-category.update');
+    Route::delete('/page-category/delete/{id}', 'Page\PageCategoryController@delete')->name('page-category.delete');
+
+
+    /**
+     * Document
+     */
+
+//    Route::get('/page/index', 'Page\PageController@index')->name('page.index');
+//    Route::get('/page/create', 'Page\PageController@create')->name('page.create');
+//    Route::post('/page/store', 'Page\PageController@store')->name('page.store');
+//    Route::post('/page/update', 'Page\PageController@update')->name('page.update');
+//    Route::get('/page/edit/{id}', 'Page\PageController@edit')->name('page.edit');
+//    Route::delete('/page/delete/{id}', 'Page\PageController@delete')->name('page.delete');
+
+    Route::get('/document-category/index', 'Document\DocumentCategoryController@index')->name('document-category.index');
+    Route::get('/document-category/create', 'Document\DocumentCategoryController@create')->name('document-category.create');
+    Route::post('/document-category/store', 'Document\DocumentCategoryController@store')->name('document-category.store');
+    Route::get('/document-category/edit/{id}', 'Document\DocumentCategoryController@edit')->name('document-category.edit');
+    Route::post('/document-category/update', 'Document\DocumentCategoryController@update')->name('document-category.update');
+    Route::delete('/document-category/delete/{id}', 'Document\DocumentCategoryController@delete')->name('document-category.delete');
+
 
 
     /**
@@ -152,7 +179,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     });
 
     Route::post('/tiny-editor/upload', 'Upload\UploadTinyFileController@upload')->name('tiny-editor.upload');
-
 
 
     /**

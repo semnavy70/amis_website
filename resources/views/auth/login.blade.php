@@ -8,7 +8,7 @@
         <div class="card mt-5">
             <div class="card-body">
                 <div class="text-center">
-                    <h2 class="text-header-color">AMIS Admin</h2>
+                    <h2 class="text-header-color">CAMAGRIMARKET</h2>
                 </div>
                 <div class="p-2">
                     @include('partials.messages')
