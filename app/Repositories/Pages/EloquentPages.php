@@ -13,7 +13,6 @@ class EloquentPages implements PagesRepository
 {
     private $fileManager;
     private $folder;
-    private $source;
 
     public function __construct(UploadFileManager $fileManager)
     {
