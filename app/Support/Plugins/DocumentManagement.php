@@ -9,10 +9,10 @@ class DocumentManagement extends Plugin
 {
     public function sidebar()
     {
-//        $document = Item::create(__('Document'))
-//            ->route('document.index')
-//            ->active("admin/document/*")
-//            ->permissions('documents.manage');
+        $document = Item::create(__('Document'))
+            ->route('document.index')
+            ->active("admin/document/*")
+            ->permissions('documents.manage');
 
         $category = Item::create(__('Document category'))
             ->route('document-category.index')
@@ -25,7 +25,7 @@ class DocumentManagement extends Plugin
             ->active("admin/document*")
             ->permissions(['documents.manage'])
             ->addChildren([
-//                $document,
+                $document,
                 $category,
             ]);
     }
