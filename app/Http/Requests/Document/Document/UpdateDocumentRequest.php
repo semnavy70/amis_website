@@ -16,7 +16,7 @@ class UpdateDocumentRequest extends FormRequest
         return [
             "title" => 'required',
             "type" => 'required',
-            "source" => 'required',
+//            "source" => 'required',
             "category_id" => 'required',
         ];
     }
@@ -26,7 +26,7 @@ class UpdateDocumentRequest extends FormRequest
         return [
             "title.required" => "សូមបញ្ចូលចំណងជើង",
             "type.required" => "សូមជ្រើសរើសប្រភេទឯកសារ",
-            "source.required" => "សូមបញ្ចូលឯកសារ",
+//            "source.required" => "សូមបញ្ចូលឯកសារ",
             "category_id.required" => "សូមជ្រើសរើសប្រភេទ",
         ];
     }

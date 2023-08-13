@@ -59,7 +59,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="pdfType">
                         <label for="image">@lang('PDF')</label>
                         <div class="custom-file">
                             <input name="source" type="file" class="custom-file-input" id="source" lang="km"
@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="videoType">
                         <label for="source">@lang('Video*')</label>
                         <input name="source" type="text" class="form-control" id="source"
                                value="{{ old('source') }}"/>
@@ -84,4 +84,36 @@
 
 @section('scripts')
     {!! JsValidator::formRequest('Vanguard\Http\Requests\Document\Document\CreateDocumentRequest','#post-form') !!}
+
+    <script>
+        $(document).ready(function () {
+            const el = $("#type");
+            const selectedDiv = el.val();
+            toggleType(selectedDiv);
+
+            function toggleType(type) {
+                if (type === 'pdf') {
+                    showDiv(`pdfType`);
+                    hideDiv(`videoType`);
+                } else {
+                    showDiv(`videoType`);
+                    hideDiv(`pdfType`);
+                }
+            }
+
+            function showDiv(name) {
+                $(`#${name}`).show();
+            }
+
+            function hideDiv(name) {
+                $(`#${name}`).hide();
+            }
+
+            el.on('change', function () {
+                const selectedDiv = $(this).val();
+                toggleType(selectedDiv);
+            });
+        });
+
+    </script>
 @endsection
