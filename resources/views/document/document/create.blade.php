@@ -53,7 +53,7 @@
                         <select name="type" class="form-control" id="type">
                             @foreach($documentType as $type)
                                 <option {{ old('type') === $type['key'] ? 'selected' : '' }} value="{{ $type['key'] }}">
-                                    {{ $type['value'] }}
+                                    {{ strtoupper($type['key']) }}
                                 </option>
                             @endforeach
                         </select>

@@ -55,7 +55,7 @@
                             @foreach($documentType as $type)
                                 <option
                                     {{ (old('type') ?? $document->type) === $type['key'] ? 'selected' : '' }} value="{{ $type['key'] }}">
-                                    {{ $type['value'] }}
+                                    {{ strtoupper($type['key']) }}
                                 </option>
                             @endforeach
                         </select>
