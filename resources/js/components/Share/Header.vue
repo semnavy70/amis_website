@@ -22,16 +22,21 @@
                 <a class="navbar-brand" href="/">
                     <img class="logo" src="/assets/img/amis-logo.png" alt="logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">ទំព័រដើម</a>
+                            <Link class="nav-link" :class="{'active': isRoute('home')}" aria-current="page" href="/">
+                                ទំព័រដើម
+                            </Link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" :href="route('news.index')">ព័ត៌មាន & ព្រឹត្តិការណ៍</a>
+                            <Link class="nav-link" :class="{'active': isRoute('news')}" :href="route('news.index')">
+                                ព័ត៌មាន & ព្រឹត្តិការណ៍
+                            </Link>
                         </li>
                         <li class="nav-item">
                             <a href="https://market.camagrimarket.org" target="_self" style="" class="nav-link">
@@ -39,33 +44,88 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">បណ្តាញអាជីវកម្ម</a>
+                            <a class="nav-link" href="https://market.camagrimarket.org/kh/market">បណ្តាញអាជីវកម្ម</a>
                         </li>
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 បណ្ណាល័យ
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" :href="route('document.index',{slug:'slug'})">ព្រឹត្តិបត្រព័ត៌មានតម្លៃ</a></li>
-                                <li><a class="dropdown-item" href="#">ឯកសារផ្សេងៗ</a></li>
-                                <li><a class="dropdown-item" href="#">វីដេអូឯកសារដាំដំណាំផ្សេងៗ</a></li>
-                                <li><a class="dropdown-item" href="#">ប្រព័ន្ធព័ត៌មានតម្លៃតាមសារជាអក្ស (SMS)</a></li>
-                                <li><a class="dropdown-item" href="#">កូដទីផ្សារ និងកូដផលិតផល</a></li>
-                                <li><a class="dropdown-item" href="#">របៀបចុះឈ្មោះប្រើប្រព័ន្ធសារជាអក្សរ (SMS)</a></li>
-                                <li><a class="dropdown-item" href="#">ផលិតកម្ម</a></li>
+
+                                <li>
+                                    <Link class="dropdown-item"
+                                          :href="route('document.detail', {slug: 'monthly-price-bulletin'})">
+                                        ព្រឹត្តិបត្រព័ត៌មានតម្លៃ
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item"
+                                          :href="route('document.detail', {slug: 'other-documents'})">
+                                        ឯកសារផ្សេងៗ
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item"
+                                          :href="route('document.detail', {slug: 'ឯកសារកសិកម្ម'})">
+                                        ឯកសារកសិកម្ម
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item"
+                                          :href="route('document.detail', {slug: 'video-documentaries'})">
+                                        វីដេអូឯកសារដាំដំណាំផ្សេងៗ
+                                    </Link>
+                                </li>
+
+                                <li>
+                                    <p></p>
+                                </li>
+
+                                <li>
+                                    <Link class="dropdown-item" href="#">ប្រព័ន្ធព័ត៌មានតម្លៃតាមសារជាអក្ស (SMS)</Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item" href="#">កូដទីផ្សារ និងកូដផលិតផល</Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item" href="#">របៀបចុះឈ្មោះប្រើប្រព័ន្ធសារជាអក្សរ (SMS)</Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item" href="#">ផលិតកម្ម</Link>
+                                </li>
+
                             </ul>
                         </li>
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 ការិ.ទីផ្សារ
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">ការិយាល័យទីផ្សារកសិកម្ម</a></li>
-                                <li><a class="dropdown-item" :href="route('other_page.index', 23)">សេវាព័ត៌មានទីផ្សារកសិកម្ម</a></li>
-                                <li><a class="dropdown-item" href="#">CamAgriMarket Privacy Policy</a></li>
-                                <li><a class="dropdown-item" :href="route('contact_us.index')">ទាក់ទងមកយើង</a></li>
+                                <li>
+                                    <Link class="dropdown-item" :href="route('page.detail', 23)">
+                                        ការិយាល័យទីផ្សារកសិកម្ម
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item" :href="route('page.detail', 23)">
+                                        សេវាព័ត៌មានទីផ្សារកសិកម្ម
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item" :href="route('page.detail', 23)">
+                                        CamAgriMarket Privacy Policy
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link class="dropdown-item" :href="route('contact_us.index')">ទាក់ទងមកយើង</Link>
+                                </li>
                             </ul>
                         </li>
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -80,8 +140,7 @@
 </template>
 
 <script setup>
+import {Link} from "@inertiajs/vue3";
+import app_helper from "@/Helpers/app_helper";
 
-
-
-import route from "../../../../vendor/tightenco/ziggy/src/js";
 </script>

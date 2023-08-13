@@ -9,6 +9,8 @@ use Vanguard\Repositories\Document\DocumentRepository;
 use Vanguard\Repositories\Document\EloquentDocument;
 use Vanguard\Repositories\DocumentCategory\DocumentCategoryRepository;
 use Vanguard\Repositories\DocumentCategory\EloquentDocumentCategory;
+use Vanguard\Repositories\Front\Library\EloquentLibrary;
+use Vanguard\Repositories\Front\Library\LibraryRepository;
 use Vanguard\Repositories\Front\News\EloquentNews;
 use Vanguard\Repositories\Front\News\NewsRepository;
 use Vanguard\Repositories\FrontApi\EloquentFrontApi;
@@ -118,5 +120,6 @@ class AppServiceProvider extends ServiceProvider
     private function registerFrontRepo()
     {
         $this->app->singleton(NewsRepository::class, EloquentNews::class);
+        $this->app->singleton(LibraryRepository::class, EloquentLibrary::class);
     }
 }

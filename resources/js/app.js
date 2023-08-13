@@ -4,6 +4,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { InertiaProgress } from "@inertiajs/progress";
 import ImageHelper from "./Helpers/image_helper";
 import DateHelper from "./Helpers/date_helper";
+import AppHelper from "./Helpers/app_helper";
 import {VueMasonryPlugin} from "vue-masonry";
 import inertiaTitle from 'inertia-title/vue3';
 import VueSocialSharing from 'vue-social-sharing'
@@ -16,6 +17,7 @@ createInertiaApp({
             .use(VueMasonryPlugin)
             .use(inertiaTitle)
             .use(VueSocialSharing)
+            .mixin(AppHelper)
             .mixin(ImageHelper)
             .mixin(DateHelper)
             .mixin({ methods: { route } })

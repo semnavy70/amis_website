@@ -1,16 +1,16 @@
 <?php
 
+use UniSharp\LaravelFilemanager\Lfm;
+
 /**
  * Front
  */
 
-use UniSharp\LaravelFilemanager\Lfm;
-
 Route::get('/', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'index'])->name('home.index');
 Route::get('/article', [\Vanguard\Http\Controllers\Web\Front\NewsController::class, 'index'])->name('news.index');
 Route::get('/article/{id}', [\Vanguard\Http\Controllers\Web\Front\NewsController::class, 'detail'])->name('news.detail');
-Route::get('/document/{slug}', [\Vanguard\Http\Controllers\Web\Front\DocumentController::class, 'index'])->name('document.index');
-Route::get('/other-page/{slug}', [\Vanguard\Http\Controllers\Web\Front\PageController::class, 'index'])->name('other_page.index');
+Route::get('/document/{slug}', [\Vanguard\Http\Controllers\Web\Front\DocumentController::class, 'index'])->name('document.detail');
+Route::get('/page/{slug}', [\Vanguard\Http\Controllers\Web\Front\PageController::class, 'index'])->name('page.detail');
 Route::get('/contact-us', [\Vanguard\Http\Controllers\Web\Front\ContactUsController::class, 'index'])->name('contact_us.index');
 Route::get('/search', [\Vanguard\Http\Controllers\Web\Front\SearchController::class, 'index'])->name('search.index');
 
@@ -186,7 +186,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
 
     Route::group(['prefix' => 'profile', 'namespace' => 'Profile'], function () {
         Route::get('/', 'ProfileController@show')->name('profile');
-        Route::get('activity', 'ActivityController@show')->name('profile.activity');
+//        Route::get('activity', 'ActivityController@show')->name('profile.activity');
         Route::put('details', 'DetailsController@update')->name('profile.update.details');
 
         Route::post('avatar', 'AvatarController@update')->name('profile.update.avatar');

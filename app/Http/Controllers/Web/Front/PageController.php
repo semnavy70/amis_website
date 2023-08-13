@@ -8,6 +8,6 @@ use Vanguard\Http\Controllers\Controller;
 class PageController extends Controller
 {
     public function index(){
-        return Inertia::render('Page');
+        return Inertia::render('Page/Detail');
     }
 }
