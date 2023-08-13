@@ -13,6 +13,8 @@ use Vanguard\Repositories\Front\Library\EloquentLibrary;
 use Vanguard\Repositories\Front\Library\LibraryRepository;
 use Vanguard\Repositories\Front\News\EloquentNews;
 use Vanguard\Repositories\Front\News\NewsRepository;
+use Vanguard\Repositories\Front\Page\EloquentFrontPage;
+use Vanguard\Repositories\Front\Page\FrontPageRepository;
 use Vanguard\Repositories\FrontApi\EloquentFrontApi;
 use Vanguard\Repositories\FrontApi\FrontApiRepository;
 use Vanguard\Repositories\PageCategory\EloquentPageCategory;
@@ -121,5 +123,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(NewsRepository::class, EloquentNews::class);
         $this->app->singleton(LibraryRepository::class, EloquentLibrary::class);
+        $this->app->singleton(FrontPageRepository::class, EloquentFrontPage::class);
     }
 }

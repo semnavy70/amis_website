@@ -27,7 +27,17 @@
                         </p>
                     </div>
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3">
-                        <RelateNews :list="related"/>
+                        <div class="relate-news">
+                            <h5 class="relate-title"> អត្ថបទទាក់ទង</h5>
+                            <hr class="w-25">
+                            <ul class="list-group">
+                                <li class="list-group-item" v-for="item in related">
+                                    <Link :href="route('news.detail' , item.id)">
+                                        {{ item.title }}
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,7 +48,6 @@
 <script setup>
 import {Link} from '@inertiajs/vue3';
 import App from "@/Layouts/App.vue";
-import RelateNews from "@/components/RelateNews.vue";
 import BreadCrumb from "@/components/BreadCrumb.vue";
 
 defineProps({

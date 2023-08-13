@@ -106,22 +106,24 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <Link class="dropdown-item" :href="route('page.detail', 23)">
+                                    <Link class="dropdown-item" :href="route('page.detail', 'info-about-us')">
                                         ការិយាល័យទីផ្សារកសិកម្ម
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link class="dropdown-item" :href="route('page.detail', 23)">
+                                    <Link class="dropdown-item" :href="route('page.detail', 'info-agri-market')">
                                         សេវាព័ត៌មានទីផ្សារកសិកម្ម
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link class="dropdown-item" :href="route('page.detail', 23)">
+                                    <Link class="dropdown-item" :href="route('page.detail', 'camagrimarket')">
                                         CamAgriMarket Privacy Policy
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link class="dropdown-item" :href="route('contact_us.index')">ទាក់ទងមកយើង</Link>
+                                    <Link class="dropdown-item" :href="route('page.detail', 'info-about-us')">
+                                        ទាក់ទងមកយើង
+                                    </Link>
                                 </li>
                             </ul>
                         </li>
