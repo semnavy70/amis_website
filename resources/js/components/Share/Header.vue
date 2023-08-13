@@ -1,23 +1,23 @@
 <template>
-    <div class="header border-bottom fixed-top">
-        <div class="bg-secondary">
-            <div class="container py-2">
-                <ul class="list-group list-unstyled list-group-horizontal justify-content-end">
-                    <li>
-                        <a href="#">
-                            <img src="/assets/img/flag-kh.png" alt="kh-flag" width="30">
-                        </a>
-                    </li>
-                    <li class="px-2 text-white">|</li>
-                    <li>
-                        <a href="#">
-                            <img src="/assets/img/flag-en.png" alt="en-flag" width="30">
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <div class="bg-app-bar">
+        <div class="container py-2">
+            <ul class="list-group list-unstyled list-group-horizontal justify-content-end">
+                <li>
+                    <a href="#">
+                        <img src="/assets/img/flag-kh.png" alt="kh-flag" width="30">
+                    </a>
+                </li>
+                <li class="px-2 text-white">|</li>
+                <li>
+                    <a href="#">
+                        <img src="/assets/img/flag-en.png" alt="en-flag" width="30">
+                    </a>
+                </li>
+            </ul>
         </div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    </div>
+    <div class="header border-bottom sticky-top">
+        <nav class="navbar navbar-expand-lg bg-white">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img class="logo" src="/assets/img/amis-logo.png" alt="logo">
