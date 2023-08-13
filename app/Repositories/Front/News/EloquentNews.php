@@ -61,6 +61,10 @@ class EloquentNews implements NewsRepository
                 DB::raw("DATE_FORMAT(CONVERT_TZ(p.created_at, '+00:00', '+07:00'), 'ថ្ងៃ %W ទី %d ខែ %M ឆ្នាំ %Y') as kh_created_at")
             ])
             ->first();
+        if (!$post) {
+            abort(404);
+        }
+
         $post->kh_created_at = khmerFullDate($post->kh_created_at);
 
         return $post;
@@ -83,5 +87,6 @@ class EloquentNews implements NewsRepository
 
         return $list;
     }
+
 }
 
