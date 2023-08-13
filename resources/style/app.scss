@@ -41,9 +41,10 @@ p{
     background-color: $green-color;
     border-radius: 6px;
 }
-
+.bg-app-bar{
+    background-color: $secondary;
+}
 body{
-    padding-top: 144px;
     background: url("https://camagrimarket.org/assets/img/bg.jpg");
     background-size: contain;
     font-family: 'Roboto' ,"Hanuman", sans-serif;

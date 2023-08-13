@@ -138,16 +138,29 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::delete('/document-category/delete/{id}', 'Document\DocumentCategoryController@delete')->name('document-category.delete');
 
 
+
     /**
-     * MenusItem
+     * Slide
      */
 
-    Route::get('/menuitem/index', 'MenuItems\MenuItemsController@index')->name('menuitem.index');
-    Route::get('/menuitem/create', 'MenuItems\MenuItemsController@create')->name('menuitem.create');
-    Route::post('/menuitem/store', 'MenuItems\MenuItemsController@store')->name('menuitem.store');
-    Route::post('/menuitem/update', 'MenuItems\MenuItemsController@update')->name('menuitem.update');
-    Route::get('/menuitem/edit/{id}', 'MenuItems\MenuItemsController@edit')->name('menuitem.edit');
-    Route::delete('/menuitem/delete/{id}', 'MenuItems\MenuItemsController@delete')->name('menuitem.delete');
+    Route::get('/slide/index', 'Slide\SlideController@index')->name('slide.index');
+    Route::get('/slide/create', 'Slide\SlideController@create')->name('slide.create');
+    Route::post('/slide/store', 'Slide\SlideController@store')->name('slide.store');
+    Route::post('/slide/update', 'Slide\SlideController@update')->name('slide.update');
+    Route::get('/slide/edit/{id}', 'Slide\SlideController@edit')->name('slide.edit');
+    Route::delete('/slide/delete', 'Slide\SlideController@delete')->name('slide.delete');
+
+    /**
+     * Slide
+     */
+
+    Route::get('/partner/index', 'Partner\PartnerController@index')->name('partner.index');
+    Route::get('/partner/create', 'Partner\PartnerController@create')->name('partner.create');
+    Route::post('/partner/store', 'Partner\PartnerController@store')->name('partner.store');
+    Route::post('/partner/update', 'Partner\PartnerController@update')->name('partner.update');
+    Route::get('/partner/edit/{id}', 'Partner\PartnerController@edit')->name('partner.edit');
+    Route::delete('/partner/delete', 'Partner\PartnerController@delete')->name('partner.delete');
+
 
     /**
      * Themes Setting
@@ -156,46 +169,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::get('themes', 'Themes\ThemesController@index')->name('themes.general');
     Route::post('/themes/store', 'Themes\ThemesController@store')->name('themes.store');
     Route::post('themes/update', 'Themes\ThemesController@update')->name('themes.update');
-
-    /**
-     * Menus
-     */
-
-    Route::get('/menus/index', 'Menus\MenusController@index')->name('menus.index');
-    Route::get('/menus/create', 'Menus\MenusController@create')->name('menus.create');
-    Route::post('/menus/store', 'Menus\MenusController@store')->name('menus.store');
-    Route::post('/menus/update', 'Menus\MenusController@update')->name('menus.update');
-    Route::get('/menus/edit/{id}', 'Menus\MenusController@edit')->name('menus.edit');
-    Route::delete('/menus/delete/{id}', 'Menus\MenusController@delete')->name('menus.delete');
-
-
-    /**
-     * Advertise
-     */
-
-    Route::get('/advertise/index', 'Advertise\AdvertiseController@index')->name('advertise.index');
-    Route::get('/advertise/create', 'Advertise\AdvertiseController@create')->name('advertise.create');
-    Route::post('/advertise/store', 'Advertise\AdvertiseController@store')->name('advertise.store');
-    Route::post('/advertise/update', 'Advertise\AdvertiseController@update')->name('advertise.update');
-    Route::get('/advertise/edit/{id}', 'Advertise\AdvertiseController@edit')->name('advertise.edit');
-    Route::delete('/advertise/delete/{id}', 'Advertise\AdvertiseController@delete')->name('advertise.delete');
-
-    Route::get('/advertise-blog/index', 'Advertise\AdvertiseBlogController@index')->name('advertise-blog.index');
-    Route::get('/advertise-blog/create', 'Advertise\AdvertiseBlogController@create')->name('advertise-blog.create');
-    Route::post('/advertise-blog/store', 'Advertise\AdvertiseBlogController@store')->name('advertise-blog.store');
-    Route::post('/advertise-blog/update', 'Advertise\AdvertiseBlogController@update')->name('advertise-blog.update');
-    Route::get('/advertise-blog/edit/{id}', 'Advertise\AdvertiseBlogController@edit')->name('advertise-blog.edit');
-    Route::delete('/advertise-blog/delete/{id}', 'Advertise\AdvertiseBlogController@delete')->name('advertise-blog.delete');
-
-    Route::get('/advertise-page/index', 'Advertise\AdvertisePageController@index')->name('advertise-page.index');
-    Route::get('/advertise-page/create', 'Advertise\AdvertisePageController@create')->name('advertise-page.create');
-    Route::post('/advertise-page/store', 'Advertise\AdvertisePageController@store')->name('advertise-page.store');
-    Route::post('/advertise-page/update', 'Advertise\AdvertisePageController@update')->name('advertise-page.update');
-    Route::get('/advertise-page/edit/{id}', 'Advertise\AdvertisePageController@edit')->name('advertise-page.edit');
-    Route::delete('/advertise-page/delete/{id}', 'Advertise\AdvertisePageController@delete')->name('advertise-page.delete');
-
-    Route::get('/advertise-log/index', 'Advertise\AdvertiseLogController@index')->name('advertise-log.index');
-    Route::get('/advertise-log/export', 'Advertise\AdvertiseLogController@export')->name('advertise-log.export');
 
     /**
      * File Manager

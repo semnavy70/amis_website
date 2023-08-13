@@ -47,6 +47,7 @@
         "vue": "^3.2.45",
         "vue-masonry": "^0.16.0",
         "vue-social-sharing": "^4.0.0-alpha4",
+        "vue3-charts": "^1.1.33",
         "vue3-highcharts": "^0.1.3"
     }
 }
