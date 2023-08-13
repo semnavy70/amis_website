@@ -90,18 +90,22 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group text-center mt-4 {{ $page->image ? '' : 'd-none' }}">
-                        <img id="image_preview" class="image_preview" src="{{ getFileCDN($page->image) }}" alt="image"
-                             width="300">
-                    </div>
-                    <div class="form-group">
-                        <label for="image">@lang('Default picture*')</label>
-                        <div class="custom-file">
-                            <input name="image" type="file" class="custom-file-input" id="image" lang="km"
-                                   value="{{old('image')}}" accept="image/*">
-                            <label class="custom-file-label" for="photo"></label>
-                        </div>
-                    </div>
+
+
+{{--                    <div class="form-group text-center mt-4 {{ $page->image ? '' : 'd-none' }}">--}}
+{{--                        <img id="image_preview" class="image_preview" src="{{ getFileCDN($page->image) }}" alt="image"--}}
+{{--                             width="300">--}}
+{{--                    </div>--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label for="image">@lang('Default picture*')</label>--}}
+{{--                        <div class="custom-file">--}}
+{{--                            <input name="image" type="file" class="custom-file-input" id="image" lang="km"--}}
+{{--                                   value="{{old('image')}}" accept="image/*">--}}
+{{--                            <label class="custom-file-label" for="photo"></label>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    --}}
+
                     <button type="submit" class="btn btn-primary w-100 mt-3">@lang('Save')</button>
                 </div>
             </div>
@@ -216,136 +220,136 @@
         }
     </script>
 
-    <script>
-        $("#image").change(function () {
-            displayPreviewImage(this, "#image_preview");
-        });
-        $("#image_mobile").change(function () {
-            displayPreviewImage(this, "#image_mobile_preview");
-        });
-        $("#image_tablet").change(function () {
-            displayPreviewImage(this, "#image_tablet_preview");
-        });
-        $("#image_top_news").change(function () {
-            displayPreviewImage(this, "#image_top_news_preview");
-        });
-        $("#image_pin_news").change(function () {
-            displayPreviewImage(this, "#image_pin_news_preview");
-        });
-        $("#image_thumbnail").change(function () {
-            displayPreviewImage(this, "#image_thumbnail_preview");
-        });
-    </script>
+{{--    <script>--}}
+{{--        $("#image").change(function () {--}}
+{{--            displayPreviewImage(this, "#image_preview");--}}
+{{--        });--}}
+{{--        $("#image_mobile").change(function () {--}}
+{{--            displayPreviewImage(this, "#image_mobile_preview");--}}
+{{--        });--}}
+{{--        $("#image_tablet").change(function () {--}}
+{{--            displayPreviewImage(this, "#image_tablet_preview");--}}
+{{--        });--}}
+{{--        $("#image_top_news").change(function () {--}}
+{{--            displayPreviewImage(this, "#image_top_news_preview");--}}
+{{--        });--}}
+{{--        $("#image_pin_news").change(function () {--}}
+{{--            displayPreviewImage(this, "#image_pin_news_preview");--}}
+{{--        });--}}
+{{--        $("#image_thumbnail").change(function () {--}}
+{{--            displayPreviewImage(this, "#image_thumbnail_preview");--}}
+{{--        });--}}
+{{--    </script>--}}
 
-    <script>
-        let modal = document.getElementById("myModal");
-        let modalImg = document.getElementById("fullImage");
+{{--    <script>--}}
+{{--        let modal = document.getElementById("myModal");--}}
+{{--        let modalImg = document.getElementById("fullImage");--}}
 
-        $('img.image_preview').on('click', (e) => {
-            const imageSrc = $(e)[0].target.currentSrc;
-            modal.style.display = "block";
-            modalImg.src = imageSrc;
-        });
+{{--        $('img.image_preview').on('click', (e) => {--}}
+{{--            const imageSrc = $(e)[0].target.currentSrc;--}}
+{{--            modal.style.display = "block";--}}
+{{--            modalImg.src = imageSrc;--}}
+{{--        });--}}
 
-        let span = document.getElementsByClassName("close")[0];
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
+{{--        let span = document.getElementsByClassName("close")[0];--}}
+{{--        span.onclick = function () {--}}
+{{--            modal.style.display = "none";--}}
+{{--        }--}}
 
-        modal.onclick = function () {
-            modal.style.display = "none";
-        }
-    </script>
+{{--        modal.onclick = function () {--}}
+{{--            modal.style.display = "none";--}}
+{{--        }--}}
+{{--    </script>--}}
 
-    <style>
-        .image_preview {
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+{{--    <style>--}}
+{{--        .image_preview {--}}
+{{--            border-radius: 5px;--}}
+{{--            cursor: pointer;--}}
+{{--            transition: 0.3s;--}}
+{{--        }--}}
 
-        .image_preview:hover {
-            opacity: 0.7;
-        }
+{{--        .image_preview:hover {--}}
+{{--            opacity: 0.7;--}}
+{{--        }--}}
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            padding-top: 150px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.9);
-        }
+{{--        .modal {--}}
+{{--            display: none;--}}
+{{--            position: fixed;--}}
+{{--            z-index: 1000;--}}
+{{--            padding-top: 150px;--}}
+{{--            left: 0;--}}
+{{--            top: 0;--}}
+{{--            width: 100%;--}}
+{{--            height: 100%;--}}
+{{--            overflow: auto;--}}
+{{--            background-color: rgb(0, 0, 0);--}}
+{{--            background-color: rgba(0, 0, 0, 0.9);--}}
+{{--        }--}}
 
-        .modal-content {
-            margin: 0 auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-        }
+{{--        .modal-content {--}}
+{{--            margin: 0 auto;--}}
+{{--            display: block;--}}
+{{--            width: 80%;--}}
+{{--            max-width: 700px;--}}
+{{--        }--}}
 
-        #caption {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            text-align: center;
-            color: #ccc;
-            padding: 10px 0;
-            height: 150px;
-        }
+{{--        #caption {--}}
+{{--            margin: auto;--}}
+{{--            display: block;--}}
+{{--            width: 80%;--}}
+{{--            max-width: 700px;--}}
+{{--            text-align: center;--}}
+{{--            color: #ccc;--}}
+{{--            padding: 10px 0;--}}
+{{--            height: 150px;--}}
+{{--        }--}}
 
-        .modal-content, #caption {
-            -webkit-animation-name: zoom;
-            -webkit-animation-duration: 0.6s;
-            animation-name: zoom;
-            animation-duration: 0.6s;
-        }
+{{--        .modal-content, #caption {--}}
+{{--            -webkit-animation-name: zoom;--}}
+{{--            -webkit-animation-duration: 0.6s;--}}
+{{--            animation-name: zoom;--}}
+{{--            animation-duration: 0.6s;--}}
+{{--        }--}}
 
-        @-webkit-keyframes zoom {
-            from {
-                -webkit-transform: scale(0)
-            }
-            to {
-                -webkit-transform: scale(1)
-            }
-        }
+{{--        @-webkit-keyframes zoom {--}}
+{{--            from {--}}
+{{--                -webkit-transform: scale(0)--}}
+{{--            }--}}
+{{--            to {--}}
+{{--                -webkit-transform: scale(1)--}}
+{{--            }--}}
+{{--        }--}}
 
-        @keyframes zoom {
-            from {
-                transform: scale(0)
-            }
-            to {
-                transform: scale(1)
-            }
-        }
+{{--        @keyframes zoom {--}}
+{{--            from {--}}
+{{--                transform: scale(0)--}}
+{{--            }--}}
+{{--            to {--}}
+{{--                transform: scale(1)--}}
+{{--            }--}}
+{{--        }--}}
 
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+{{--        .close {--}}
+{{--            position: absolute;--}}
+{{--            top: 15px;--}}
+{{--            right: 35px;--}}
+{{--            color: #f1f1f1;--}}
+{{--            font-size: 40px;--}}
+{{--            font-weight: bold;--}}
+{{--            transition: 0.3s;--}}
+{{--        }--}}
 
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
+{{--        .close:hover,--}}
+{{--        .close:focus {--}}
+{{--            color: #bbb;--}}
+{{--            text-decoration: none;--}}
+{{--            cursor: pointer;--}}
+{{--        }--}}
 
-        @media only screen and (max-width: 700px) {
-            .modal-content {
-                width: 100%;
-            }
-        }
-    </style>
+{{--        @media only screen and (max-width: 700px) {--}}
+{{--            .modal-content {--}}
+{{--                width: 100%;--}}
+{{--            }--}}
+{{--        }--}}
+{{--    </style>--}}
 @endsection

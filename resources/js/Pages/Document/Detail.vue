@@ -31,11 +31,11 @@
                             @click="openDocument(item.source)"
                             role="button"
                         >
-                            <th scope="row">{{ item.kh_created_at }}</th>
-                            <td>
+                            <th scope="row" class="w-25">{{ item.kh_created_at }}</th>
+                            <td scope="row" class="w-50">
                                 {{ item.title }}
                             </td>
-                            <td>
+                            <td scope="row" class="w-25">
                                 <a v-if="item.type === 'pdf'"
                                    role="button" class="btn btn-primary px-3"
                                    @click="openDocument(item.source)"

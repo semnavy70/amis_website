@@ -65,11 +65,13 @@ class EloquentPages implements PagesRepository
         $page->status = $data["status"];
         $page->category_id = $data["category_id"];
 
-        if (isset($data["image"])) {
-            $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
-        } else {
-            $page->image = null;
-        }
+        $page->image = null;
+//        if (isset($data["image"])) {
+//            $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
+//        } else {
+//            $page->image = null;
+//        }
+
         $page->by = auth()->user()->id;
         $page->save();
 
@@ -117,13 +119,15 @@ class EloquentPages implements PagesRepository
         $page->status = $data["status"];
         $page->category_id = $data["category_id"];
 
-        if (isset($data["image"])) {
-            if (is_file($data["image"])) {
-                $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
-            } else {
-                $page->image = null;
-            }
-        }
+        $page->image = null;
+//        if (isset($data["image"])) {
+//            if (is_file($data["image"])) {
+//                $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
+//            } else {
+//                $page->image = null;
+//            }
+//        }
+
         $page->save();
         return $page;
     }
