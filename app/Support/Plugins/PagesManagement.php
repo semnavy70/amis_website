@@ -21,7 +21,7 @@ class PagesManagement extends Plugin
 
         return Item::create(__('Manage Pages'))
             ->href('#page-management-dropdown')
-            ->icon('far fa-clipboard')
+            ->icon('fas fa-solid fa-file')
             ->active("admin/page*")
             ->permissions(['pages.manage'])
             ->addChildren([

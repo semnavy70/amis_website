@@ -21,7 +21,7 @@ class DocumentManagement extends Plugin
 
         return Item::create(__('Manage Document'))
             ->href('#document-management-dropdown')
-            ->icon('far fa-clipboard')
+            ->icon('fas fa-book')
             ->active("admin/document*")
             ->permissions(['documents.manage'])
             ->addChildren([

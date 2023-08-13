@@ -15,7 +15,7 @@ class CreatePageCategoryRequest extends FormRequest
     {
         return [
             "name" => 'required',
-            "slug" => 'required|unique:post_categories,slug',
+            "slug" => 'required|unique:page_categories,slug',
         ];
     }
 

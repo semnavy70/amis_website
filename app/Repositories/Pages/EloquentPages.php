@@ -25,6 +25,7 @@ class EloquentPages implements PagesRepository
         return DB::table('pages as p')
             ->leftJoin('users as u', 'p.by', '=', 'u.id')
             ->leftJoin('post_statuses as ps', 'ps.slug', '=', 'p.status')
+            ->leftJoin('page_categories as pc', 'pc.id', '=', 'p.category_id')
             ->when($search, function ($q) use ($search) {
                 $q->where('p.title', "LIKE", "%" . $search . "%")
                     ->orWhere('p.slug', "LIKE", "%" . $search . "%")
@@ -37,7 +38,12 @@ class EloquentPages implements PagesRepository
                     ->orWhere('u.first_name', "LIKE", "%" . $search . "%")
                     ->orWhere('u.last_name', "LIKE", "%" . $search . "%");
             })
-            ->select('p.*', "u.last_name as by", "ps.name as status_name")
+            ->select([
+                'p.*',
+                "u.last_name as by",
+                "ps.name as status_name",
+                "pc.name as category_name",
+                ])
             ->orderBy('p.created_at', 'desc')
             ->paginate($paginate);
     }
