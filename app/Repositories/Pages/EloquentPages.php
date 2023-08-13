@@ -39,7 +39,10 @@ class EloquentPages implements PagesRepository
                     ->orWhere('u.last_name', "LIKE", "%" . $search . "%");
             })
             ->select([
-                'p.*',
+                'p.id as id',
+                'p.title as title',
+                'p.slug as slug',
+                'p.created_at as created_at',
                 "u.last_name as by",
                 "ps.name as status_name",
                 "pc.name as category_name",

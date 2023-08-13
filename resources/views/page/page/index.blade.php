@@ -41,6 +41,7 @@
                 </div>
             </th>
             <th scope="col">@lang('Title')</th>
+            <th scope="col">@lang('Slug')</th>
             <th scope="col">@lang('Category')</th>
             <th scope="col">@lang('Status')</th>
             <th scope="col">@lang('Create')</th>
@@ -58,6 +59,7 @@
                     </div>
                 </th>
                 <td class="w-25">{{ $item->title }}</td>
+                <td class="w-25 text-primary">{{ $item->slug }}</td>
                 <td class="w-25 text-warning">{{ $item->category_name }}</td>
                 <td class="text-gray-500 justify-content-center">{{ $item->status_name }}</td>
                 <td>{{ dmYDate($item->created_at) }}</td>

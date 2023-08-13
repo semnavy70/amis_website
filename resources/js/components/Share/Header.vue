@@ -84,16 +84,24 @@
                                 </li>
 
                                 <li>
-                                    <Link class="dropdown-item" href="#">ប្រព័ន្ធព័ត៌មានតម្លៃតាមសារជាអក្ស (SMS)</Link>
+                                    <Link class="dropdown-item" :href="route('page.detail', 'sms-how-it-works')">
+                                        ប្រព័ន្ធព័ត៌មានតម្លៃតាមសារជាអក្ស (SMS)
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link class="dropdown-item" href="#">កូដទីផ្សារ និងកូដផលិតផល</Link>
+                                    <Link class="dropdown-item" :href="route('page.detail', 'sms-service-market')">
+                                        កូដទីផ្សារ និងកូដផលិតផល
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link class="dropdown-item" href="#">របៀបចុះឈ្មោះប្រើប្រព័ន្ធសារជាអក្សរ (SMS)</Link>
+                                    <Link class="dropdown-item" :href="route('page.detail', 'sms-subscribe')">
+                                        របៀបចុះឈ្មោះប្រើប្រព័ន្ធសារជាអក្សរ (SMS)
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link class="dropdown-item" href="#">ផលិតកម្ម</Link>
+                                    <Link class="dropdown-item" :href="route('page.detail', 'production')">
+                                        ផលិតកម្ម
+                                    </Link>
                                 </li>
 
                             </ul>
