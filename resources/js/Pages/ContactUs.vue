@@ -85,9 +85,9 @@
 <script setup>
 
 import App from "../Layouts/App.vue";
-import IntroSection from "../components/IntroSection.vue";
-import BreadCrumb from "../components/BreadCrumb.vue";
-import RelateNews from "../components/RelateNews.vue";
+import IntroSection from "../Components/IntroSection.vue";
+import BreadCrumb from "../Components/BreadCrumb.vue";
+import RelateNews from "../Components/RelateNews.vue";
 </script>
 
 <style scoped>

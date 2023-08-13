@@ -48,7 +48,7 @@
 <script setup>
 import {Link} from '@inertiajs/vue3';
 import App from "@/Layouts/App.vue";
-import BreadCrumb from "@/components/BreadCrumb.vue";
+import BreadCrumb from "@/Components/BreadCrumb.vue";
 
 defineProps({
     post: Object,

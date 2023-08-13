@@ -36,7 +36,7 @@
 
 <script setup>
 import {Link} from "@inertiajs/vue3";
-import MainMenu from "../Menu/MainMenu.vue";
+import MainMenu from "@/Components/Menu/MainMenu.vue";
 
 
 </script>

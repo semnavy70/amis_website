@@ -56,7 +56,7 @@
 <script setup>
 import {Link} from '@inertiajs/vue3';
 import App from "@/Layouts/App.vue";
-import IntroSection from "@/components/IntroSection.vue";
+import IntroSection from "@/Components/IntroSection.vue";
 
 defineProps({
     paginate: Object,
