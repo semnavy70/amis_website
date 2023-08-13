@@ -108,6 +108,20 @@ class EloquentDocument implements DocumentRepository
         return DocumentCategory::orderBy('order')->get();
     }
 
+    public function types()
+    {
+        return [
+            [
+                'key' => 'pdf',
+                'value' => 'PDF',
+            ],
+            [
+                'key' => 'video',
+                'value' => 'វីដេអូ',
+            ],
+        ];
+    }
+
 
     public function deleteMany(array $postIds)
     {

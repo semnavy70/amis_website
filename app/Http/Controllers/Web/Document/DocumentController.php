@@ -33,6 +33,7 @@ class DocumentController extends Controller
     {
         $data = [
             'documentCategory' => $this->document->categories(),
+            'documentType' => $this->document->types(),
         ];
         return view('document.document.create', $data);
     }
@@ -49,6 +50,7 @@ class DocumentController extends Controller
         $data = [
             'document' => $document,
             'documentCategory' => $this->document->categories(),
+            'documentType' => $this->document->types(),
         ];
         return view('document.document.edit', $data);
     }

@@ -17,6 +17,8 @@ interface DocumentRepository
 
     public function categories();
 
+    public function types();
+
     public function deleteMany(array $postIds);
 
     public function duplicate(int $oldPostId);
