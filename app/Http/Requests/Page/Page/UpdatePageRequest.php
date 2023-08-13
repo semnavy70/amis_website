@@ -1,10 +1,10 @@
 <?php
 
-namespace Vanguard\Http\Requests\Page;
+namespace Vanguard\Http\Requests\Page\Page;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePageRequest extends FormRequest
+class UpdatePageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,15 +26,15 @@ class CreatePageRequest extends FormRequest
         return [
             "title" => 'required',
             "slug" => 'required',
-            "category_id" => 'required',
             "status" => 'required',
+            "category_id" => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            "title.required" => 'សូមបញ្ចូលឈ្មោះទំព័រ',
+            "title.required" => "សូមបញ្ចូលចំណងជើង",
             "slug.required" => "សូមបញ្ចូល slug",
             "category_id.required" => "សូមជ្រើសរើសប្រភេទ",
             "status.required" => "សូមជ្រើសរើសស្ថានភាព",

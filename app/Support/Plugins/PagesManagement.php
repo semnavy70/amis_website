@@ -28,11 +28,5 @@ class PagesManagement extends Plugin
                 $page,
                 $category,
             ]);
-
-//        return Item::create(__('Manage Pages'))
-//            ->route('page.index')
-//            ->icon('fa fa-clipboard')
-//            ->active("admin/page*")
-//            ->permissions('pages.manage');
     }
 }

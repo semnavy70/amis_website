@@ -2,7 +2,7 @@
 
     <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand mr-0" href="{{ route('dashboard') }}">
-            <h4 class="text-primary-color m-4">ឥណ្ឌូ-ប៉ាសុីហ្វិក</h4>
+            <h4 class="text-primary-color m-4">CAMAGRIMARKET</h4>
         </a>
     </div>
 

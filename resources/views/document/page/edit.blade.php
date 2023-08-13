@@ -1,98 +1,108 @@
 @extends('layouts.app')
 
-@section('page-title', __('Create page'))
+@section('page-title', __('Edit page'))
 @section('page-heading', __('Manage pages'))
 
 @section('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="{{ route('post.index') }}" class="text-muted">
-            @lang('Pages')
+            @lang('Page')
         </a>
     </li>
     <li class="breadcrumb-item active">
-        @lang('Create page')
+        @lang('Edit page')
     </li>
 @stop
 
 @section('content')
     @include('partials.messages')
     <div class="create-post">
-        <form action="{{ route('page.store') }}" method="POST" id="post-form" enctype="multipart/form-data">
+        <form action="{{ route('page.update') }}" method="POST" id="post-form" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="id" value="{{ $page->id }}">
+            <input type="hidden" name="old_status" value="{{ $page->status }}">
+            <input type="hidden" name="old_title" value="{{ $page->title }}">
+            <input type="hidden" name="old_image" value="{{ $page->image }}">
+            <input type="hidden" name="old_image" value="{{ $page->image }}">
+            <input type="hidden" name="old_body" value="{{ $page->body }}">
             <div class="row">
                 <div class="col-9">
                     <div class="form-group">
                         <label for="title">@lang('Title*')</label>
                         <input name="title" type="text" class="form-control" id="title"
                                onkeyup="convertToSlug(this.value);pasteToCeoTitle(this.value);"
-                               value="{{ old('title') }}">
+                               value="{{ old('title') ?? $page->title }}">
                     </div>
                     <div class="form-group">
                         <label for="slug">@lang('Slug')</label>
-                        <input name="slug" type="text" class="form-control" id="slug" value="{{ old('slug') }}">
+                        <input name="slug" type="text" class="form-control" id="slug"
+                               value="{{ old('slug') ?? $page->slug }}">
                     </div>
                     <div class="form-group">
                         <label for="excerpt">@lang('Short Description')</label>
                         <textarea name="excerpt" class="form-control" id="excerpt"
-                                  onkeyup="pasteToMateDescription(this.value)" rows="4">{{ old('excerpt') }}</textarea>
+                                  onkeyup="pasteToMateDescription(this.value)"
+                                  rows="4">{{ old('excerpt') ?? $page->excerpt }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="my-editor">@lang('Description')</label>
                         <textarea name="body" class="form-control" rows="4" id="my-editor"
-                                  required>{{ old('body') }}</textarea>
+                                  required>{{ old('body') ?? $page->body }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="seo_title">@lang('Title(SEO Title)')</label>
                         <input name="seo_title" type="text" class="form-control" id="seo_title"
-                               value="{{ old('seo_title') }}">
+                               value="{{ old('seo_title') ?? $page->seo_title }}">
                     </div>
                     <div class="form-group">
                         <label for="meta_description">@lang('Short Description(SEO Meta Description)')</label>
                         <input name="meta_description" type="text" class="form-control" id="meta_description"
-                               value="{{ old('meta_description') }}">
+                               value="{{ old('meta_description') ?? $page->meta_description }}">
                     </div>
                     <div class="form-group">
                         <label for="meta_keywords">@lang('Keyword(SEO Meta Keyword)')</label>
                         <input name="meta_keywords" type="text" class="form-control" id="meta_keywords"
-                               value="{{ old('meta_keywords') }}">
+                               value="{{ old('meta_keywords') ?? $page->meta_keywords }}">
                     </div>
                 </div>
                 <div class="col-3">
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="source">@lang('Source')</label>--}}
+{{--                                            <input name="source" type="text" class="form-control" id="source"--}}
+{{--                                                   value="{{ old('source')?? $page->source }}">--}}
+{{--                                        </div>--}}
                     <div class="form-group">
                         <label for="category_id">@lang('Type*')</label>
                         <select name="category_id" class="form-control" id="category_id">
                             <option value="">--ជ្រើសរើស--</option>
                             @foreach($pageCategory as $category)
                                 <option
-                                    {{ old('category_id') === $category->id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
+                                    value="{{ $category->id }}" {{ $category->id == $page->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
-{{--                    <div class="form-group">--}}
-{{--                        <label for="source">@lang('Source')</label>--}}
-{{--                        <input name="source" type="text" class="form-control" id="source" value="{{ old('source') }}">--}}
-{{--                    </div>--}}
                     <div class="form-group">
                         <label for="status">@lang('Status*')</label>
                         <select name="status" class="form-control select-box" id="status">
                             @foreach($pageStatus as $status)
                                 <option
-                                    {{ old('status') == $status->slug ? 'selected' : '' }} value="{{ $status->slug }}">{{ $status->name }}</option>
+                                    value="{{ $status->slug }}" {{ $status->slug == $page->status ? 'selected' : '' }}>{{ $status->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group text-center mt-4 d-none">
-                        <img id="image_preview" class="image_preview" src="#" alt="image" width="300">
+                    <div class="form-group text-center mt-4 {{ $page->image ? '' : 'd-none' }}">
+                        <img id="image_preview" class="image_preview" src="{{ getFileCDN($page->image) }}" alt="image"
+                             width="300">
                     </div>
                     <div class="form-group">
-                        <label for="image">@lang('Default picture')</label>
+                        <label for="image">@lang('Default picture*')</label>
                         <div class="custom-file">
                             <input name="image" type="file" class="custom-file-input" id="image" lang="km"
                                    value="{{old('image')}}" accept="image/*">
                             <label class="custom-file-label" for="photo"></label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-3">@lang('Create New')</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-3">@lang('Save')</button>
                 </div>
             </div>
         </form>
@@ -106,7 +116,8 @@
 @stop
 
 @section('scripts')
-    {!! JsValidator::formRequest('Vanguard\Http\Requests\Page\Page\CreatePageRequest','#post-form') !!}
+    {!! JsValidator::formRequest('Vanguard\Http\Requests\Page\UpdatePageRequest','#post-form') !!}
+
     <script src="https://cdn.tiny.cloud/1/lg6h230fe5wxcjpfgs2okfa1v75r1xxl7m3wnyzomdvpc9zi/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>
     <script>
@@ -208,6 +219,21 @@
     <script>
         $("#image").change(function () {
             displayPreviewImage(this, "#image_preview");
+        });
+        $("#image_mobile").change(function () {
+            displayPreviewImage(this, "#image_mobile_preview");
+        });
+        $("#image_tablet").change(function () {
+            displayPreviewImage(this, "#image_tablet_preview");
+        });
+        $("#image_top_news").change(function () {
+            displayPreviewImage(this, "#image_top_news_preview");
+        });
+        $("#image_pin_news").change(function () {
+            displayPreviewImage(this, "#image_pin_news_preview");
+        });
+        $("#image_thumbnail").change(function () {
+            displayPreviewImage(this, "#image_thumbnail_preview");
         });
     </script>
 

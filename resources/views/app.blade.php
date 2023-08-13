@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta content="DSM" property="og:site_name"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <title>ទំព័រដើម | DSM</title>
+    <title>ទំព័រដើម | CAMAGRIMARKET</title>
 
     @routes
     <link href="{{ asset(mix('/frontend/css/app.css')) }}" rel="stylesheet">

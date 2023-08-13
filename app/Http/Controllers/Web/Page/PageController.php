@@ -3,8 +3,8 @@
 namespace Vanguard\Http\Controllers\Web\Page;
 
 use Vanguard\Http\Controllers\Controller;
-use Vanguard\Http\Requests\Page\CreatePageRequest;
-use Vanguard\Http\Requests\Page\UpdatePageRequest;
+use Vanguard\Http\Requests\Page\Page\CreatePageRequest;
+use Vanguard\Http\Requests\Page\Page\UpdatePageRequest;
 use Vanguard\Repositories\Pages\PagesRepository;
 use Vanguard\Services\Logging\Logger;
 

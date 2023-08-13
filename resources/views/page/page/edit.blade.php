@@ -116,7 +116,7 @@
 @stop
 
 @section('scripts')
-    {!! JsValidator::formRequest('Vanguard\Http\Requests\Page\UpdatePageRequest','#post-form') !!}
+    {!! JsValidator::formRequest('Vanguard\Http\Requests\Page\Page\UpdatePageRequest','#post-form') !!}
 
     <script src="https://cdn.tiny.cloud/1/lg6h230fe5wxcjpfgs2okfa1v75r1xxl7m3wnyzomdvpc9zi/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>
