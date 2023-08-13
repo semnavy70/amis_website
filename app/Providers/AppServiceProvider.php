@@ -9,6 +9,8 @@ use Vanguard\Repositories\Document\DocumentRepository;
 use Vanguard\Repositories\Document\EloquentDocument;
 use Vanguard\Repositories\DocumentCategory\DocumentCategoryRepository;
 use Vanguard\Repositories\DocumentCategory\EloquentDocumentCategory;
+use Vanguard\Repositories\Front\News\EloquentNews;
+use Vanguard\Repositories\Front\News\NewsRepository;
 use Vanguard\Repositories\FrontApi\EloquentFrontApi;
 use Vanguard\Repositories\FrontApi\FrontApiRepository;
 use Vanguard\Repositories\PageCategory\EloquentPageCategory;
@@ -79,6 +81,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerAdminRepo();
+        $this->registerFrontRepo();
+
+        if ($this->app->environment('local')) {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
+    }
+
+    private function registerAdminRepo()
+    {
         $this->app->singleton(UserRepository::class, EloquentUser::class);
         $this->app->singleton(ActivityRepository::class, EloquentActivity::class);
         $this->app->singleton(RoleRepository::class, EloquentRole::class);
@@ -100,9 +113,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(DocumentRepository::class, EloquentDocument::class);
         $this->app->singleton(DocumentCategoryRepository::class, EloquentDocumentCategory::class);
 
-        if ($this->app->environment('local')) {
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
-        }
+    }
+
+    private function registerFrontRepo()
+    {
+        $this->app->singleton(NewsRepository::class, EloquentNews::class);
     }
 }

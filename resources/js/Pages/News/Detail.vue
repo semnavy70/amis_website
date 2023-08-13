@@ -7,22 +7,27 @@
                     <div class="col-12 col-sm-12 col-md-9 col-lg-9">
                         <p class="detail-title d-inline-flex text-green align-items-center">
                             <i class="fa-solid fa-share me-2"></i>
-                            ការចុះពិនិត្យ តាមដានការប្រមូលផល និងតម្លៃស្រូវរបស់បងប្អូនប្រជាកសិករនៅខេត្តបាត់ដំបង
+                            {{ post.title }}
                         </p>
                         <hr>
-                        <div class="bg-primary" style="height: 400px">
-                            <h4 class="text-white">Detail section</h4>
+
+                        <div v-if="post.image">
+                            <img :src="getImage(post.image)" alt="" class="w-100">
                         </div>
+
+                        <div v-html="post.body"></div>
+                        <!--                        <div class="bg-primary" style="height: 400px">-->
+                        <!--                            <h4 class="text-white">Detail section</h4>-->
+                        <!--                        </div>-->
+
                         <p class="mt-2 fs-14 mt-3">
                             <i class="fa-solid fa-user me-1"></i>
-                            <span>Administrator</span>
-                            <span>| ថ្ងៃ អង្គារ ទី ២៧ ខែ មិថុនា ឆ្នាំ ២០២៣</span>
+                            <span>{{ post.by }}</span>
+                            <span> | {{ post.kh_created_at }}</span>
                         </p>
                     </div>
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3">
-                        <RelateNews
-                            title="ស្ថានភាពផលិតកម្ម និងតម្លៃទីផ្សារកសិផលសំខាន់ៗ"
-                        />
+                        <RelateNews :list="related"/>
                     </div>
                 </div>
             </div>
@@ -31,10 +36,16 @@
 </template>
 
 <script setup>
+import {Link} from '@inertiajs/vue3';
+import App from "@/Layouts/App.vue";
+import RelateNews from "@/components/RelateNews.vue";
+import BreadCrumb from "@/components/BreadCrumb.vue";
 
-import App from "../../Layouts/App.vue";
-import RelateNews from "../../components/RelateNews.vue";
-import BreadCrumb from "../../components/BreadCrumb.vue";
+defineProps({
+    post: Object,
+    related: Array,
+});
+
 </script>
 
 <style scoped>
