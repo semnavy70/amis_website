@@ -10,6 +10,7 @@ use Vanguard\Support\Plugins\Dashboard\Widgets\PostHistory;
 use Vanguard\Support\Plugins\Dashboard\Widgets\TotalAdvertises;
 use Vanguard\Support\Plugins\Dashboard\Widgets\TotalPosts;
 use Vanguard\Support\Plugins\Dashboard\Widgets\TotalUsers;
+use Vanguard\Support\Plugins\DocumentManagement;
 use Vanguard\Support\Plugins\FileManagerManagement;
 use Vanguard\Support\Plugins\MenusManagement;
 use Vanguard\Support\Plugins\PagesManagement;
@@ -31,6 +32,7 @@ class VanguardServiceProvider extends BaseVanguardServiceProvider
             Dashboard::class,
             PostManagement::class,
             PagesManagement::class,
+            DocumentManagement::class,
 //            AdvertiseManagement::class,
 //            MenusManagement::class,
             FileManagerManagement::class,

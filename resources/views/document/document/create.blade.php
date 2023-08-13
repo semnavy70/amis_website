@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
-@section('page-title', __('Create page'))
-@section('page-heading', __('Manage pages'))
+@section('document-title', __('Create document'))
+@section('document-heading', __('Manage documents'))
 
 @section('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="{{ route('post.index') }}" class="text-muted">
-            @lang('Pages')
+            @lang('Documents')
         </a>
     </li>
     <li class="breadcrumb-item active">
-        @lang('Create page')
+        @lang('Create document')
     </li>
 @stop
 
 @section('content')
     @include('partials.messages')
     <div class="create-post">
-        <form action="{{ route('page.store') }}" method="POST" id="post-form" enctype="multipart/form-data">
+        <form action="{{ route('document.store') }}" method="POST" id="post-form" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-9">
@@ -62,7 +62,7 @@
                         <label for="category_id">@lang('Type*')</label>
                         <select name="category_id" class="form-control" id="category_id">
                             <option value="">--ជ្រើសរើស--</option>
-                            @foreach($pageCategory as $category)
+                            @foreach($documentCategory as $category)
                                 <option
                                     {{ old('category_id') === $category->id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -75,7 +75,7 @@
                     <div class="form-group">
                         <label for="status">@lang('Status*')</label>
                         <select name="status" class="form-control select-box" id="status">
-                            @foreach($pageStatus as $status)
+                            @foreach($documentStatus as $status)
                                 <option
                                     {{ old('status') == $status->slug ? 'selected' : '' }} value="{{ $status->slug }}">{{ $status->name }}</option>
                             @endforeach
@@ -106,7 +106,7 @@
 @stop
 
 @section('scripts')
-    {!! JsValidator::formRequest('Vanguard\Http\Requests\Page\CreatePageRequest','#post-form') !!}
+    {!! JsValidator::formRequest('Vanguard\Http\Requests\Document\CreateDocumentRequest','#post-form') !!}
     <script src="https://cdn.tiny.cloud/1/lg6h230fe5wxcjpfgs2okfa1v75r1xxl7m3wnyzomdvpc9zi/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>
     <script>
@@ -115,7 +115,7 @@
             selector: 'textarea#my-editor',
             relative_urls: false,
             plugins: [
-                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                "advlist autolink lists link image charmap print preview hr anchor documentbreak",
                 "searchreplace wordcount visualblocks visualchars code fullscreen",
                 "insertdatetime media nonbreaking save table directionality",
                 "emoticons template paste textpattern"

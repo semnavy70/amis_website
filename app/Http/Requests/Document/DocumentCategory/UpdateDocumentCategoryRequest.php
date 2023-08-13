@@ -1,10 +1,10 @@
 <?php
 
-namespace Vanguard\Http\Requests\Page\PageCategory;
+namespace Vanguard\Http\Requests\Document\DocumentCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePageCategoryRequest extends FormRequest
+class UpdateDocumentCategoryRequest extends FormRequest
 {
 
     public function authorize()

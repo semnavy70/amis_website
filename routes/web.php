@@ -120,6 +120,25 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
 
 
     /**
+     * Document
+     */
+
+//    Route::get('/page/index', 'Page\PageController@index')->name('page.index');
+//    Route::get('/page/create', 'Page\PageController@create')->name('page.create');
+//    Route::post('/page/store', 'Page\PageController@store')->name('page.store');
+//    Route::post('/page/update', 'Page\PageController@update')->name('page.update');
+//    Route::get('/page/edit/{id}', 'Page\PageController@edit')->name('page.edit');
+//    Route::delete('/page/delete/{id}', 'Page\PageController@delete')->name('page.delete');
+
+    Route::get('/document-category/index', 'Document\DocumentCategoryController@index')->name('document-category.index');
+    Route::get('/document-category/create', 'Document\DocumentCategoryController@create')->name('document-category.create');
+    Route::post('/document-category/store', 'Document\DocumentCategoryController@store')->name('document-category.store');
+    Route::get('/document-category/edit/{id}', 'Document\DocumentCategoryController@edit')->name('document-category.edit');
+    Route::post('/document-category/update', 'Document\DocumentCategoryController@update')->name('document-category.update');
+    Route::delete('/document-category/delete/{id}', 'Document\DocumentCategoryController@delete')->name('document-category.delete');
+
+
+    /**
      * MenusItem
      */
 

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('page-title', __('Pages'))
-@section('page-heading', __('Manage Pages'))
+@section('document-title', __('Documents'))
+@section('document-heading', __('Manage Documents'))
 
 @section('breadcrumbs')
     <li class="breadcrumb-item active">
-        @lang('Pages')
+        @lang('Documents')
     </li>
 @stop
 
@@ -13,18 +13,19 @@
     @include('partials.messages')
     <div class="row">
         <div class="col-6">
-            <form class="form-inline" action="{{ route('page.index') }}" method="GET">
+            <form class="form-inline" action="{{ route('document.index') }}" method="GET">
                 <input name="search" class="form-control mr-sm-2 w-75" type="search" placeholder="@lang('Search')"
                        aria-label="Search" value="{{ request()->search }}">
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">@lang('Search')</button>
             </form>
         </div>
         <div class="col-6 d-flex justify-content-end">
-            <a role="button" class="btn btn-primary ml-3" href="{{ route('page.create') }}"><i
+            <a role="button" class="btn btn-primary ml-3" href="{{ route('document.create') }}"><i
                     class="fas fa-plus mr-1"></i>@lang('Create new')</a>
             <a role="button" id="delete-many-btn" class="btn btn-danger ml-3 disabled"
                href="" data-toggle="tooltip" data-placement="top" data-method="DELETE"
-               data-confirm-title="@lang('ផ្ទៀងផ្ទាត់')" data-confirm-text="@lang('តើអ្នកពិតជាចង់លុបបង្ហោះទាំងនេះមែនទេ?')"
+               data-confirm-title="@lang('ផ្ទៀងផ្ទាត់')"
+               data-confirm-text="@lang('តើអ្នកពិតជាចង់លុបបង្ហោះទាំងនេះមែនទេ?')"
                data-confirm-delete="@lang('យល់ព្រម')">
                 <i class="fas fa-trash mr-1"></i>
                 @lang('Delete')
@@ -67,12 +68,12 @@
                 <td>{{ dmYDate($item->created_at) }}</td>
                 <td class="text-center">
                     <div class="row">
-                        <a href="{{ route('page.edit', ['id' => $item->id]) }}" class="btn btn-sm btn-primary"
+                        <a href="{{ route('document.edit', ['id' => $item->id]) }}" class="btn btn-sm btn-primary"
                            title="@lang('កែទំព័រ')" data-toggle="tooltip"><i class="fas fa-edit"></i>
                         </a>
                         <a class="btn btn-sm btn-danger ml-1"
                            title="@lang('លុបទំព័រ')"
-                           href="{{ route('page.delete', ['id' => $item->id]) }}"
+                           href="{{ route('document.delete', ['id' => $item->id]) }}"
                            data-toggle="tooltip"
                            data-placement="top"
                            data-method="DELETE"
@@ -97,13 +98,13 @@
         let checkItem = $("input.check-item");
         let deleteBtn = $("#delete-many-btn");
 
-        allCheck.on("change", function() {
+        allCheck.on("change", function () {
             const isChecked = $(this)[0]['checked'];
             checkItem.prop("checked", isChecked);
             itemOnChange();
         });
 
-        checkItem.on("change", function() {
+        checkItem.on("change", function () {
             itemOnChange();
         });
 

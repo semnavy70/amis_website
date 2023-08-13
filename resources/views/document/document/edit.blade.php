@@ -5,8 +5,8 @@
 
 @section('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('post.index') }}" class="text-muted">
-            @lang('Page')
+        <a href="{{ route('document.index') }}" class="text-muted">
+            @lang('Document')
         </a>
     </li>
     <li class="breadcrumb-item active">
@@ -16,8 +16,8 @@
 
 @section('content')
     @include('partials.messages')
-    <div class="create-post">
-        <form action="{{ route('page.update') }}" method="POST" id="post-form" enctype="multipart/form-data">
+    <div class="create-document">
+        <form action="{{ route('page.update') }}" method="POST" id="document-form" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{ $page->id }}">
             <input type="hidden" name="old_status" value="{{ $page->status }}">
@@ -116,7 +116,7 @@
 @stop
 
 @section('scripts')
-    {!! JsValidator::formRequest('Vanguard\Http\Requests\Page\UpdatePageRequest','#post-form') !!}
+    {!! JsValidator::formRequest('Vanguard\Http\Requests\Document\UpdateDocumentRequest','#document-form') !!}
 
     <script src="https://cdn.tiny.cloud/1/lg6h230fe5wxcjpfgs2okfa1v75r1xxl7m3wnyzomdvpc9zi/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>

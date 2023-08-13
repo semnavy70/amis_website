@@ -1,12 +1,11 @@
 <?php
 
-namespace Vanguard\Http\Requests\Page\PageCategory;
+namespace Vanguard\Http\Requests\Document\DocumentCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePageCategoryRequest extends FormRequest
+class CreateDocumentCategoryRequest extends FormRequest
 {
-
     public function authorize()
     {
         return true;
@@ -16,8 +15,7 @@ class UpdatePageCategoryRequest extends FormRequest
     {
         return [
             "name" => 'required',
-            "category_id" => 'required',
-//            "slug" => 'required'
+            "slug" => 'required|unique:post_categories,slug',
         ];
     }
 
@@ -25,8 +23,8 @@ class UpdatePageCategoryRequest extends FormRequest
     {
         return [
             "name.required" => "សូមបញ្ចូលឈ្មោះ",
-//           "slug.required" => "សូមបញ្ចូល Slug"
+            "slug.required" => "សូមបញ្ចូល Slug",
+            "slug.unique" => "Slug ជាន់គេ"
         ];
     }
-
 }

@@ -5,6 +5,8 @@ namespace Vanguard\Providers;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
+use Vanguard\Repositories\DocumentCategory\DocumentCategoryRepository;
+use Vanguard\Repositories\DocumentCategory\EloquentDocumentCategory;
 use Vanguard\Repositories\FrontApi\EloquentFrontApi;
 use Vanguard\Repositories\FrontApi\FrontApiRepository;
 use Vanguard\Repositories\MenuItems\EloquentMenuItemsItems;
@@ -72,7 +74,7 @@ class AppServiceProvider extends ServiceProvider
 
         \Illuminate\Pagination\Paginator::useBootstrap();
 
-        Inertia::titleTemplate(fn($title) => $title ? "$title | AMIS" : 'Home | AMIS');
+        Inertia::titleTemplate(fn($title) => $title ? "$title | CAMAGRIMARKET" : 'Home | CAMAGRIMARKET');
 
     }
 
@@ -105,6 +107,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ThemesRepository::class, EloquentThemes::class);
         $this->app->singleton(PagesRepository::class, EloquentPages::class);
         $this->app->singleton(PageCategoryRepository::class, EloquentPageCategory::class);
+        $this->app->singleton(DocumentCategoryRepository::class, EloquentDocumentCategory::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

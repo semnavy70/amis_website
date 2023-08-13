@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
-@section('page-title', __('Create page category'))
-@section('page-heading', __('Manage page'))
+@section('document-title', __('Create document category'))
+@section('document-heading', __('Manage document'))
 
 @section('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('page-category.index') }}" class="text-muted">
-            @lang('Post category')
+        <a href="{{ route('document-category.index') }}" class="text-muted">
+            @lang('Document category')
         </a>
     </li>
     <li class="breadcrumb-item active">
-        @lang('Create page category')
+        @lang('Create document category')
     </li>
 @stop
 
 @section('content')
     @include('partials.messages')
-    <form action="{{route("page-category.store")}}" method="POST" id="page-category-form">
+    <form action="{{route("document-category.store")}}" method="POST" id="document-category-form">
         @csrf
         <div class="form-group">
             <label for="name">@lang('Name*')</label>
@@ -47,5 +47,5 @@
 @stop
 
 @section('scripts')
-    {!! JsValidator::formRequest('Vanguard\Http\Requests\Post\PostCategory\CreatePostCategoryRequest','#page-category-form') !!}
+    {!! JsValidator::formRequest('Vanguard\Http\Requests\Document\DocumentCategory\CreateDocumentCategoryRequest','#document-category-form') !!}
 @stop
