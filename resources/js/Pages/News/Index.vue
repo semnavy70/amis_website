@@ -40,15 +40,8 @@
                     </div>
                 </div>
             </div>
-            <nav class="mt-4">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#">ថយក្រោយ</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link text-green" href="#">បន្ទាប់</a></li>
-                </ul>
-            </nav>
+
+            <Pagination v-if="paginate.total" :links="paginate.links"></Pagination>
         </div>
     </App>
 </template>
@@ -57,6 +50,7 @@
 import {Link} from '@inertiajs/vue3';
 import App from "@/Layouts/App.vue";
 import IntroSection from "@/Components/IntroSection.vue";
+import Pagination from "@/Components/Pagination.vue";
 
 defineProps({
     paginate: Object,
