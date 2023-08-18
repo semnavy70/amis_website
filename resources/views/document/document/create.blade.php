@@ -28,9 +28,8 @@
                     </div>
                     <div class="form-group">
                         <label for="excerpt">@lang('Description')</label>
-                        <textarea name="description" class="form-control" id="excerpt" rows="4">
-                            {{ old('decription') }}
-                        </textarea>
+                        <textarea name="description" class="form-control" id="excerpt"
+                                  rows="4">{{ old('decription') }}</textarea>
                     </div>
                 </div>
                 <div class="col-5">

@@ -15,6 +15,11 @@
                         {{ page.title }}
                     </h3>
                     <div v-html="page.body"></div>
+
+                    <div v-if="slug === 'contact-us'">
+                        <ContactUsForm/>
+                    </div>
+
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-3 col-lg-3">
@@ -41,10 +46,12 @@ import App from "@/Layouts/App.vue";
 import IntroSection from "@/Components/IntroSection.vue";
 import BreadCrumb from "@/Components/BreadCrumb.vue";
 import {Link} from "@inertiajs/vue3";
+import ContactUsForm from "../../Components/Form/ContactUsForm.vue";
 
 defineProps({
     page: Object,
     related: Array,
+    slug: String,
 })
 
 </script>

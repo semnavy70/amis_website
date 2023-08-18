@@ -16,7 +16,7 @@
             </ul>
         </div>
     </div>
-    <div class="header border-bottom sticky-top">
+    <div class="header border-bottom position-sticky top-0 z-3">
         <nav class="navbar navbar-expand-lg bg-white">
             <div class="container">
                 <a class="navbar-brand" href="/">

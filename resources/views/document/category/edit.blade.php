@@ -21,7 +21,8 @@
         <input type="hidden" name="id" value="{{$documentCategory->id}}">
         <div class="form-group">
             <label for="name">@lang('Name*')</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{old("name")??$documentCategory->name}}">
+            <input type="text" class="form-control" id="name" name="name"
+                   value="{{old("name")??$documentCategory->name}}">
         </div>
         <div class="form-group">
             <label for="categorySlug">@lang('Slug*')</label>
@@ -30,9 +31,8 @@
         </div>
         <div class="form-group">
             <label for="order">@lang('Description')</label>
-            <textarea class="form-control" id="description" name="description" rows="4">
-                {{old("description")??$documentCategory->description}}
-            </textarea>
+            <textarea class="form-control" id="description" name="description"
+                      rows="4">{{old("description")??$documentCategory->description}}</textarea>
         </div>
         <div class="form-group">
             <label for="order">@lang('Order')</label>
