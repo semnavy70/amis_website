@@ -22,6 +22,7 @@ class PageController extends Controller
             abort(404);
         }
         $data = [
+            'slug' => $slug,
             'page' => $page,
             'related' => $this->page->related($page),
         ];
