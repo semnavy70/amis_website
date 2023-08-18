@@ -13,7 +13,8 @@ function submit() {
   form.post(route('client.contact-us'), {
     preserveScroll: true,
     onSuccess: () => {
-      // form.reset();
+      form.reset();
+
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',

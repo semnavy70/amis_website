@@ -120,6 +120,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::post('/page-category/update', 'Page\PageCategoryController@update')->name('page-category.update');
     Route::delete('/page-category/delete/{id}', 'Page\PageCategoryController@delete')->name('page-category.delete');
 
+    Route::get('/page-contact-us', 'Page\ContactUsController@index')->name('page.contact-us');
+
 
     /**
      * Document
