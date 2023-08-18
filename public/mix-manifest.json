@@ -1,11 +1,11 @@
 {
-    "/frontend/js/app.js": "/frontend/js/app.js",
-    "/frontend/css/app.css": "/frontend/css/app.css",
-    "/assets/css/app.css": "/assets/css/app.css",
-    "/assets/js/vendor.js": "/assets/js/vendor.js",
-    "/assets/css/vendor.css": "/assets/css/vendor.css",
-    "/assets/js/vendor.min.js": "/assets/js/vendor.min.js",
-    "/assets/css/vendor.min.css": "/assets/css/vendor.min.css",
-    "/frontend/js/app.min.js": "/frontend/js/app.min.js",
-    "/frontend/css/app.min.css": "/frontend/css/app.min.css"
+    "/frontend/js/app.js": "/frontend/js/app.js?id=2ea9b9bf373f3186e19f169e5685638b",
+    "/frontend/css/app.css": "/frontend/css/app.css?id=376bc565b908fffd15a42c52020ee4d5",
+    "/assets/css/app.css": "/assets/css/app.css?id=3e603af092e4bf894399001a7e861563",
+    "/assets/js/vendor.js": "/assets/js/vendor.js?id=4095737beb53cc581c9f32f21296bd89",
+    "/assets/css/vendor.css": "/assets/css/vendor.css?id=f1de1627c03b25042b7b3633b95af5d3",
+    "/assets/js/vendor.min.js": "/assets/js/vendor.min.js?id=4095737beb53cc581c9f32f21296bd89",
+    "/assets/css/vendor.min.css": "/assets/css/vendor.min.css?id=d41d8cd98f00b204e9800998ecf8427e",
+    "/frontend/js/app.min.js": "/frontend/js/app.min.js?id=2ea9b9bf373f3186e19f169e5685638b",
+    "/frontend/css/app.min.css": "/frontend/css/app.min.css?id=376bc565b908fffd15a42c52020ee4d5"
 }
