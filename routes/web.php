@@ -14,6 +14,8 @@ Route::get('/page/{slug}', [\Vanguard\Http\Controllers\Web\Front\PageController:
 Route::get('/contact-us', [\Vanguard\Http\Controllers\Web\Front\ContactUsController::class, 'index'])->name('contact_us.index');
 Route::get('/search', [\Vanguard\Http\Controllers\Web\Front\SearchController::class, 'index'])->name('search.index');
 
+Route::post('/client/contact-us', [\Vanguard\Http\Controllers\Web\Front\ClientController::class, 'contactUs'])->name('client.contact-us');
+
 /**
  * Authentication
  */

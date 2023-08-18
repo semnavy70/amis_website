@@ -44,6 +44,7 @@
         "jquery": "^3.6.3",
         "pinia": "^2.0.30",
         "popper.js": "^1.16.1",
+        "sweetalert2": "^11.7.23",
         "vue": "^3.2.45",
         "vue-masonry": "^0.16.0",
         "vue-social-sharing": "^4.0.0-alpha4",
