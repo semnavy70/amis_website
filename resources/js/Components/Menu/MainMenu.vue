@@ -17,7 +17,7 @@
             />
             <MenuItem
                 name="បណ្តាញអាជីវកម្ម"
-                address="https://market.camagrimarket.org/kh/market"
+                address="https://market.camagrimarket.org"
             />
 
             <li class="nav-item dropdown">
@@ -87,19 +87,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </a>
-                <!-- Modal Search -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <input type="search" class="form-control" id="search-input" placeholder="ស្វែងរក...">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <SearchBox/>
             </li>
         </ul>
     </div>
@@ -109,6 +97,7 @@
 import {Link} from "@inertiajs/vue3";
 import SubMenuItem from "@/Components/Menu/SubMenuItem.vue";
 import MenuItem from "@/Components/Menu/MenuItem.vue";
+import SearchBox from "@/Components/Menu/SearchBox.vue";
 
 
 </script>
