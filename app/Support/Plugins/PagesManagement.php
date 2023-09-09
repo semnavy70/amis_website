@@ -19,14 +19,21 @@ class PagesManagement extends Plugin
             ->active("admin/page-category/*")
             ->permissions('page-category.manage');
 
+
+        $contactUs = Item::create(__('Contact us'))
+            ->route('page.contact-us')
+            ->active("admin/page/contact-us")
+            ->permissions('pages.manage');
+
         return Item::create(__('Manage Pages'))
             ->href('#page-management-dropdown')
-            ->icon('far fa-clipboard')
-            ->active("admin/page*")
+            ->icon('fas fa-solid fa-file')
+            ->active("admin/page-contact-us")
             ->permissions(['pages.manage'])
             ->addChildren([
                 $page,
                 $category,
+                $contactUs,
             ]);
     }
 }

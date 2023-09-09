@@ -7,8 +7,8 @@ use Vanguard\Support\Enum\DeviceType;
 
 function getFileCDN($file)
 {
-    if(\Illuminate\Support\Str::contains($file,"http")){
-        return  $file;
+    if (\Illuminate\Support\Str::contains($file, "http")) {
+        return $file;
     }
     $path = 'https://storage.googleapis.com/indo-pacific/' . $file;
 
@@ -266,8 +266,8 @@ if (!function_exists('callAPI')) {
     function callAPI($method, $url, $data = false)
     {
         $curl = curl_init();
-     if ($data)
-         $data =  http_build_query($data);
+        if ($data)
+            $data = http_build_query($data);
         switch ($method) {
             case "POST":
                 curl_setopt($curl, CURLOPT_POST, true);
@@ -313,5 +313,20 @@ if (!function_exists('readableDate')) {
     function readableDate(string $date): string
     {
         return date("F j, Y, g:i a", strtotime($date));
+    }
+}
+
+if (!function_exists('khmerFullDate')) {
+    function khmerFullDate(string $date): string
+    {
+        return str_replace([
+            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
+            'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        ], [
+            'អាទិត្យ', 'ច័ន្ទ', 'អង្គារ', 'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ', 'សៅរ៍',
+            'មករា', 'កុម្ភៈ', 'មិនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ',
+            '០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩',
+        ], $date);
     }
 }

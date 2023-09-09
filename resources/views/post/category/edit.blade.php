@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
             <label for="categorySlug">@lang('Slug*')</label>
-            <input type="text" class="form-control" id="slug" name="slug" disabled
+            <input type="text" class="form-control" id="slug" name="slug"
                    value="{{old("slug")??$postCategory->slug}}">
         </div>
         <div class="form-group">

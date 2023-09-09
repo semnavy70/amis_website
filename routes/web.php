@@ -1,18 +1,20 @@
 <?php
 
+use UniSharp\LaravelFilemanager\Lfm;
+
 /**
  * Front
  */
 
-use UniSharp\LaravelFilemanager\Lfm;
-
 Route::get('/', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'index'])->name('home.index');
 Route::get('/article', [\Vanguard\Http\Controllers\Web\Front\NewsController::class, 'index'])->name('news.index');
 Route::get('/article/{id}', [\Vanguard\Http\Controllers\Web\Front\NewsController::class, 'detail'])->name('news.detail');
-Route::get('/document/{slug}', [\Vanguard\Http\Controllers\Web\Front\DocumentController::class, 'index'])->name('document.index');
-Route::get('/other-page/{slug}', [\Vanguard\Http\Controllers\Web\Front\PageController::class, 'index'])->name('other_page.index');
+Route::get('/document/{slug}', [\Vanguard\Http\Controllers\Web\Front\DocumentController::class, 'index'])->name('document.detail');
+Route::get('/page/{slug}', [\Vanguard\Http\Controllers\Web\Front\PageController::class, 'index'])->name('page.detail');
 Route::get('/contact-us', [\Vanguard\Http\Controllers\Web\Front\ContactUsController::class, 'index'])->name('contact_us.index');
 Route::get('/search', [\Vanguard\Http\Controllers\Web\Front\SearchController::class, 'index'])->name('search.index');
+
+Route::post('/client/contact-us', [\Vanguard\Http\Controllers\Web\Front\ClientController::class, 'contactUs'])->name('client.contact-us');
 
 /**
  * Authentication
@@ -118,17 +120,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::post('/page-category/update', 'Page\PageCategoryController@update')->name('page-category.update');
     Route::delete('/page-category/delete/{id}', 'Page\PageCategoryController@delete')->name('page-category.delete');
 
+    Route::get('/page-contact-us', 'Page\ContactUsController@index')->name('page.contact-us');
+
 
     /**
      * Document
      */
 
-//    Route::get('/page/index', 'Page\PageController@index')->name('page.index');
-//    Route::get('/page/create', 'Page\PageController@create')->name('page.create');
-//    Route::post('/page/store', 'Page\PageController@store')->name('page.store');
-//    Route::post('/page/update', 'Page\PageController@update')->name('page.update');
-//    Route::get('/page/edit/{id}', 'Page\PageController@edit')->name('page.edit');
-//    Route::delete('/page/delete/{id}', 'Page\PageController@delete')->name('page.delete');
+    Route::get('/document/index', 'Document\DocumentController@index')->name('document.index');
+    Route::get('/document/create', 'Document\DocumentController@create')->name('document.create');
+    Route::post('/document/store', 'Document\DocumentController@store')->name('document.store');
+    Route::post('/document/update', 'Document\DocumentController@update')->name('document.update');
+    Route::get('/document/edit/{id}', 'Document\DocumentController@edit')->name('document.edit');
+    Route::delete('/document/delete/{id}', 'Document\DocumentController@delete')->name('document.delete');
 
     Route::get('/document-category/index', 'Document\DocumentCategoryController@index')->name('document-category.index');
     Route::get('/document-category/create', 'Document\DocumentCategoryController@create')->name('document-category.create');
@@ -136,7 +140,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::get('/document-category/edit/{id}', 'Document\DocumentCategoryController@edit')->name('document-category.edit');
     Route::post('/document-category/update', 'Document\DocumentCategoryController@update')->name('document-category.update');
     Route::delete('/document-category/delete/{id}', 'Document\DocumentCategoryController@delete')->name('document-category.delete');
-
 
 
     /**
@@ -187,7 +190,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
 
     Route::group(['prefix' => 'profile', 'namespace' => 'Profile'], function () {
         Route::get('/', 'ProfileController@show')->name('profile');
-        Route::get('activity', 'ActivityController@show')->name('profile.activity');
+//        Route::get('activity', 'ActivityController@show')->name('profile.activity');
         Route::put('details', 'DetailsController@update')->name('profile.update.details');
 
         Route::post('avatar', 'AvatarController@update')->name('profile.update.avatar');

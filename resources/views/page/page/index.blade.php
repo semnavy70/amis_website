@@ -41,11 +41,11 @@
                 </div>
             </th>
             <th scope="col">@lang('Title')</th>
-{{--            <th scope="col">@lang('Default picture')</th>--}}
-{{--            <th scope="col">@lang('By')</th>--}}
+            <th scope="col">@lang('Slug')</th>
+            <th scope="col">@lang('Category')</th>
             <th scope="col">@lang('Status')</th>
             <th scope="col">@lang('Create')</th>
-            <th scope="col" class="text-center">@lang('Activity')</th>
+            <th scope="col">@lang('Activity')</th>
         </tr>
         </thead>
         <tbody>
@@ -59,12 +59,10 @@
                     </div>
                 </th>
                 <td class="w-25">{{ $item->title }}</td>
-{{--                <td>--}}
-{{--                    <img src="{{ getFileCDN($item->image) }}" alt="" width="140">--}}
-{{--                </td>--}}
-{{--                <td class="text-active-color justify-content-center">{{ $item->by }}</td>--}}
+                <td class="w-25 text-primary">{{ $item->slug }}</td>
+                <td class="w-25 text-warning">{{ $item->category_name }}</td>
                 <td class="text-gray-500 justify-content-center">{{ $item->status_name }}</td>
-                <td>{{ dmYDate($item->created_at) }}</td>
+                <td class="w-25">{{ dmYDate($item->created_at) }}</td>
                 <td class="text-center">
                     <div class="row">
                         <a href="{{ route('page.edit', ['id' => $item->id]) }}" class="btn btn-sm btn-primary"

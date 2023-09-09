@@ -25,14 +25,13 @@
         </div>
         <div class="form-group">
             <label for="categorySlug">@lang('Slug*')</label>
-            <input type="text" class="form-control" id="slug" name="slug" disabled
+            <input type="text" class="form-control" id="slug" name="slug"
                    value="{{old("slug")??$pageCategory->slug}}">
         </div>
         <div class="form-group">
             <label for="order">@lang('Description')</label>
-            <textarea class="form-control" id="description" name="description" rows="4">
-                {{old("description")??$pageCategory->description}}
-            </textarea>
+            <textarea class="form-control" id="description" name="description"
+                      rows="4">{{old("description")??$pageCategory->description}}</textarea>
         </div>
         <div class="form-group">
             <label for="order">@lang('Order')</label>

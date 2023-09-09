@@ -13,7 +13,6 @@ class EloquentPages implements PagesRepository
 {
     private $fileManager;
     private $folder;
-    private $source;
 
     public function __construct(UploadFileManager $fileManager)
     {
@@ -26,6 +25,7 @@ class EloquentPages implements PagesRepository
         return DB::table('pages as p')
             ->leftJoin('users as u', 'p.by', '=', 'u.id')
             ->leftJoin('post_statuses as ps', 'ps.slug', '=', 'p.status')
+            ->leftJoin('page_categories as pc', 'pc.id', '=', 'p.category_id')
             ->when($search, function ($q) use ($search) {
                 $q->where('p.title', "LIKE", "%" . $search . "%")
                     ->orWhere('p.slug', "LIKE", "%" . $search . "%")
@@ -38,7 +38,15 @@ class EloquentPages implements PagesRepository
                     ->orWhere('u.first_name', "LIKE", "%" . $search . "%")
                     ->orWhere('u.last_name', "LIKE", "%" . $search . "%");
             })
-            ->select('p.*', "u.last_name as by", "ps.name as status_name")
+            ->select([
+                'p.id as id',
+                'p.title as title',
+                'p.slug as slug',
+                'p.created_at as created_at',
+                "u.last_name as by",
+                "ps.name as status_name",
+                "pc.name as category_name",
+                ])
             ->orderBy('p.created_at', 'desc')
             ->paginate($paginate);
     }
@@ -57,11 +65,13 @@ class EloquentPages implements PagesRepository
         $page->status = $data["status"];
         $page->category_id = $data["category_id"];
 
-        if (isset($data["image"])) {
-            $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
-        } else {
-            $page->image = null;
-        }
+        $page->image = null;
+//        if (isset($data["image"])) {
+//            $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
+//        } else {
+//            $page->image = null;
+//        }
+
         $page->by = auth()->user()->id;
         $page->save();
 
@@ -109,13 +119,15 @@ class EloquentPages implements PagesRepository
         $page->status = $data["status"];
         $page->category_id = $data["category_id"];
 
-        if (isset($data["image"])) {
-            if (is_file($data["image"])) {
-                $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
-            } else {
-                $page->image = null;
-            }
-        }
+        $page->image = null;
+//        if (isset($data["image"])) {
+//            if (is_file($data["image"])) {
+//                $page->image = $this->fileManager->uploadFile($data["image"], $this->folder);
+//            } else {
+//                $page->image = null;
+//            }
+//        }
+
         $page->save();
         return $page;
     }

@@ -16,8 +16,7 @@ class UpdatePageCategoryRequest extends FormRequest
     {
         return [
             "name" => 'required',
-            "category_id" => 'required',
-//            "slug" => 'required'
+            "slug" => 'required|unique:page_categories,slug,' . $this->id,
         ];
     }
 
@@ -25,7 +24,8 @@ class UpdatePageCategoryRequest extends FormRequest
     {
         return [
             "name.required" => "សូមបញ្ចូលឈ្មោះ",
-//           "slug.required" => "សូមបញ្ចូល Slug"
+            "slug.required" => "សូមបញ្ចូល Slug",
+            "slug.unique" => "Slug ជាន់គេ"
         ];
     }
 

@@ -11,7 +11,7 @@ class PartnerManagement extends Plugin
     {
         return Item::create(__('Manage Partner'))
             ->route('partner.index')
-            ->icon('fas fa-folder-open')
+            ->icon('fas fa-users')
             ->active("admin/partner*")
             ->permissions('partner.manage');
     }

@@ -17,6 +17,7 @@ createInertiaApp({
             .use(VueMasonryPlugin)
             .use(inertiaTitle)
             .use(VueSocialSharing)
+            .mixin(AppHelper)
             .mixin(ImageHelper)
             .mixin(DateHelper)
             .mixin(AppHelper)
