@@ -158,8 +158,8 @@ function onUpdated() {
                 :redrawOnUpdate="true"
                 :oneToOneUpdate="false"
                 :animateOnUpdate="true"
-                @updated="onUpdated"/>
-
+                @updated="onUpdated"
+            />
         </div>
     </div>
 </template>

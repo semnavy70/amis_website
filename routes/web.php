@@ -7,6 +7,9 @@ use UniSharp\LaravelFilemanager\Lfm;
  */
 
 Route::get('/', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'index'])->name('home.index');
+Route::get('/home/latest-product', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'latestRroduct'])->name('home.latest-product');
+Route::get('/home/monthly/{dataseriescode}/{cultureid}', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'monthly'])->name('home.monthly');
+
 Route::get('/article', [\Vanguard\Http\Controllers\Web\Front\NewsController::class, 'index'])->name('news.index');
 Route::get('/article/{id}', [\Vanguard\Http\Controllers\Web\Front\NewsController::class, 'detail'])->name('news.detail');
 Route::get('/document/{slug}', [\Vanguard\Http\Controllers\Web\Front\DocumentController::class, 'index'])->name('document.detail');

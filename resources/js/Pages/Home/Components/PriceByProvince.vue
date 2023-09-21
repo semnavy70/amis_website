@@ -11,7 +11,7 @@ const form = useForm({
 });
 
 onMounted(async () => {
-    updatePrice();
+    await updatePrice();
 });
 
 async function getMonthlyPrice() {
