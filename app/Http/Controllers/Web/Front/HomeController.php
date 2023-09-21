@@ -139,4 +139,65 @@ class HomeController extends Controller
     }
 
 
+    public function price(): array
+    {
+        $locale = $_GET['locale'];
+        $commodityCode = $_GET['commodityCode'];
+        $commodityCode1 = $_GET['commodityCode1'];
+        $commodityCode2 = $_GET['commodityCode2'];
+        $dataseries = $_GET['dataseries'];
+        $maxAge = $_GET['maxAge'];
+
+        $sql = "SELECT data.comodity_code,comodities.name_en,comodities.name_kh,mkt_date,value1 as price,data.id as dataid FROM data LEFT JOIN comodities ON data.comodity_code = comodities.code WHERE data.comodity_code IN($commodityCode,$commodityCode1,$commodityCode2) AND data.dataseries_code = '$dataseries' AND data.origin_code!='SMS' AND data.value1>0";
+
+        if ($maxAge !== null) {
+            $sql .= " AND mkt_date >= DATE_SUB(NOW(),INTERVAL $maxAge YEAR)";
+        }
+
+        $sql .= " GROUP BY YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)";
+        $sql .= " ORDER BY mkt_date ASC";
+
+        $result = DB::connection('tmp')->select($sql);
+        $prices = array();
+        foreach ($result as $row) {
+            if (!isset($prices[$row->comodity_code])) {
+                $prices[$row->comodity_code] = array(
+                    'code' => $row->comodity_code,
+                    'name' => $this->textToUnicode($locale == 2 ? $row->name_kh : $row->name_en),
+                    'prices' => array()
+                );
+            }
+            $prices[$row->comodity_code]['prices'][] = array(
+                'date' => $row->mkt_date,
+                'price' => $row->price,
+                'id' => $row->dataid,
+            );
+        }
+
+        return array_values($prices);
+    }
+
+    public function categories(): \Illuminate\Support\Collection
+    {
+        $lang = request()->get("language") ?? 1;
+        $name = $lang == 1 ? "name_kh" : "name_en";
+        return DB::connection('tmp')
+            ->table("categories as c")
+            ->orderBy("order")
+            ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
+            ->get();
+    }
+
+    public function commodities($categoryCode): \Illuminate\Support\Collection
+    {
+        $lang = request()->get("language") ?? 1;
+        $name = $lang == 1 ? "name_kh" : "name_en";
+        return DB::connection('tmp')
+            ->table("comodities as c")
+            ->where("category_code", $categoryCode)
+            ->orderBy("order")
+            ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
+            ->get();
+    }
+
 }

@@ -3,7 +3,6 @@ import {onMounted, ref} from "vue";
 import LvSkeleton from 'lightvue/skeleton';
 import axios from "axios";
 
-const prefixUrl = "https://tmp.camagrimarket.org/api/website/report/";
 const body = ref(null);
 const parentWidth = window.innerWidth;
 
