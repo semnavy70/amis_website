@@ -2,12 +2,16 @@
 
 namespace Vanguard\Repositories\Front\Home;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Vanguard\Support\Traits\HomePageTrait;
 
 class EloquentHome implements HomeRepository
 {
 
-    public function latestProduct(): array
+    use HomePageTrait;
+
+    public function latestProduct(): \Illuminate\Support\Collection
     {
         $limit = 12;
         $maxAge = 100;
@@ -53,27 +57,156 @@ class EloquentHome implements HomeRepository
     LIMIT $start, $limit
 ";
 
-        return DB::connection('tmp')->select($querySql);
+        return collect(DB::connection('tmp')
+            ->select($querySql))
+            ->map(function ($item) {
+                $status = "";
+                if ($item->latest_price > $item->previous_price) {
+                    $status = "OVER";
+                } elseif ($item->latest_price < $item->previous_price) {
+                    $status = "UNDER";
+                }
+                $item->latest_update = date_format(date_create($item->latest_update), 'd/m/Y');
+                $item->latest_price = number_format($item->latest_price, 2) . " KHR";
+
+                return [
+                    'name' => $item->name,
+                    'date' => $item->latest_update,
+                    'price' => $item->latest_price . "/" . $item->unit,
+                    'status' => $status,
+                ];
+            });
     }
 
     public function monthly($dataseriescode, $cultureid)
     {
-        // TODO: Implement monthly() method.
+        $startdate = Carbon::now()->subMonth();
+        $startdate->day = 1;
+        $enddate = Carbon::now();
+        $commodities = DB::connection('tmp')
+            ->table('comodities')
+            ->where("dataserries_code", 1)
+            ->get();
+        $makets = DB::connection('tmp')
+            ->table('data')
+            ->where('mkt_date', '>=', $startdate)
+            ->where('mkt_date', '<=', $enddate)
+            ->where('dataseries_code', $dataseriescode)
+            ->orderBy('market_code', 'ASC')
+            ->orderBy('mkt_date', 'ASC')
+            ->select('market_code')
+            ->groupBy('market_code')
+            ->get();
+        $arr = $makets->pluck('market_code');
+
+        $sample = Db::connection('tmp')
+            ->table('data')
+            ->whereIn('market_code', $arr)
+            ->where('mkt_date', '>=', $startdate)
+            ->where('mkt_date', '<=', $enddate)
+            ->where('dataseries_code', $dataseriescode)
+            ->where('origin_code', '!=', "SMS")
+            ->get();
+        session_start();
+        $_SESSION['alldata'] = $sample;
+        $list = array();
+        foreach ($makets as $item) {
+            $list1 = array();
+            $test = false;
+            foreach ($commodities as $item1) {
+                $commodity = $this->find($item1->code, $item->market_code);
+                $list1[] = array(
+                    'name' => $cultureid == 2 ? $item1->name_kh : $item1->name_en,
+                    'diff' => $commodity['diff'],
+                    'new' => $commodity['new'],
+                    'p' => $commodity['p']
+                );
+                if ($commodity['diff'] != 0) {
+                    $test = true;
+                }
+            }
+            if ($test) {
+                $market = Db::connection('tmp')
+                    ->table('markets')
+                    ->where("code", $item->market_code)
+                    ->first();
+                $list[] = array(
+                    "market" => $market,
+                    "region" => Db::connection('tmp')->table('regions')->where("code", $market->region_code)->first(),
+                    "commodity" => $list1
+                );
+            }
+        }
+
+        return $list;
     }
 
     public function price()
     {
-        // TODO: Implement price() method.
+        $locale = request()->get('locale');
+        $commodityCode = request()->get('commodityCode');
+        $commodityCode1 = request()->get('commodityCode1');
+        $commodityCode2 = request()->get('commodityCode2');
+        $dataseries = request()->get('dataseries');
+        $maxAge = request()->get('maxAge');
+
+        $sql = "
+        SELECT data.comodity_code,comodities.name_en,comodities.name_kh,mkt_date,value1 as price,data.id as dataid
+        FROM data
+            LEFT JOIN comodities ON data.comodity_code = comodities.code
+        WHERE data.comodity_code IN($commodityCode,$commodityCode1,$commodityCode2)
+          AND data.dataseries_code = '$dataseries'
+          AND data.origin_code!='SMS' AND data.value1>0
+";
+
+        if ($maxAge !== null) {
+            $sql .= " AND mkt_date >= DATE_SUB(NOW(),INTERVAL $maxAge YEAR)";
+        }
+
+        $sql .= " GROUP BY YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)";
+        $sql .= " ORDER BY mkt_date ASC";
+
+        $result = DB::connection('tmp')->select($sql);
+        $prices = array();
+        foreach ($result as $row) {
+            if (!isset($prices[$row->comodity_code])) {
+                $prices[$row->comodity_code] = array(
+                    'code' => $row->comodity_code,
+                    'name' => $this->textToUnicode($locale == 2 ? $row->name_kh : $row->name_en),
+                    'prices' => array()
+                );
+            }
+            $prices[$row->comodity_code]['prices'][] = array(
+                'date' => $row->mkt_date,
+                'price' => $row->price,
+                'id' => $row->dataid,
+            );
+        }
+
+        return array_values($prices);
     }
 
-    public function categories()
+    public function categories(): \Illuminate\Support\Collection
     {
-        // TODO: Implement categories() method.
+        $lang = request()->get("language") ?? 1;
+        $name = $lang == 1 ? "name_kh" : "name_en";
+        return DB::connection('tmp')
+            ->table("categories as c")
+            ->orderBy("order")
+            ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
+            ->get();
     }
 
-    public function commodities($categoryCode)
+    public function commodities($categoryCode): \Illuminate\Support\Collection
     {
-        // TODO: Implement commodities() method.
+        $lang = request()->get("language") ?? 1;
+        $name = $lang == 1 ? "name_kh" : "name_en";
+        return DB::connection('tmp')
+            ->table("comodities as c")
+            ->where("category_code", $categoryCode)
+            ->orderBy("order")
+            ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
+            ->get();
     }
 
 }

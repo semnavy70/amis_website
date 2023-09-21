@@ -3,51 +3,56 @@ import {onMounted, ref} from "vue";
 import LvSkeleton from 'lightvue/skeleton';
 import axios from "axios";
 
-const body = ref(null);
+const list = ref(null);
 const parentWidth = window.innerWidth;
 
 onMounted(async () => {
-    body.value = await getDailyPrice();
+    const result = await getDailyPrice();
+    const numColumns = 6;
+    if (result.length <= 6) {
+        list.value = [result];
+        return;
+    }
+
+    const numRows = Math.ceil(result.length / numColumns);
+    const twoDimArray = [];
+    for (let i = 0; i < numRows; i++) {
+        const row = [];
+        for (let j = 0; j < numColumns; j++) {
+            const index = i * numColumns + j;
+            if (index < result.length) {
+                row.push(result[index]);
+            }
+        }
+        twoDimArray.push(row);
+    }
+    list.value = twoDimArray;
 });
+
 
 async function getDailyPrice() {
     const response = await axios.get(route('home.latest-product') + "?locale=2");
     return response.data;
 }
 
-function convertHTMLTableToCSV(tableHTML) {
-    const table = document.createElement('table');
-    table.innerHTML = tableHTML;
-    const rows = table.querySelectorAll('tr');
-    const csv = [];
-    for (let i = 0; i < rows.length; i++) {
-        const row = [];
-        const cols = rows[i].querySelectorAll('td, th');
-        for (let j = 0; j < cols.length; j++) {
-            row.push(cols[j].textContent.trim());
-        }
-
-        csv.push(row.join(','));
-    }
-
-    return csv.join('\n');
+async function downloadCSV() {
+    await axios.get(route('home.latest-product-export') + "?locale=2");
 }
 
+function getStatusIcon(value) {
+    if (!value) {
+        return "<span></span>";
+    }
 
-async function downloadCSV() {
-    const response = await axios.get(route('home.latest-product-export') + "?locale=2");
-    const tableHTML = response.data;
+    let classes = 'fa-sort-up';
+    let styles = 'color:green;';
 
-    const csvData = convertHTMLTableToCSV(tableHTML);
-    const blob = new Blob([csvData], {type: 'text/csv'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'table-data.csv';
-    a.style.display = 'none';
+    if (value === "OVER") {
+        classes = 'fa-sort-down';
+        styles = 'color:red;';
+    }
 
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    return ` <span class="fa ${classes}" style="${styles}"></span>`;
 }
 
 </script>
@@ -58,10 +63,32 @@ async function downloadCSV() {
             <h3>តម្លៃផលិតផលប្រចាំថ្ងៃ</h3>
             <div class="small-hr my-1 d-inline-flex"/>
         </div>
-        <a class="text-primary" role="button" @click="downloadCSV()">
+        <a v-if="list?.length" class="text-primary" role="button" @click="downloadCSV()">
             ទាញយក<i class="fa-solid fa-print ms-2"></i>
         </a>
-        <div v-if="body" v-html="body"></div>
+        <div v-if="list?.length" class="row">
+            <div v-for="items in list" class="col-md-6 col-sm-12 col-xs-12">
+                <table class="table table-striped" id="daily">
+                    <thead>
+                    <tr>
+                        <th>ប្រភេទទំនិញ</th>
+                        <th style="text-align:center;">កាលបរិច្ឆេទនៃរបាយការណ៍</th>
+                        <th style="text-align:right;">តម្លៃ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in items">
+                        <td>{{ item.name }}</td>
+                        <td style="text-align:center;">{{ item.date }}</td>
+                        <td style="text-align:right;">
+                            <span>{{ item.price }}</span>
+                            <span v-html="getStatusIcon(item.status)"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <lv-skeleton v-else primaryColor="#f2f2f2" secondaryColor="#ffffff" width="100%" :height="300"/>
     </div>
 </template>
