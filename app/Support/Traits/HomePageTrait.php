@@ -7,7 +7,7 @@ use DB;
 
 trait HomePageTrait
 {
-    protected function find($commoditycode, $marketcode): array
+    protected function findCommodity($commoditycode, $marketcode, $allData): array
     {
         $c = 0;
         $c1 = 0;
@@ -15,11 +15,8 @@ trait HomePageTrait
         $value1 = 0;
         $date = Carbon::now();
         $date->day = 1;
-        $list = request()->get("alldata");
-
-        foreach ($list as $item) {
+        foreach ($allData as $item) {
             if (($item->comodity_code == $commoditycode) && ($item->market_code == $marketcode)) {
-
                 if ($date->diffInHours(Carbon::parse($item->mkt_date), false) > 0) {
                     if ($item->value1 > 0) {
                         $c++;
@@ -48,7 +45,6 @@ trait HomePageTrait
                         $value1 += floatval($item->value3);
                     }
                 }
-
             }
         }
 

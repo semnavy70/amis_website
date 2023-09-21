@@ -37,7 +37,6 @@ class HomeController extends Controller
         return $this->home->monthly($dataseriescode, $cultureid);
     }
 
-
     public function price(): array
     {
         return $this->home->price();
@@ -50,7 +49,7 @@ class HomeController extends Controller
 
     public function commodities($categoryCode): \Illuminate\Support\Collection
     {
-        return $this->commodities($categoryCode);
+        return $this->home->commodities($categoryCode);
     }
 
 }

@@ -78,7 +78,31 @@ class EloquentHome implements HomeRepository
             });
     }
 
-    public function monthly($dataseriescode, $cultureid)
+    public function categories(): \Illuminate\Support\Collection
+    {
+        $lang = request()->get("language") ?? 1;
+        $name = $lang == 1 ? "name_kh" : "name_en";
+        return DB::connection('tmp')
+            ->table("categories as c")
+            ->orderBy("order")
+            ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
+            ->get();
+    }
+
+    public function commodities($categoryCode): \Illuminate\Support\Collection
+    {
+        $lang = request()->get("language") ?? 1;
+        $name = $lang == 1 ? "name_kh" : "name_en";
+        return DB::connection('tmp')
+            ->table("comodities as c")
+            ->where("category_code", $categoryCode)
+            ->orderBy("order")
+            ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
+            ->get();
+    }
+
+
+    public function monthly($dataseriescode, $cultureid): array
     {
         $startdate = Carbon::now()->subMonth();
         $startdate->day = 1;
@@ -98,8 +122,7 @@ class EloquentHome implements HomeRepository
             ->groupBy('market_code')
             ->get();
         $arr = $makets->pluck('market_code');
-
-        $sample = Db::connection('tmp')
+        $allData = Db::connection('tmp')
             ->table('data')
             ->whereIn('market_code', $arr)
             ->where('mkt_date', '>=', $startdate)
@@ -107,14 +130,12 @@ class EloquentHome implements HomeRepository
             ->where('dataseries_code', $dataseriescode)
             ->where('origin_code', '!=', "SMS")
             ->get();
-        session_start();
-        $_SESSION['alldata'] = $sample;
         $list = array();
         foreach ($makets as $item) {
             $list1 = array();
             $test = false;
             foreach ($commodities as $item1) {
-                $commodity = $this->find($item1->code, $item->market_code);
+                $commodity = $this->findCommodity($item1->code, $item->market_code, $allData);
                 $list1[] = array(
                     'name' => $cultureid == 2 ? $item1->name_kh : $item1->name_en,
                     'diff' => $commodity['diff'],
@@ -130,9 +151,13 @@ class EloquentHome implements HomeRepository
                     ->table('markets')
                     ->where("code", $item->market_code)
                     ->first();
+                $region = Db::connection('tmp')
+                    ->table('regions')
+                    ->where("code", $market->region_code)
+                    ->first();
                 $list[] = array(
                     "market" => $market,
-                    "region" => Db::connection('tmp')->table('regions')->where("code", $market->region_code)->first(),
+                    "region" => $region,
                     "commodity" => $list1
                 );
             }
@@ -163,9 +188,9 @@ class EloquentHome implements HomeRepository
         }
         $sqlStatement .= " GROUP BY YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)";
         $sqlStatement .= " ORDER BY mkt_date ASC";
+
         $result = DB::connection('tmp')->select($sqlStatement);
         $prices = array();
-
         foreach ($result as $row) {
             if (!isset($prices[$row->comodity_code])) {
                 $prices[$row->comodity_code] = array(
@@ -184,27 +209,5 @@ class EloquentHome implements HomeRepository
         return array_values($prices);
     }
 
-    public function categories(): \Illuminate\Support\Collection
-    {
-        $lang = request()->get("language") ?? 1;
-        $name = $lang == 1 ? "name_kh" : "name_en";
-        return DB::connection('tmp')
-            ->table("categories as c")
-            ->orderBy("order")
-            ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
-            ->get();
-    }
-
-    public function commodities($categoryCode): \Illuminate\Support\Collection
-    {
-        $lang = request()->get("language") ?? 1;
-        $name = $lang == 1 ? "name_kh" : "name_en";
-        return DB::connection('tmp')
-            ->table("comodities as c")
-            ->where("category_code", $categoryCode)
-            ->orderBy("order")
-            ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
-            ->get();
-    }
 
 }
