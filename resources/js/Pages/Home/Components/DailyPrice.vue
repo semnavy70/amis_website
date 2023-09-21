@@ -26,6 +26,7 @@ function convertHTMLTableToCSV(tableHTML) {
         for (let j = 0; j < cols.length; j++) {
             row.push(cols[j].textContent.trim());
         }
+
         csv.push(row.join(','));
     }
 

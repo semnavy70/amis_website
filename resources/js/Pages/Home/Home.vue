@@ -5,10 +5,10 @@
             <Welcome/>
             <LastUpdate/>
             <DailyPrice/>
-            <AveragePriceTrend/>
-            <PriceByProvince/>
+<!--            <AveragePriceTrend/>-->
+<!--            <PriceByProvince/>-->
             <LastNews/>
-            <Partner/>
+            <AnounceProduct/>
         </div>
 
     </App>
@@ -25,6 +25,7 @@ import Partner from "./Components/Partner.vue";
 import Slide from "./Components/Slide.vue";
 import Welcome from "./Components/Welcome.vue";
 import LastUpdate from "./Components/LastUpdate.vue";
+import AnounceProduct from "./Components/AnounceProduct.vue";
 </script>
 
 <style scoped>

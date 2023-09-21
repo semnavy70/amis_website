@@ -9,6 +9,8 @@ use Vanguard\Repositories\Document\DocumentRepository;
 use Vanguard\Repositories\Document\EloquentDocument;
 use Vanguard\Repositories\DocumentCategory\DocumentCategoryRepository;
 use Vanguard\Repositories\DocumentCategory\EloquentDocumentCategory;
+use Vanguard\Repositories\Front\Home\EloquentHome;
+use Vanguard\Repositories\Front\Home\HomeRepository;
 use Vanguard\Repositories\Front\Library\EloquentLibrary;
 use Vanguard\Repositories\Front\Library\LibraryRepository;
 use Vanguard\Repositories\Front\News\EloquentNews;
@@ -83,7 +85,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerAdminRepo();
         $this->registerFrontRepo();
@@ -94,7 +96,7 @@ class AppServiceProvider extends ServiceProvider
         }
     }
 
-    private function registerAdminRepo()
+    private function registerAdminRepo(): void
     {
         $this->app->singleton(UserRepository::class, EloquentUser::class);
         $this->app->singleton(ActivityRepository::class, EloquentActivity::class);
@@ -119,8 +121,9 @@ class AppServiceProvider extends ServiceProvider
 
     }
 
-    private function registerFrontRepo()
+    private function registerFrontRepo(): void
     {
+        $this->app->singleton(HomeRepository::class, EloquentHome::class);
         $this->app->singleton(NewsRepository::class, EloquentNews::class);
         $this->app->singleton(LibraryRepository::class, EloquentLibrary::class);
         $this->app->singleton(FrontPageRepository::class, EloquentFrontPage::class);
