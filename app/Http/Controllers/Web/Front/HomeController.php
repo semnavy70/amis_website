@@ -17,7 +17,7 @@ class HomeController extends Controller
         return Inertia::render('Home/Home');
     }
 
-    public function latestRroduct(): string
+    public function latestProduct(): string
     {
         $start_col1 = "";
         $start_col2 = "";
@@ -71,9 +71,54 @@ class HomeController extends Controller
         $end_col1 = "</body></table></div>";
         $end_col2 = "</body></table></div>";
         $a = "<div class='col-md-12'><a href='#' data-start='" . $nextStart . "' data-limit='" . $limit . "' class='" . $linkClass . "' style='color: #707A1A;text-decoration: none;' onclick='LatestProductLoader.load(); return false;' id='LatestProductMore'>" . $linkLabel . "</a></div>";
+
         return "<div class='row'>" . $start_col1 . $row1 . $end_col1 . $start_col2 . $row2 . $end_col2 . $a . "</div>";
     }
 
+    public function latestProductExport(): string
+    {
+        $start_col1 = "";
+        $locale = isset($_REQUEST['locale']) ? intval($_REQUEST['locale']) : 1;
+        $start = isset($_REQUEST['start']) ? intval($_REQUEST['start']) : 0;
+        $maxAge = isset($_REQUEST['maxAge']) ? intval($_REQUEST['maxAge']) : 100;
+
+        $limit = 12;
+        if ($locale == 1) {
+            $start_col1 = '<thead><tr><th>Commodity Type</th><th style="text-align:center;">Date of Report</th><th style="text-align:right;">Price</th></tr></thead><tbody>';
+        } else {
+            $start_col1 = '<thead><tr><th>ប្រភេទទំនិញ</th><th style="text-align:center;">កាលបរិច្ឆេទនៃរបាយការណ៍</th><th style="text-align:right;">តម្លៃ</th></tr></thead><tbody>';
+        }
+
+        $commodities = $this->getLatestProductsUpdatesExport($locale, $maxAge);
+        $nextStart = $start + $limit;
+        $linkClass = "float-right";
+
+        if ($start === 0 && $commodities[1] <= $limit) {
+            $linkClass = "hidden";
+        } else {
+            if ($start + $limit >= $commodities[1]) {
+                $nextStart = $start - $limit;
+                $linkClass = "float-left";
+            }
+        }
+        $row1 = "";
+        $i = 0;
+        foreach ($commodities[0] as $commodity) {
+            $class = 'fa-sort-up';
+            $style = 'color:green;';
+
+            if ($commodity['previousPrice'] > $commodity['latestPrice']) {
+                $class = 'fa-sort-down';
+                $style = 'color:red;';
+            }
+            $row1 = $row1 . "<tr><td>" . $commodity['name'] . "</td><td style='text-align:center;'>" . date_format(date_create($commodity['latestUpdate']), 'd/m/Y') . "</td><td style='text-align:right;'>" . number_format($commodity['latestPrice'], 2) . " KHR/" . $commodity['unit'] . " <span class='fa " . $class . "' style='" . $style . "'></span></td></tr>";
+            $i++;
+
+        }
+        $end_col1 = "</tbody>";
+
+        return $start_col1 . $row1 . $end_col1;
+    }
 
     public function monthly($dataseriescode, $cultureid): array
     {
