@@ -42,7 +42,10 @@ class EloquentHome implements HomeRepository
                 mkt_date
             FROM data
             INNER JOIN comodities ON data.comodity_code = comodities.code
-            WHERE data.origin_code != 'SMS' AND DATE(mkt_date) >= DATE(DATE_SUB(NOW(), INTERVAL $maxAge DAY)) AND data.dataseries_code = 'WP'
+            WHERE data.origin_code != 'SMS'
+                AND DATE(mkt_date) >= DATE(DATE_SUB(NOW(), INTERVAL $maxAge DAY))
+                AND data.dataseries_code = 'WP'
+                AND comodities.show_daily = 1
             GROUP BY unit_code, comodity_code, comodities.name_kh, comodities.name_en, YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)
         ) o
     )
@@ -100,6 +103,7 @@ class EloquentHome implements HomeRepository
         return DB::connection('tmp')
             ->table("comodities as c")
             ->where("category_code", $categoryCode)
+            ->where('show_trend', true)
             ->orderBy("order")
             ->select("id", DB::raw("TRIM(code) as code"), $name . " as name", "is_default")
             ->get();
@@ -161,6 +165,7 @@ class EloquentHome implements HomeRepository
         $commodities = DB::connection('tmp')
             ->table('comodities')
             ->where("dataserries_code", 1)
+            ->where("show_monthly", true)
             ->get();
         $makets = DB::connection('tmp')
             ->table('markets')
@@ -237,7 +242,10 @@ class EloquentHome implements HomeRepository
                 mkt_date
             FROM data
             INNER JOIN comodities ON data.comodity_code = comodities.code
-            WHERE data.origin_code != 'SMS' AND DATE(mkt_date) >= DATE(DATE_SUB(NOW(), INTERVAL $maxAge DAY)) AND data.dataseries_code = 'WP'
+            WHERE data.origin_code != 'SMS'
+            AND DATE(mkt_date) >= DATE(DATE_SUB(NOW(), INTERVAL $maxAge DAY))
+            AND data.dataseries_code = 'WP'
+            AND comodities.show_daily = 1
             GROUP BY unit_code, comodity_code, comodities.name_kh, comodities.name_en, YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)
         ) o
     )

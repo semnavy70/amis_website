@@ -6,7 +6,6 @@ interface HomeRepository
 {
     public function latestProduct();
 
-
     public function monthly($dataseriesCode, $cultureId);
 
     public function averagePrice();
