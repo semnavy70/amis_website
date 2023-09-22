@@ -2,6 +2,7 @@
 import LvSkeleton from 'lightvue/skeleton';
 import axios from 'axios';
 import {onMounted, ref} from "vue";
+import {Link} from '@inertiajs/vue3';
 
 const isLoading = ref(true);
 const news = ref();
@@ -33,13 +34,16 @@ async function getNews() {
 
     <div v-if="news?.length" class="row mt-3 gy-3">
       <div v-for="post in news" class="col-12 col-sm-12 col-md-6 col-lg-4">
-        <div class="bg-white p-3 shadow">
-          <img class="w-100" :src="getImage(post.image)"
-               alt="news-thumbnail">
-          <p class="text-green fs-18 text-truncate-2">{{ post.title }}</p>
-          <hr class="w-25 text-green text-truncate-3"/>
-          <p>{{ post.excerpt }}</p>
-        </div>
+        <Link :href="route('news.detail' , post.id)">
+          <div class="bg-white p-3 shadow">
+            <img class="w-100" :src="getImage(post.image)"
+                 alt="news-thumbnail">
+            <p class="text-green fs-18 text-truncate-2">{{ post.title }}</p>
+            <hr class="w-25 text-green text-truncate-3"/>
+            <p>{{ post.excerpt }}</p>
+          </div>
+        </Link>
+
       </div>
     </div>
     <div v-else>

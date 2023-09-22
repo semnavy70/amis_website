@@ -313,20 +313,36 @@ class EloquentHome implements HomeRepository
     public function latestNews()
     {
         return DB::table('posts as p')
-            ->leftJoin('users as u', 'p.by', '=', 'u.id')
             ->leftJoin('post_statuses as ps', 'ps.slug', '=', 'p.status')
             ->where('p.status', '=', PostStatusEnum::PUBLISHED)
+            ->where('p.category_id', '!=', 33)
             ->select([
                 'p.id as id',
                 'p.title as title',
                 'p.excerpt as excerpt',
                 'p.image as image',
-                "u.last_name as by",
-                DB::raw("DATE_FORMAT(CONVERT_TZ(p.created_at, '+00:00', '+07:00'), 'ថ្ងៃ %W ទី %d ខែ %M ឆ្នាំ %Y') as kh_created_at")
+                DB::raw("DATE_FORMAT(CONVERT_TZ(p.created_at, '+00:00', '+07:00'), 'ថ្ងៃ %W ទី %d ខែ %M ឆ្នាំ %Y') as kh_created_at"),
             ])
             ->orderBy('p.created_at', 'desc')
             ->take(3)
             ->get();
+    }
+
+    public function highlightNews()
+    {
+        return DB::table('posts as p')
+            ->leftJoin('post_statuses as ps', 'ps.slug', '=', 'p.status')
+            ->where('p.status', '=', PostStatusEnum::PUBLISHED)
+            ->where('p.category_id', '=', 33)
+            ->select([
+                'p.id as id',
+                'p.title as title',
+                'p.excerpt as excerpt',
+                'p.image as image',
+                DB::raw("DATE_FORMAT(CONVERT_TZ(p.created_at, '+00:00', '+07:00'), 'ថ្ងៃ %W ទី %d ខែ %M ឆ្នាំ %Y') as kh_created_at"),
+            ])
+            ->orderBy('p.created_at', 'desc')
+            ->first();
     }
 
 }

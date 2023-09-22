@@ -20,4 +20,5 @@ interface HomeRepository
 
     public function marketProduct();
     public function latestNews();
+    public function highlightNews();
 }

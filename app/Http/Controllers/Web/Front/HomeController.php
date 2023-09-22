@@ -61,4 +61,14 @@ class HomeController extends Controller
     {
         return $this->home->marketProduct();
     }
+
+    public function latestNews()
+    {
+        return $this->home->latestNews();
+    }
+
+    public function highlightNews()
+    {
+        return $this->home->highlightNews();
+    }
 }
