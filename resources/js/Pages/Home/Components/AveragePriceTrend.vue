@@ -128,7 +128,6 @@ const chartOptions = computed(() => {
 });
 
 function onUpdated() {
-  console.log('AVG Chart Price Updated!');
 }
 
 </script>
@@ -189,8 +188,15 @@ function onUpdated() {
     <div class="row my-3">
       <div class="col-auto">
         <div class="form-check">
-          <input class="form-check-input" type="radio" value="WP" id="WP" v-model="form.dataSeries"
-                 @change="updateChart">
+          <input
+              class="form-check-input"
+              type="radio"
+              value="WP"
+              id="WP"
+              v-model="form.dataSeries"
+              @change="updateChart"
+              :disabled="isLoading"
+          >
           <label class="form-check-label" for="wp">
             តម្លៃលក់ដុំ
           </label>
@@ -198,8 +204,16 @@ function onUpdated() {
       </div>
       <div class="col-auto">
         <div class="form-check">
-          <input class="form-check-input" type="radio" value="RP" id="RP" v-model="form.dataSeries"
-                 @change="updateChart">
+          <input
+              class="form-check-input"
+              type="radio"
+              value="RP"
+              id="RP"
+              v-model="form.dataSeries"
+              @change="updateChart"
+
+              :disabled="isLoading"
+          >
           <label class="form-check-label" for="rp">
             តម្លៃលក់រាយ
           </label>

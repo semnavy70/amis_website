@@ -2,6 +2,7 @@
 import {onMounted, ref} from "vue";
 import LvSkeleton from 'lightvue/skeleton';
 import axios from "axios";
+import app_helper from "@/Helpers/app_helper";
 
 const list = ref(null);
 const isLoading = ref(true);
@@ -61,11 +62,6 @@ async function getDailyPrice() {
   return response.data;
 }
 
-function downloadCSV() {
-  const requestUrl = route('home.latest-product-export') + `?locale=2`;
-  window.open(requestUrl, "_blank");
-}
-
 function getStatusIcon(value) {
   if (!value) {
     return "<span></span>";
@@ -102,6 +98,11 @@ async function back() {
   isLoading.value = false;
 }
 
+function download() {
+  const requestUrl = route('home.latest-product-export') + `?locale=2`;
+  app_helper.methods.downloadFile(requestUrl);
+}
+
 </script>
 
 <template>
@@ -112,11 +113,11 @@ async function back() {
     </div>
 
     <!--Download-->
-    <div class="text-end mb-2">
+    <div class="mb-2">
       <div v-if="list?.length"
            class="text-primary"
            role="button"
-           @click="downloadCSV()"
+           @click="download()"
       >
         ទាញយក<i class="fa-solid fa-print ms-2"></i>
       </div>

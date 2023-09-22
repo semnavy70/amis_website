@@ -9,5 +9,8 @@ export default {
         isRoute(routeName) {
             return this.currentRoute()?.includes(routeName);
         },
+        downloadFile(url) {
+            window.open(url, "_blank");
+        }
     }
 }

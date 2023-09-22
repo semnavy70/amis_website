@@ -62,13 +62,13 @@ trait HomePageTrait
             return [
                 'diff' => 0,
                 'new' => $new,
-                'p' => 0,
+                'price' => 0,
             ];
         }
         return [
             'diff' => ($new - $old),
             'new' => $new,
-            'p' => (($new - $old) / $old) * 100,
+            'price' => (($new - $old) / $old) * 100,
         ];
     }
 

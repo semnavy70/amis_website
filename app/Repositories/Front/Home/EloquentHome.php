@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Vanguard\Exports\LatestProductExport;
+use Vanguard\Exports\MonthlyProductExport;
 use Vanguard\Support\Traits\HomePageTrait;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class EloquentHome implements HomeRepository
 {
@@ -151,7 +153,7 @@ class EloquentHome implements HomeRepository
         return array_values($prices);
     }
 
-    public function monthly($dataseriescode, $cultureId): array
+    public function monthly($dataseriesCode, $cultureId): array
     {
         $startdate = Carbon::now()->subMonth();
         $startdate->day = 1;
@@ -161,53 +163,48 @@ class EloquentHome implements HomeRepository
             ->where("dataserries_code", 1)
             ->get();
         $makets = DB::connection('tmp')
-            ->table('data')
-            ->where('mkt_date', '>=', $startdate)
-            ->where('mkt_date', '<=', $enddate)
-            ->where('dataseries_code', $dataseriescode)
-            ->orderBy('market_code', 'ASC')
-            ->orderBy('mkt_date', 'ASC')
-            ->select('market_code')
-            ->groupBy('market_code')
+            ->table('markets')
+            ->join('regions', 'regions.code', '=', 'markets.region_code')
+            ->select('markets.*', 'regions.name_kh as region_name')
+            ->orderBy('code', 'ASC')
             ->get();
-        $maketCodes = $makets->pluck('market_code');
         $allData = Db::connection('tmp')
             ->table('data')
-            ->whereIn('market_code', $maketCodes)
             ->where('mkt_date', '>=', $startdate)
             ->where('mkt_date', '<=', $enddate)
-            ->where('dataseries_code', $dataseriescode)
+            ->where('dataseries_code', $dataseriesCode)
             ->where('origin_code', '!=', "SMS")
             ->get();
 
         $list = [];
-        foreach ($makets as $item) {
+        foreach ($makets as $market) {
             $newList = [];
             $test = false;
             foreach ($commodities as $comodity) {
-                $commodity = $this->findCommodity($comodity->code, $item->market_code, $allData);
+                $newCommodity = $this->findCommodity($comodity->code, $market->code, $allData);
                 $newList[] = [
-                    'name' => $cultureId == 2 ? $comodity->name_kh : $comodity->name_en,
-                    'diff' => $commodity['diff'],
-                    'new' => $commodity['new'],
-                    'p' => $commodity['p'],
+                    'name' => $comodity->name_kh,
+                    'code' => $comodity->code,
+                    'diff' => $newCommodity['diff'],
+                    'new' => $newCommodity['new'],
+                    'price' => $newCommodity['price'],
                 ];
-                if ($commodity['diff'] != 0) {
+                if ($newCommodity['diff'] != 0) {
                     $test = true;
                 }
             }
             if ($test) {
-                $market = Db::connection('tmp')
-                    ->table('markets')
-                    ->where("code", $item->market_code)
-                    ->first();
-                $region = Db::connection('tmp')
-                    ->table('regions')
-                    ->where("code", $market->region_code)
-                    ->first();
+                $regionData = [
+                    'code' => $market->region_code,
+                    'name' => $market->region_name,
+                ];
+                $maketData = [
+                    'code' => $market->code,
+                    'name' => $market->name_kh,
+                ];
                 $list[] = [
-                    "market" => $market,
-                    "region" => $region,
+                    "market" => $maketData,
+                    "region" => $regionData,
                     "commodity" => $newList,
                 ];
             }
@@ -216,7 +213,7 @@ class EloquentHome implements HomeRepository
         return $list;
     }
 
-    public function latestProductExport()
+    public function latestProductExport(): BinaryFileResponse
     {
         $maxAge = 100;
         $querySql = "
@@ -270,6 +267,12 @@ class EloquentHome implements HomeRepository
             ->toArray();
 
         return Excel::download(new LatestProductExport($commodities), 'latest-product.xlsx');
+    }
+
+    public function monthlyExport($dataseriesCode, $cultureId): BinaryFileResponse
+    {
+        $list = $this->monthly($dataseriesCode, $cultureId);
+        return Excel::download(new MonthlyProductExport($list), 'monthly-product.xlsx');
     }
 
 }

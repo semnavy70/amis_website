@@ -51,4 +51,9 @@ class HomeController extends Controller
     {
         return $this->home->monthly($dataseriesCode, $cultureId);
     }
+
+    public function monthlyExport($dataseriesCode, $cultureId)
+    {
+        return $this->home->monthlyExport($dataseriesCode, $cultureId);
+    }
 }

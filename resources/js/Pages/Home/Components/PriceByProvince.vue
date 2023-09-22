@@ -3,6 +3,7 @@ import {computed, onMounted, ref} from "vue";
 import axios from "axios";
 import {useForm} from "@inertiajs/vue3";
 import LvSkeleton from "lightvue/skeleton";
+import app_helper from "@/Helpers/app_helper";
 
 const data = ref(null);
 const now = new Date();
@@ -43,8 +44,10 @@ function getKhmerMonth(date) {
 }
 
 function download() {
-
+  const requestUrl = route('home.monthly-export', [form.dataSeries, 2]);
+  app_helper.methods.downloadFile(requestUrl);
 }
+
 </script>
 
 <template>
@@ -106,11 +109,11 @@ function download() {
           </thead>
           <tbody>
           <tr v-for="item in data">
-            <td class="text-left">{{ item.region.name_kh }}</td>
-            <td class="text-left">{{ item.market.name_kh }}</td>
+            <td class="text-left">{{ item.region.name }}</td>
+            <td class="text-left">{{ item.market.name }}</td>
             <td class="text-center" v-for="commodity in item.commodity">
             <span>
-                {{ commodity.p === 0 ? "-" : formatPrice(commodity.new) }}
+                {{ commodity.price === 0 ? "-" : formatPrice(commodity.new) }}
                 <i v-if="commodity.diff>0 " class="fa fa-caret-up text-danger" aria-hidden="true"></i>
                 <i v-if="commodity.diff<0 " class="fa fa-caret-down text-success" aria-hidden="true"></i>
             </span>

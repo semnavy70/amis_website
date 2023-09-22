@@ -7,7 +7,7 @@ interface HomeRepository
     public function latestProduct();
 
 
-    public function monthly($dataseriescode, $cultureId);
+    public function monthly($dataseriesCode, $cultureId);
 
     public function averagePrice();
 
@@ -16,4 +16,6 @@ interface HomeRepository
     public function commodities($categoryCode);
 
     public function latestProductExport();
+
+    public function monthlyExport($dataseriesCode, $cultureId);
 }
