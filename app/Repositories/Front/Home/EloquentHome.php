@@ -4,6 +4,8 @@ namespace Vanguard\Repositories\Front\Home;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Vanguard\Exports\LatestProductExport;
 use Vanguard\Support\Traits\HomePageTrait;
 
 class EloquentHome implements HomeRepository
@@ -264,9 +266,10 @@ class EloquentHome implements HomeRepository
                     'date' => $item->latest_update,
                     'price' => $item->latest_price . "/" . $item->unit,
                 ];
-            });
+            })
+            ->toArray();
 
-        return $commodities;
+        return Excel::download(new LatestProductExport($commodities), 'latest-product.xlsx');
     }
 
 }
