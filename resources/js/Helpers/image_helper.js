@@ -14,5 +14,11 @@ export default {
             let url = "https://storage.googleapis.com/indo-pacific/";
             return url + path;
         },
+        getMarketImage: function (path) {
+            if(!path) {
+                return  "/assets/img/amis-logo.jpg";
+            }
+          return "https://storage.googleapis.com/amis_market/" + path;
+        },
     }
 }

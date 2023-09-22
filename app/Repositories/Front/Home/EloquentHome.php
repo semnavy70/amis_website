@@ -298,6 +298,7 @@ class EloquentHome implements HomeRepository
                 'pa.latlng',
                 'pa.created_at',
                 'uid.first_name as user_first_name',
+                'uid.profile as user_profile',
                 'uid.last_name as user_last_name',
                 'ut.user_type_name as user_type_name',
             ])
