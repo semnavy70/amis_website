@@ -2,13 +2,13 @@
   <App>
     <Slide/>
     <div class="container">
-      <Welcome/>
-      <LastUpdate/>
-      <DailyPrice/>
-      <AveragePriceTrend/>
-      <PriceByProvince/>
+<!--      <Welcome/>-->
+<!--      <LastUpdate/>-->
+<!--      <DailyPrice/>-->
+<!--      <AveragePriceTrend/>-->
+<!--      <PriceByProvince/>-->
       <LastNews/>
-      <AnounceProduct/>
+<!--      <AnounceProduct/>-->
     </div>
   </App>
 </template>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Vanguard\Exports\LatestProductExport;
 use Vanguard\Exports\MonthlyProductExport;
+use Vanguard\Support\Enum\PostStatusEnum;
 use Vanguard\Support\Traits\HomePageTrait;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -306,6 +307,25 @@ class EloquentHome implements HomeRepository
             ->where("user_info_id", "!=", 0)
             ->orderBy("created_at", "DESC")
             ->take(4)
+            ->get();
+    }
+
+    public function latestNews()
+    {
+        return DB::table('posts as p')
+            ->leftJoin('users as u', 'p.by', '=', 'u.id')
+            ->leftJoin('post_statuses as ps', 'ps.slug', '=', 'p.status')
+            ->where('p.status', '=', PostStatusEnum::PUBLISHED)
+            ->select([
+                'p.id as id',
+                'p.title as title',
+                'p.excerpt as excerpt',
+                'p.image as image',
+                "u.last_name as by",
+                DB::raw("DATE_FORMAT(CONVERT_TZ(p.created_at, '+00:00', '+07:00'), 'ថ្ងៃ %W ទី %d ខែ %M ឆ្នាំ %Y') as kh_created_at")
+            ])
+            ->orderBy('p.created_at', 'desc')
+            ->take(3)
             ->get();
     }
 
