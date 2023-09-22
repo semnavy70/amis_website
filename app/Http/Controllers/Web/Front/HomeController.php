@@ -32,16 +32,6 @@ class HomeController extends Controller
         return $this->home->latestProduct();
     }
 
-    public function monthly($dataseriescode, $cultureid): array
-    {
-        return $this->home->monthly($dataseriescode, $cultureid);
-    }
-
-    public function price(): array
-    {
-        return $this->home->averagePrice();
-    }
-
     public function categories(): \Illuminate\Support\Collection
     {
         return $this->home->categories();
@@ -52,4 +42,13 @@ class HomeController extends Controller
         return $this->home->commodities($categoryCode);
     }
 
+    public function averagePrice(): array
+    {
+        return $this->home->averagePrice();
+    }
+
+    public function monthly($dataseriescode, $cultureid): array
+    {
+        return $this->home->monthly($dataseriescode, $cultureid);
+    }
 }

@@ -106,7 +106,8 @@ class EloquentHome implements HomeRepository
     {
         $commodityCode = request()->get('commodityCode');
         $dataseries = request()->get('dataseries');
-        $maxAge = request()->get('maxAge');
+        $startDate = request()->get('startDate');
+        $endDate = request()->get('endDate');
 
         $sqlStatement = /** @lang text */
             "
@@ -118,20 +119,15 @@ class EloquentHome implements HomeRepository
             data.id AS dataid
         FROM data
         LEFT JOIN comodities ON data.comodity_code = comodities.code
-        WHERE data.comodity_code = $commodityCode
+        WHERE data.comodity_code = '$commodityCode'
             AND data.dataseries_code = '$dataseries'
             AND data.origin_code != 'SMS'
             AND data.value1 > 0
-        ";
-
-        if ($maxAge !== null) {
-            $sqlStatement .= " AND mkt_date >= DATE_SUB(NOW(), INTERVAL $maxAge YEAR)";
-        }
-        $sqlStatement .= "
+            AND mkt_date >= '$startDate'
+            AND mkt_date <= '$endDate'
             GROUP BY YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)
             ORDER BY mkt_date ASC
         ";
-
         $results = DB::connection('tmp')->select($sqlStatement);
         $prices = [];
         foreach ($results as $row) {

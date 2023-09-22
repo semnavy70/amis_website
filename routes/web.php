@@ -10,7 +10,7 @@ Route::get('/', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'in
 Route::get('/home/latest-product', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'latestProduct'])->name('home.latest-product');
 Route::get('/home/latest-product-export', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'latestProductExport'])->name('home.latest-product-export');
 Route::get('/home/monthly/{dataseriescode}/{cultureid}', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'monthly'])->name('home.monthly');
-Route::get('/home/price', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'price'])->name('home.price');
+Route::get('/home/price', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'averagePrice'])->name('home.price');
 Route::get('/home/categories', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'categories'])->name('home.categories');
 Route::get('/home/commodities/{category_code}', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'commodities'])->name('home.commodities');
 
