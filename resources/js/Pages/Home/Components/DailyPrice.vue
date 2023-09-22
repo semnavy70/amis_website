@@ -7,7 +7,6 @@ const list = ref(null);
 const isLoading = ref(true);
 const canNext = ref(true);
 const page = ref(0);
-const parentWidth = window.innerWidth;
 
 onMounted(async () => {
     loadData();
