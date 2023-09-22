@@ -5,10 +5,10 @@
             <Welcome/>
             <LastUpdate/>
             <DailyPrice/>
-            <AveragePriceTrend/>
-            <PriceByProvince/>
-            <LastNews/>
-            <AnounceProduct/>
+<!--            <AveragePriceTrend/>-->
+<!--            <PriceByProvince/>-->
+<!--            <LastNews/>-->
+<!--            <AnounceProduct/>-->
         </div>
 
     </App>

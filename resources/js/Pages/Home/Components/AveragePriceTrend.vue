@@ -51,7 +51,9 @@ async function getCommodities(categoryCode) {
 }
 
 async function updateChart() {
-    const response = await axios.get(route('home.price') + `?maxAge=5&locale=2&commodityCode=${form.commodity1}&commodityCode1=${form.commodity2}&commodityCode2=${form.commodity3}&dataseries=${form.dataSeries}`);
+    const requestUrl = route('home.price') + `?maxAge=5&locale=2&commodityCode=${form.commodity1}&commodityCode1=${form.commodity2}&commodityCode2=${form.commodity3}&dataseries=${form.dataSeries}`;
+    console.log({requestUrl});
+    const response = await axios.get(requestUrl);
     const data = response.data;
     const result = [];
     for (const commodityPrice of data) {

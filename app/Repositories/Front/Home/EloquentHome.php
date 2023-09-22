@@ -15,7 +15,7 @@ class EloquentHome implements HomeRepository
     {
         $limit = 12;
         $maxAge = 100;
-        $start = 1;
+        $start = (request()->get('page') ?? 0 ) * $limit;
 
         $querySql = "
     WITH cte AS (
