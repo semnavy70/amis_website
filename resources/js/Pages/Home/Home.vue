@@ -4,8 +4,8 @@
         <div class="container">
             <Welcome/>
             <LastUpdate/>
-<!--            <DailyPrice/>-->
-<!--            <AveragePriceTrend/>-->
+            <DailyPrice/>
+            <AveragePriceTrend/>
             <PriceByProvince/>
             <LastNews/>
             <AnounceProduct/>

@@ -47,8 +47,8 @@ class HomeController extends Controller
         return $this->home->averagePrice();
     }
 
-    public function monthly($dataseriescode, $cultureid): array
+    public function monthly($dataseriesCode, $cultureId): array
     {
-        return $this->home->monthly($dataseriescode, $cultureid);
+        return $this->home->monthly($dataseriesCode, $cultureId);
     }
 }

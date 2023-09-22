@@ -15,6 +15,7 @@ trait HomePageTrait
         $value1 = 0;
         $date = Carbon::now();
         $date->day = 1;
+
         foreach ($allData as $item) {
             if (($item->comodity_code == $commoditycode) && ($item->market_code == $marketcode)) {
                 if ($date->diffInHours(Carbon::parse($item->mkt_date), false) > 0) {
@@ -56,11 +57,19 @@ trait HomePageTrait
         if ($c1 != 0) {
             $old = $value1 / $c1;
         }
-        if ($c == 0 || $c1 == 0) {
-            return array('diff' => 0, 'new' => $new, 'p' => 0);
-        }
 
-        return array('diff' => ($new - $old), 'new' => $new, 'p' => (($new - $old) / $old) * 100);
+        if ($c == 0 || $c1 == 0) {
+            return [
+                'diff' => 0,
+                'new' => $new,
+                'p' => 0,
+            ];
+        }
+        return [
+            'diff' => ($new - $old),
+            'new' => $new,
+            'p' => (($new - $old) / $old) * 100,
+        ];
     }
 
     private function textToUnicode($text)

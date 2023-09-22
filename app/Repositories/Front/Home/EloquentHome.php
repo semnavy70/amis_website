@@ -149,8 +149,7 @@ class EloquentHome implements HomeRepository
         return array_values($prices);
     }
 
-
-    public function monthly($dataseriescode, $cultureid): array
+    public function monthly($dataseriescode, $cultureId): array
     {
         $startdate = Carbon::now()->subMonth();
         $startdate->day = 1;
@@ -169,27 +168,28 @@ class EloquentHome implements HomeRepository
             ->select('market_code')
             ->groupBy('market_code')
             ->get();
-        $arr = $makets->pluck('market_code');
+        $maketCodes = $makets->pluck('market_code');
         $allData = Db::connection('tmp')
             ->table('data')
-            ->whereIn('market_code', $arr)
+            ->whereIn('market_code', $maketCodes)
             ->where('mkt_date', '>=', $startdate)
             ->where('mkt_date', '<=', $enddate)
             ->where('dataseries_code', $dataseriescode)
             ->where('origin_code', '!=', "SMS")
             ->get();
-        $list = array();
+
+        $list = [];
         foreach ($makets as $item) {
-            $list1 = array();
+            $newList = [];
             $test = false;
-            foreach ($commodities as $item1) {
-                $commodity = $this->findCommodity($item1->code, $item->market_code, $allData);
-                $list1[] = array(
-                    'name' => $cultureid == 2 ? $item1->name_kh : $item1->name_en,
+            foreach ($commodities as $comodity) {
+                $commodity = $this->findCommodity($comodity->code, $item->market_code, $allData);
+                $newList[] = [
+                    'name' => $cultureId == 2 ? $comodity->name_kh : $comodity->name_en,
                     'diff' => $commodity['diff'],
                     'new' => $commodity['new'],
-                    'p' => $commodity['p']
-                );
+                    'p' => $commodity['p'],
+                ];
                 if ($commodity['diff'] != 0) {
                     $test = true;
                 }
@@ -203,11 +203,11 @@ class EloquentHome implements HomeRepository
                     ->table('regions')
                     ->where("code", $market->region_code)
                     ->first();
-                $list[] = array(
+                $list[] = [
                     "market" => $market,
                     "region" => $region,
-                    "commodity" => $list1
-                );
+                    "commodity" => $newList,
+                ];
             }
         }
 
