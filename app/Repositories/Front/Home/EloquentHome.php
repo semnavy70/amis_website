@@ -214,4 +214,59 @@ class EloquentHome implements HomeRepository
         return $list;
     }
 
+    public function latestProductExport()
+    {
+        $maxAge = 100;
+        $querySql = "
+    WITH cte AS (
+        SELECT
+            o.comodity_code,
+            o.comodity_name,
+            o.comodity_name_en,
+            o.unit_code,
+            o.value1 AS price,
+            o.mkt_date,
+            ROW_NUMBER() OVER (PARTITION BY o.comodity_code ORDER BY o.mkt_date DESC) AS RowNumber
+        FROM (
+            SELECT
+                unit_code,
+                data.comodity_code,
+                data.dataseries_code,
+                comodities.name_kh AS comodity_name,
+                comodities.name_en AS comodity_name_en,
+                AVG(value1) AS value1,
+                mkt_date
+            FROM data
+            INNER JOIN comodities ON data.comodity_code = comodities.code
+            WHERE data.origin_code != 'SMS' AND DATE(mkt_date) >= DATE(DATE_SUB(NOW(), INTERVAL $maxAge DAY)) AND data.dataseries_code = 'WP'
+            GROUP BY unit_code, comodity_code, comodities.name_kh, comodities.name_en, YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)
+        ) o
+    )
+
+    SELECT
+        q1.comodity_name AS name,
+        q1.unit_code AS unit,
+        q1.price AS latest_price,
+        q1.mkt_date AS latest_update
+    FROM cte q1
+    LEFT JOIN unites ON q1.unit_code = unites.code
+    WHERE q1.RowNumber = 1
+";
+        $result = DB::connection('tmp')->select($querySql);
+
+        $commodities = collect($result)
+            ->map(function ($item) {
+                $item->latest_update = date_format(date_create($item->latest_update), 'd/m/Y');
+                $item->latest_price = number_format($item->latest_price, 2) . " KHR";
+
+                return [
+                    'name' => $item->name,
+                    'date' => $item->latest_update,
+                    'price' => $item->latest_price . "/" . $item->unit,
+                ];
+            });
+
+        return $commodities;
+    }
+
 }

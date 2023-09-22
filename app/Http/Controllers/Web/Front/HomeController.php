@@ -29,7 +29,7 @@ class HomeController extends Controller
 
     public function latestProductExport()
     {
-        return $this->home->latestProduct();
+        return $this->home->latestProductExport();
     }
 
     public function categories(): \Illuminate\Support\Collection
