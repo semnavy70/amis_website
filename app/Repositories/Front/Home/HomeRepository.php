@@ -17,4 +17,6 @@ interface HomeRepository
     public function latestProductExport();
 
     public function monthlyExport($dataseriesCode, $cultureId);
+
+    public function marketProduct();
 }

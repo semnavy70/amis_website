@@ -14,6 +14,7 @@ Route::get('/home/monthly-export/{dataseriescode}/{cultureid}', [\Vanguard\Http\
 Route::get('/home/price', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'averagePrice'])->name('home.price');
 Route::get('/home/categories', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'categories'])->name('home.categories');
 Route::get('/home/commodities/{category_code}', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'commodities'])->name('home.commodities');
+Route::get('/home/market-product', [\Vanguard\Http\Controllers\Web\Front\HomeController::class, 'marketProduct'])->name('home.market-product');
 
 Route::get('/article', [\Vanguard\Http\Controllers\Web\Front\NewsController::class, 'index'])->name('news.index');
 Route::get('/article/{id}', [\Vanguard\Http\Controllers\Web\Front\NewsController::class, 'detail'])->name('news.detail');

@@ -278,4 +278,33 @@ class EloquentHome implements HomeRepository
         return Excel::download(new MonthlyProductExport($list), 'monthly-product.xlsx');
     }
 
+    public function marketProduct(): \Illuminate\Support\Collection
+    {
+        return DB::connection('market')
+            ->table('post_announcements as pa')
+            ->join('users__information_details as uid', 'uid.id', '=', 'pa.user_info_id')
+            ->join('user_types as ut', 'ut.id', '=', 'uid.type')
+            ->select([
+                'pa.id',
+                'pa.type',
+                'pa.commodity_name',
+                'pa.quantity',
+                'pa.price',
+                'pa.unit_code',
+                'pa.thumnail',
+                'pa.user_info_id',
+                'pa.collect_date',
+                'pa.grade',
+                'pa.latlng',
+                'pa.created_at',
+                'uid.first_name as user_first_name',
+                'uid.last_name as user_last_name',
+                'ut.user_type_name as user_type_name',
+            ])
+            ->where("user_info_id", "!=", 0)
+            ->orderBy("created_at", "DESC")
+            ->take(4)
+            ->get();
+    }
+
 }

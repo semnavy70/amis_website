@@ -56,4 +56,9 @@ class HomeController extends Controller
     {
         return $this->home->monthlyExport($dataseriesCode, $cultureId);
     }
+
+    public function marketProduct()
+    {
+        return $this->home->marketProduct();
+    }
 }
