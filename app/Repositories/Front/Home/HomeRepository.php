@@ -8,7 +8,7 @@ interface HomeRepository
 
     public function monthly($dataseriescode, $cultureid);
 
-    public function price();
+    public function averagePrice();
 
     public function categories();
 

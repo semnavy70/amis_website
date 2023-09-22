@@ -1,5 +1,6 @@
 <script setup>
 import VueHighcharts from 'vue3-highcharts';
+import LvSkeleton from 'lightvue/skeleton';
 import axios from 'axios';
 import {computed, onMounted, ref} from "vue";
 import {useForm} from "@inertiajs/vue3";
@@ -8,37 +9,36 @@ const seriesData = ref([
     {
         name: "---------"
     },
-    {
-        name: "---------"
-    }, {
-        name: "---------"
-    }
 ]);
 const categories = ref();
-const commodities1 = ref();
-const commodities2 = ref();
-const commodities3 = ref();
+const commodities = ref();
+const isLoading = ref(true);
 
 const form = useForm({
     category: null,
-    commodity1: null,
-    commodity2: 0,
-    commodity3: 0,
+    commodityCode: null,
     dataSeries: "WP",
 })
 
 onMounted(async () => {
+    loadData();
+});
+
+async function loadData() {
+    isLoading.value = true;
     categories.value = await getCategories();
+
     if (categories.value && categories.value.length > 0) {
-        form.category = categories.value.find(c => c.is_default).code;
-        const commodities = await getCommodities(categories.value[0].code);
-        form.commodity1 = commodities.find(c => c.is_default)?.code;
-        commodities1.value = commodities;
-        commodities2.value = commodities;
-        commodities3.value = commodities;
+        form.category = categories.value.find(item => item.is_default).code;
+        const commoditiesList = await getCommodities(form.category);
+        commodities.value = commoditiesList;
+        form.commodityCode = commoditiesList.find(item => item.is_default)?.code;
         await updateChart();
     }
-});
+
+    isLoading.value = false;
+}
+
 
 async function getCategories() {
     const response = await axios.get(route('home.categories') + "?language=1");
@@ -51,8 +51,10 @@ async function getCommodities(categoryCode) {
 }
 
 async function updateChart() {
-    const requestUrl = route('home.price') + `?maxAge=5&locale=2&commodityCode=${form.commodity1}&commodityCode1=${form.commodity2}&commodityCode2=${form.commodity3}&dataseries=${form.dataSeries}`;
+    isLoading.value = true;
+    const requestUrl = route('home.price') + `?maxAge=5&locale=2&commodityCode=${form.commodityCode}&dataseries=${form.dataSeries}`;
     console.log({requestUrl});
+
     const response = await axios.get(requestUrl);
     const data = response.data;
     const result = [];
@@ -64,16 +66,18 @@ async function updateChart() {
             })
         });
     }
+
     seriesData.value = result;
+    isLoading.value = false;
 }
 
 const chartOptions = computed(() => {
-    return ({
+    return {
         chart: {
             type: 'line',
         },
         title: {
-            text: form.dataSeries === 'WP' ? 'តម្លៃលក់ដុំ' : 'តម្លៃលក់រាយ',
+            text: (form.dataSeries === 'WP') ? 'តម្លៃលក់ដុំ' : 'តម្លៃលក់រាយ',
         },
         xAxis: {
             type: 'datetime',
@@ -84,11 +88,11 @@ const chartOptions = computed(() => {
             },
         },
         series: seriesData.value,
-    });
+    };
 });
 
 function onUpdated() {
-    console.log('Chart updated');
+    console.log('AVG Chart Price Updated!');
 }
 
 </script>
@@ -111,23 +115,21 @@ function onUpdated() {
                         </select>
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-3">
-                        <label for="product-one" class="form-label">ទំនិញទី១</label>
-                        <select class="form-select" v-model="form.commodity1" @change="updateChart">
-                            <option v-for="item in commodities1" :value="item.code">{{ item.name }}</option>
+                        <label for="product-one" class="form-label">ទំនិញ</label>
+                        <select class="form-select" v-model="form.commodityCode" @change="updateChart">
+                            <option v-for="item in commodities" :value="item.code">{{ item.name }}</option>
                         </select>
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-3">
-                        <label for="product-two" class="form-label">ទំនិញទី២</label>
-                        <select class="form-select" v-model="form.commodity2" @change="updateChart">
+                        <label for="product-two" class="form-label">ចាប់ពី</label>
+                        <select class="form-select" @change="updateChart">
                             <option value="0">-----------</option>
-                            <option v-for="item in commodities2" :value="item.code">{{ item.name }}</option>
                         </select>
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-3">
-                        <label for="product-two" class="form-label">ទំនិញទី៣</label>
-                        <select class="form-select" v-model="form.commodity3" @change="updateChart">
+                        <label for="product-two" class="form-label">ដល់</label>
+                        <select class="form-select" @change="updateChart">
                             <option value="0">-----------</option>
-                            <option v-for="item in commodities3" :value="item.code">{{ item.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -153,19 +155,30 @@ function onUpdated() {
                 </div>
             </div>
         </div>
-        <div class="bg-info text-center" style="width: 100%; height: 200px">
-            <vue-highcharts
-                type="chart"
-                :options="chartOptions"
-                :redrawOnUpdate="true"
-                :oneToOneUpdate="false"
-                :animateOnUpdate="true"
-                @updated="onUpdated"
-            />
+
+        <div style="width: 100%; height: 400px">
+            <div v-if="!isLoading" class="text-center" style="width: 100%; height: 400px">
+                <VueHighcharts
+                    type="chart"
+                    :options="chartOptions"
+                    :redrawOnUpdate="true"
+                    :oneToOneUpdate="false"
+                    :animateOnUpdate="true"
+                    @updated="onUpdated"
+                />
+            </div>
+            <div v-else>
+                <LvSkeleton
+                    primaryColor="#f2f2f2"
+                    secondaryColor="#ffffff"
+                    width="100%"
+                    :height="400"
+                />
+            </div>
         </div>
+
     </div>
 </template>
 
 <style scoped>
-
 </style>

@@ -15,7 +15,7 @@ class EloquentHome implements HomeRepository
     {
         $limit = 12;
         $maxAge = 100;
-        $start = (request()->get('page') ?? 0 ) * $limit;
+        $start = (request()->get('page') ?? 0) * $limit;
 
         $querySql = "
     WITH cte AS (
@@ -102,6 +102,58 @@ class EloquentHome implements HomeRepository
     }
 
 
+    public function averagePrice(): array
+    {
+        $commodityCode = request()->get('commodityCode');
+        $dataseries = request()->get('dataseries');
+        $maxAge = request()->get('maxAge');
+
+        $sqlStatement = /** @lang text */
+            "
+        SELECT
+            data.comodity_code,
+            comodities.name_kh AS name,
+            mkt_date AS date,
+            value1 AS price,
+            data.id AS dataid
+        FROM data
+        LEFT JOIN comodities ON data.comodity_code = comodities.code
+        WHERE data.comodity_code = $commodityCode
+            AND data.dataseries_code = '$dataseries'
+            AND data.origin_code != 'SMS'
+            AND data.value1 > 0
+        ";
+
+        if ($maxAge !== null) {
+            $sqlStatement .= " AND mkt_date >= DATE_SUB(NOW(), INTERVAL $maxAge YEAR)";
+        }
+        $sqlStatement .= "
+            GROUP BY YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)
+            ORDER BY mkt_date ASC
+        ";
+
+        $results = DB::connection('tmp')->select($sqlStatement);
+        $prices = [];
+        foreach ($results as $row) {
+            $commodityCode = $row->comodity_code;
+            if (!isset($prices[$commodityCode])) {
+                $prices[$commodityCode] = [
+                    'code' => $commodityCode,
+                    'name' => $this->textToUnicode($row->name),
+                    'prices' => [],
+                ];
+            }
+            $prices[$commodityCode]['prices'][] = [
+                'date' => $row->date,
+                'price' => $row->price,
+                'id' => $row->dataid,
+            ];
+        }
+
+        return array_values($prices);
+    }
+
+
     public function monthly($dataseriescode, $cultureid): array
     {
         $startdate = Carbon::now()->subMonth();
@@ -165,49 +217,5 @@ class EloquentHome implements HomeRepository
 
         return $list;
     }
-
-    public function price()
-    {
-        $locale = request()->get('locale');
-        $commodityCode = request()->get('commodityCode');
-        $commodityCode1 = request()->get('commodityCode1');
-        $commodityCode2 = request()->get('commodityCode2');
-        $dataseries = request()->get('dataseries');
-        $maxAge = request()->get('maxAge');
-
-        $sqlStatement = "
-        SELECT data.comodity_code,comodities.name_en,comodities.name_kh,mkt_date,value1 as price,data.id as dataid
-        FROM data
-            LEFT JOIN comodities ON data.comodity_code = comodities.code
-        WHERE data.comodity_code IN($commodityCode,$commodityCode1,$commodityCode2)
-          AND data.dataseries_code = '$dataseries'
-          AND data.origin_code!='SMS' AND data.value1>0
-";
-        if ($maxAge !== null) {
-            $sqlStatement .= " AND mkt_date >= DATE_SUB(NOW(),INTERVAL $maxAge YEAR)";
-        }
-        $sqlStatement .= " GROUP BY YEAR(mkt_date), MONTH(mkt_date), DAY(mkt_date)";
-        $sqlStatement .= " ORDER BY mkt_date ASC";
-
-        $result = DB::connection('tmp')->select($sqlStatement);
-        $prices = array();
-        foreach ($result as $row) {
-            if (!isset($prices[$row->comodity_code])) {
-                $prices[$row->comodity_code] = array(
-                    'code' => $row->comodity_code,
-                    'name' => $this->textToUnicode($locale == 2 ? $row->name_kh : $row->name_en),
-                    'prices' => array()
-                );
-            }
-            $prices[$row->comodity_code]['prices'][] = array(
-                'date' => $row->mkt_date,
-                'price' => $row->price,
-                'id' => $row->dataid,
-            );
-        }
-
-        return array_values($prices);
-    }
-
 
 }

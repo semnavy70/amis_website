@@ -39,7 +39,7 @@ class HomeController extends Controller
 
     public function price(): array
     {
-        return $this->home->price();
+        return $this->home->averagePrice();
     }
 
     public function categories(): \Illuminate\Support\Collection
