@@ -5,8 +5,8 @@
             <Welcome/>
             <LastUpdate/>
 <!--            <DailyPrice/>-->
-            <AveragePriceTrend/>
-<!--            <PriceByProvince/>-->
+<!--            <AveragePriceTrend/>-->
+            <PriceByProvince/>
             <LastNews/>
             <AnounceProduct/>
         </div>
