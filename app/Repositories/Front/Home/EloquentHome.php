@@ -291,6 +291,7 @@ class EloquentHome implements HomeRepository
                 'pa.quantity',
                 'pa.price',
                 'pa.unit_code',
+                'pa.unit_name',
                 'pa.thumnail',
                 'pa.user_info_id',
                 'pa.collect_date',

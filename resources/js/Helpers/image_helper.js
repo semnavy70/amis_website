@@ -16,7 +16,7 @@ export default {
         },
         getMarketImage: function (path) {
             if(!path) {
-                return  "/assets/img/amis-logo.jpg";
+                return  "/assets/img/amis-logo.png";
             }
           return "https://storage.googleapis.com/amis_market/" + path;
         },
