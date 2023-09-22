@@ -27,18 +27,25 @@ onMounted(async () => {
 async function loadData() {
     isLoading.value = true;
     categories.value = await getCategories();
-
     if (categories.value && categories.value.length > 0) {
         form.category = categories.value.find(item => item.is_default).code;
-        const commoditiesList = await getCommodities(form.category);
-        commodities.value = commoditiesList;
-        form.commodityCode = commoditiesList.find(item => item.is_default)?.code;
-        await updateChart();
+        await loadCommoditiesByCategory();
     }
-
     isLoading.value = false;
 }
 
+async function loadCommoditiesByCategory() {
+    isLoading.value = true;
+    form.commodityCode = null;
+    commodities.value = null;
+
+    const commoditiesList = await getCommodities(form.category);
+    commodities.value = commoditiesList;
+    form.commodityCode = commoditiesList.find(item => item.is_default)?.code ?? commoditiesList[0].code;
+
+    await updateChart();
+    isLoading.value = false;
+}
 
 async function getCategories() {
     const response = await axios.get(route('home.categories') + "?language=1");
@@ -108,7 +115,12 @@ function onUpdated() {
                 <div class="row gy-3">
                     <div class="col-6 col-sm-6 col-md-6 col-lg-3">
                         <label for="type" class="form-label">ប្រភេទ</label>
-                        <select class="form-select" aria-label="Type" v-model="form.category">
+                        <select
+                            class="form-select"
+                            aria-label="Type"
+                            v-model="form.category"
+                            @change="loadCommoditiesByCategory()"
+                        >
                             <option v-for="item in categories" :value="item.code">
                                 {{ item.name }}
                             </option>
@@ -116,7 +128,11 @@ function onUpdated() {
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-3">
                         <label for="product-one" class="form-label">ទំនិញ</label>
-                        <select class="form-select" v-model="form.commodityCode" @change="updateChart">
+                        <select
+                            class="form-select"
+                            v-model="form.commodityCode"
+                            @change="updateChart"
+                        >
                             <option v-for="item in commodities" :value="item.code">{{ item.name }}</option>
                         </select>
                     </div>
