@@ -184,7 +184,6 @@ class EloquentHome implements HomeRepository
         $list = [];
         foreach ($makets as $market) {
             $newList = [];
-            $test = false;
             foreach ($commodities as $comodity) {
                 $newCommodity = $this->findCommodity($comodity->code, $market->code, $allData);
                 $newList[] = [
@@ -194,25 +193,21 @@ class EloquentHome implements HomeRepository
                     'new' => $newCommodity['new'],
                     'price' => $newCommodity['price'],
                 ];
-                if ($newCommodity['diff'] != 0) {
-                    $test = true;
-                }
             }
-            if ($test) {
-                $regionData = [
-                    'code' => $market->region_code,
-                    'name' => $market->region_name,
-                ];
-                $maketData = [
-                    'code' => $market->code,
-                    'name' => $market->name_kh,
-                ];
-                $list[] = [
-                    "market" => $maketData,
-                    "region" => $regionData,
-                    "commodity" => $newList,
-                ];
-            }
+
+            $regionData = [
+                'code' => $market->region_code,
+                'name' => $market->region_name,
+            ];
+            $maketData = [
+                'code' => $market->code,
+                'name' => $market->name_kh,
+            ];
+            $list[] = [
+                "market" => $maketData,
+                "region" => $regionData,
+                "commodity" => $newList,
+            ];
         }
 
         return $list;
