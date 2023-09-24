@@ -2,7 +2,7 @@
 import LvSkeleton from 'lightvue/skeleton';
 import axios from 'axios';
 import {onMounted, ref} from "vue";
-import image_helper from "../../../Helpers/image_helper.js";
+import image_helper from "@/Helpers/image_helper";
 
 const isLoading = ref(true);
 const products = ref();

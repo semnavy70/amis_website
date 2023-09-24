@@ -14,15 +14,15 @@
 </template>
 
 <script setup>
-import App from "../../Layouts/App.vue";
-import DailyPrice from "./Components/DailyPrice.vue";
-import AveragePriceTrend from "./Components/AveragePriceTrend.vue";
-import PriceByProvince from "./Components/PriceByProvince.vue";
-import LastNews from "./Components/LastNews.vue";
-import Slide from "./Components/Slide.vue";
-import Welcome from "./Components/Welcome.vue";
-import LastUpdate from "./Components/LastUpdate.vue";
-import AnounceProduct from "./Components/AnounceProduct.vue";
+import App from "@/Layouts/App.vue";
+import DailyPrice from "@/Components/Home/DailyPrice.vue";
+import AveragePriceTrend from "@/Components/Home/AveragePriceTrend.vue";
+import PriceByProvince from "@/Components/Home/PriceByProvince.vue";
+import LastNews from "@/Components/Home/LastNews.vue";
+import Slide from "@/Components/Home/Slide.vue";
+import Welcome from "@/Components/Home/Welcome.vue";
+import LastUpdate from "@/Components/Home/LastUpdate.vue";
+import AnounceProduct from "@/Components/Home/AnounceProduct.vue";
 
 </script>
 

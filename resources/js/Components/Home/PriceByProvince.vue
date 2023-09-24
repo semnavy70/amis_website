@@ -51,8 +51,7 @@ function download() {
 </script>
 
 <template>
-  <div class="daily-price-month margin-top">
-
+  <div class="daily-price-month mt-5">
     <div class="text-center">
       <h3>តម្លៃមធ្យមតាមខេត្តប្រចាំខែ {{ getKhmerMonth(now) }}</h3>
       <div class="small-hr my-1 d-inline-flex"/>
@@ -131,7 +130,5 @@ function download() {
 </template>
 
 <style scoped>
-.margin-top {
-  margin-top: 250px;
-}
+
 </style>

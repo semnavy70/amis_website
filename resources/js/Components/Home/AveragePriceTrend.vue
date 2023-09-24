@@ -222,7 +222,7 @@ function onUpdated() {
     </div>
 
     <div>
-      <div v-if="!isLoading" class="text-center" style="width: 100%; height: 200px">
+      <div v-if="!isLoading" class="text-center" style="width: 100%;">
         <VueHighcharts
             type="chart"
             :options="chartOptions"
@@ -237,7 +237,7 @@ function onUpdated() {
             primaryColor="#f2f2f2"
             secondaryColor="#ffffff"
             width="100%"
-            :height="200"
+            :height="300"
         />
       </div>
     </div>
