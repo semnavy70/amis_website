@@ -25,6 +25,6 @@ RUN cd /app && \
 
 RUN chown -R www-data: /app
 
-RUN cd /app && php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear
+#RUN cd /app && php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear
 
 CMD sh /app/docker/startup.sh
