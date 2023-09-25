@@ -65,12 +65,3 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/countries', 'CountriesController@index');
 });
 
-
-Route::get('/test-connection', function () {
-    try {
-        $db = DB::connection('tmp')->getPdo();
-        echo "Connected successfully to the 'tmp' database.";
-    } catch (\Exception $e) {
-        echo "Database connection error: " . $e->getMessage();
-    }
-});

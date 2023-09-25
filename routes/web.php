@@ -352,3 +352,13 @@ Route::group(['prefix' => 'install'], function () {
     Route::get('complete', 'InstallController@complete')->name('install.complete');
     Route::get('error', 'InstallController@error')->name('install.error');
 });
+
+
+Route::get('/test-connection', function () {
+    try {
+        $db = DB::connection('tmp')->getPdo();
+        echo "Connected successfully to the 'tmp' database.";
+    } catch (\Exception $e) {
+        echo "Database connection error: " . $e->getMessage();
+    }
+});
