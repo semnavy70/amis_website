@@ -364,7 +364,7 @@ Route::get('/test-connection', function () {
 });
 
 Route::get('/test-env', function () {
-    dd([
+    dd(config('database'), [
         'DB_DATABASE' => env('DB_DATABASE'),
         'DB_DATABASE_SECOND' => env('DB_DATABASE_SECOND'),
         'DB_DATABASE_THIRD' => env('DB_DATABASE_THIRD'),
