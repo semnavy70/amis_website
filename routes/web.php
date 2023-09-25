@@ -357,8 +357,16 @@ Route::group(['prefix' => 'install'], function () {
 Route::get('/test-connection', function () {
     try {
         $db = DB::connection('tmp')->getPdo();
-       dd($db);
+        dd($db);
     } catch (\Exception $e) {
-       dd($e);
+        dd($e);
     }
+});
+
+Route::get('/test-env', function () {
+    dd([
+        'DB_DATABASE' => env('DB_DATABASE'),
+        'DB_DATABASE_SECOND' => env('DB_DATABASE_SECOND'),
+        'DB_DATABASE_THIRD' => env('DB_DATABASE_THIRD'),
+    ]);
 });
