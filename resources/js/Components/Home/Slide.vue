@@ -1,5 +1,5 @@
 <script setup>
-
+import {Link} from "@inertiajs/vue3";
 </script>
 
 <template>
@@ -36,15 +36,15 @@
         <div class="container pop-on-slide-menu shadow">
             <div class="row text-center py-4 gy-3">
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3">
-                    <a href="#">
+                    <Link :href="route('news.index')">
                         <div class="bg-carrot-news d-inline-block p-4 rounded mb-3">
                             <img src="/assets/img/icons/news-icon.png" width="36" alt="">
                         </div>
                         <h5 class="title">ព័ត៌មាន & ព្រឹត្តិការណ៍</h5>
-                    </a>
+                    </Link>
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3">
-                    <a href="#">
+                    <a href="https://market.camagrimarket.org/kh">
                         <div class="bg-green-online-market d-inline-block p-4 rounded mb-3">
                             <img src="/assets/img/icons/online-market.png" width="36" alt="">
                         </div>
@@ -52,7 +52,7 @@
                     </a>
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3">
-                    <a href="#">
+                    <a href="https://market.camagrimarket.org/kh/trader">
                         <div class="bg-red-business-network d-inline-block p-4 rounded mb-3">
                             <img src="/assets/img/icons/record.png" width="36" alt="">
                         </div>
@@ -60,12 +60,12 @@
                     </a>
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3">
-                    <a href="#">
+                    <Link :href="route('document.detail', {slug: 'monthly-price-bulletin'})">
                         <div class="bg-carrot-news d-inline-block p-4 rounded mb-3">
                             <img src="/assets/img/icons/information.png" width="36" alt="">
                         </div>
                         <h5 class="title">បណ្ណាល័យ</h5>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
