@@ -357,8 +357,8 @@ Route::group(['prefix' => 'install'], function () {
 Route::get('/test-connection', function () {
     try {
         $db = DB::connection('tmp')->getPdo();
-        echo "Connected successfully to the 'tmp' database.";
+       dd($db);
     } catch (\Exception $e) {
-        echo "Database connection error: " . $e->getMessage();
+       dd($e);
     }
 });
