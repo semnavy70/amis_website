@@ -356,6 +356,7 @@ Route::group(['prefix' => 'install'], function () {
 
 Route::get('/test-connection', function () {
     try {
+        dd(DB::connection('tmp'));
         $db = DB::connection('tmp')->getPdo();
         dd($db);
     } catch (\Exception $e) {
