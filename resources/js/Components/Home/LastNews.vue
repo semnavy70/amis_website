@@ -36,11 +36,11 @@ async function getNews() {
             <div v-for="post in news" class="col-12 col-sm-12 col-md-6 col-lg-4">
                 <Link :href="route('news.detail' , post.id)">
                     <div class="bg-white p-3 shadow">
-                        <img class="w-100" :src="getImage(post.image)" alt="news-thumbnail">
+                        <img class="w-100 news-image" :src="getImage(post.image)" :alt="post.title">
                         <div class="d-block">
-                            <p class="text-green fs-18 text-truncate-2">{{ post.title }}</p>
+                            <p class="text-green fs-18 text-truncate-2 pt-2">{{ post.title }}</p>
                             <hr class="w-25 text-green"/>
-                            <p class="text-truncate-3">{{ post.excerpt }}</p>
+                            <p class="text-truncate-2">{{ post.excerpt }}</p>
                         </div>
                     </div>
                 </Link>
@@ -58,5 +58,4 @@ async function getNews() {
 </template>
 
 <style scoped>
-
 </style>

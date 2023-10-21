@@ -112,7 +112,7 @@ function download() {
             <td class="text-left">{{ item.market.name }}</td>
             <td class="text-center" v-for="commodity in item.commodity">
             <span>
-                {{ commodity.price === 0 ? "-" : formatPrice(commodity.new) }}
+                {{ formatPrice(commodity.new) }}
                 <i v-if="commodity.diff>0 " class="fa fa-caret-up text-danger" aria-hidden="true"></i>
                 <i v-if="commodity.diff<0 " class="fa fa-caret-down text-success" aria-hidden="true"></i>
             </span>
