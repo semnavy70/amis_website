@@ -17,6 +17,16 @@
     <script src="{{ (mix('frontend/js/app.js')) }}" defer></script>
 
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QVHC41MHV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-9QVHC41MHV');
+    </script>
 </head>
 
 <body>

@@ -6,7 +6,6 @@
       <LastUpdate/>
       <DailyPrice/>
       <AveragePriceTrend/>
-      <PriceByProvince/>
       <LastNews/>
       <AnounceProduct/>
     </div>
@@ -17,7 +16,6 @@
 import App from "@/Layouts/App.vue";
 import DailyPrice from "@/Components/Home/DailyPrice.vue";
 import AveragePriceTrend from "@/Components/Home/AveragePriceTrend.vue";
-import PriceByProvince from "@/Components/Home/PriceByProvince.vue";
 import LastNews from "@/Components/Home/LastNews.vue";
 import Slide from "@/Components/Home/Slide.vue";
 import Welcome from "@/Components/Home/Welcome.vue";
