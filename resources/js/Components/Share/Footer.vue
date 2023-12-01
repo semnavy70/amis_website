@@ -8,10 +8,10 @@
                     <h4>តំណទៅទំព័រសំខាន់ៗ</h4>
                     <hr class="w-25 border-2 opacity-75">
                     <ul>
-                        <FooterMenuItem
+                        <!--<FooterMenuItem
                             name="កម្មវិធីផ្សព្វផ្សាយបចេ្ចកទេសកសិកម្មថ្មីដែលធន់ទៅនឹងការប្រែប្រួលអាកាសធាតុ"
                             address="https://aspirekh.org/"
-                        />
+                        />-->
                         <FooterMenuItem
                             name="ក្រសួងកសិកម្ម រុក្ខាប្រមាញ់ និងនេសាទ"
                             address="https://www.maff.gov.kh/"
@@ -20,18 +20,18 @@
                             name="បណ្ណាល័យអេឡិចត្រូនិចក្រសួងកសិកម្ម រុក្ខាប្រមាញ់និងនេសាទ"
                             address="https://elibrary.maff.gov.kh/"
                         />
-                        <FooterMenuItem
+                        <!--<FooterMenuItem
                             name="ក្រុមប្រឹក្សាស្តារអភិវឌ្ឍន៍វិស័យកសិកម្ម និងជនបទ"
                             address="https://card.gov.kh/"
-                        />
-                        <FooterMenuItem
+                        />-->
+                        <!--<FooterMenuItem
                             name="ក្រសួងផែនការ"
                             address="https://www.mop.gov.kh/"
-                        />
+                        /> 
                         <FooterMenuItem
                             name="ផ្សេងៗ ទៀត"
                             :url="route('page.detail', {slug: 'links'})"
-                        />
+                        />-->
                     </ul>
                 </div>
 
@@ -100,7 +100,7 @@
                     </p>
                     <p>
                         <i class="fas fa-mobile"></i>
-                        <a class="text-white ms-1" href="tel:+85523 216 060">(855) 23 216 060</a>
+                        <a class="text-white ms-1" href="https://t.me/camgrimarket">តេលេក្រាម៖ សេវាព័ត៌មានទីផ្សារកសិកម្ម</a>
                     </p>
                     <p class="d-flex">
                         <i class="fas fa-envelope mt-1"></i>
@@ -115,7 +115,7 @@
                     </p>
                     <p>
                         <i class="fas fa-users"></i>
-                        ចំនួនអ្នកទស្សនា: 26,784
+                        ចំនួនអ្នកទស្សនា: 364
                     </p>
                 </div>
 
