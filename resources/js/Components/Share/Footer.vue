@@ -27,7 +27,7 @@
                         <!--<FooterMenuItem
                             name="ក្រសួងផែនការ"
                             address="https://www.mop.gov.kh/"
-                        /> 
+                        />
                         <FooterMenuItem
                             name="ផ្សេងៗ ទៀត"
                             :url="route('page.detail', {slug: 'links'})"
@@ -115,7 +115,7 @@
                     </p>
                     <p>
                         <i class="fas fa-users"></i>
-                        ចំនួនអ្នកទស្សនា: 364
+                        ចំនួនអ្នកទស្សនា: 8221
                     </p>
                 </div>
 
