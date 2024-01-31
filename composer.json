@@ -49,6 +49,7 @@
         "laravel/socialite": "^5.0",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.2",
+        "lcobucci/jwt": "^4.0",
         "maatwebsite/excel": "^3.1",
         "proengsoft/laravel-jsvalidation": "^4.0.0",
         "spatie/laravel-query-builder": "^3.0",

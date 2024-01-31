@@ -1,6 +1,8 @@
 <?php
 
 
+use Vanguard\Http\Controllers\Api\GA\GoogleAnalyticController;
+
 Route::post('login', 'Auth\AuthController@token');
 Route::post('login/social', 'Auth\SocialLoginController@index');
 Route::post('logout', 'Auth\AuthController@logout');

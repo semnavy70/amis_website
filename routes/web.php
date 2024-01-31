@@ -1,6 +1,7 @@
 <?php
 
 use UniSharp\LaravelFilemanager\Lfm;
+use Vanguard\Http\Controllers\Api\GA\GoogleAnalyticController;
 
 /**
  * Front
@@ -371,3 +372,8 @@ Route::get('/test-env', function () {
         'DB_DATABASE_THIRD' => env('DB_DATABASE_THIRD'),
     ]);
 });
+
+
+
+
+Route::get('/ga-data', [GoogleAnalyticController::class, 'index']);
