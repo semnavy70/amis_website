@@ -12,9 +12,7 @@ class GoogleAnalyticController
     public function index()
     {
         try {
-
-//            $accessToken = $this->getAccessToken();
-            $accessToken = "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";
+            $accessToken = $this->getAccessToken();
 
             $client = new Client();
             $response = $client->request('POST', 'https://analyticsreporting.googleapis.com/v4/reports:batchGet', [
