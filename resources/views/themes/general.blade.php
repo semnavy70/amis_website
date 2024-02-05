@@ -93,7 +93,7 @@
 @stop
 @section('scripts')
     {!! JsValidator::formRequest('Vanguard\Http\Requests\Post\Post\CreatePostRequest','#post-form') !!}
-    <script src="https://cdn.tiny.cloud/1/6aa56c3afd6fd9010e7134b598bf8c209c355d13e489aed725bebfa7d184bc4c/tinymce/5/tinymce.min.js"
+    <script src="https://cdn.tiny.cloud/1/vv1wesmik107j4p9a4c52wvxk5gx0vy51hinby7nnyi1y2u4/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>
     <script>
         $("#logo").change(function () {
